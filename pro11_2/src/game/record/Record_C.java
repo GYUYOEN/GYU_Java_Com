@@ -41,6 +41,9 @@ public class Record_C {
 	
 	public int[] getScore() {
 		// 승,패,무 정보를 배열로 반환한다.
+		// score를 리턴하나 clone을 리턴하나 상관없음 : 값이 같아서
+		// 둘의 차이 : score는 Record 클래스의 값을 참조(외부수정 영향 o), 
+		//           clone은 score를 그냥 복제(외부수정 영향 x)
 		return score.clone();
 	}
 	

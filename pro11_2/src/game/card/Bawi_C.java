@@ -1,5 +1,5 @@
 package game.card;
-
+// 가위 : 0, 바위 : 1, 보 : 2 로 배열 만들엇던 거를 클래스로 만듬
 public class Bawi_C extends Hand_C {
 
 	@Override
