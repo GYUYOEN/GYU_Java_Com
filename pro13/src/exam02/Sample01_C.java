@@ -14,6 +14,9 @@ public class Sample01_C {
 	public static void main(String[] args) {
 		/*
 		 * 프로그램에서 사용한 데이터를 파일로 쓰거나 읽기
+		 * 
+		 * pasrseInt : int 형을 반환 -> 0 
+		 * valueOf : 갹체(integer)를 반환, 참조형 변수 반환 -> null
 		 */
 		
 		// 정수 배열에 저장된 1 ~ 100 까지의 임의의 정수를 파일로 저장
@@ -28,9 +31,10 @@ public class Sample01_C {
 		File f = new File("C:/Users/GUE1/eclipse/jee-2021-12/eclipse/read_test.txt");
 		try(FileWriter fw = new FileWriter(f)) {
 			for(int i = 0; i < iArr.length; i++) {
-			fw.write(Integer.valueOf(iArr[i]).toString() + " ");
-			}
-			fw.flush();
+				// 문자열값을 정수값으로 바꿔줌
+				fw.write(Integer.valueOf(iArr[i]).toString() + " ");
+				}
+				fw.flush();
 		} catch (FileNotFoundException e) {
 			System.out.println("쓰기 작업을 위한 파일을 찾을 수 없습니다.");
 			e.printStackTrace();
@@ -57,12 +61,14 @@ public class Sample01_C {
 			}
 			
 			sb.append(new String(readChars));
+			
+			// 정수 배열로 형태로 다시 만들어줌
 			StringTokenizer st = new StringTokenizer(sb.toString(), " ");
 			int[] nArr = new int[st.countTokens()];
 			int i = 0;
 			while(st.hasMoreTokens()) {
 				String s = st.nextToken();
-				nArr[i++] = Integer.parseInt(s);
+				nArr[i++] = Integer.parseInt(s); // 정수형으로 변환
 			}
 			System.out.println(Arrays.toString(nArr));
 		} catch (FileNotFoundException e) {

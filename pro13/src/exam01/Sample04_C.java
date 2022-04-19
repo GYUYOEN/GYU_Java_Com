@@ -14,6 +14,8 @@ public class Sample04_C {
 		 *     - 문자 기반 스트림으로 문자 단위로 파일을 읽는다.
 		 *     - 보통 텍스트 파일을 읽기 위해 사용
 		 */
+		
+		// 기존에 바이트로 했던 거에서 문자로만 바꿔주면 됨
 		File f = new File("C:/Users/GUE1/eclipse/jee-2021-12/eclipse/read_test.txt");
 		StringBuilder sb = new StringBuilder();
 		FileReader fr = null;

@@ -7,14 +7,14 @@ public class Sample01_C {
 	public static void main(String[] args) {
 		/*
 		 * +---------------------+                     +--------------------+
-		 * |    exam05.Circle    | 클래스명            |  exam05.Rectangle  |
+		 * |    exam05.Circle    | 클래스명              |  exam05.Rectangle  |
 		 * +---------------------+                     +--------------------+
-		 * | + PI:double = 3.14  | 속성 -> 멤버변수    | + width:double     |
+		 * | + PI:double = 3.14  | 속성 -> 멤버변수       | + width:double     |
 		 * | + radius:double     |                     | + height:double    |
 		 * | + diamiter:double   |                     | + area:double      |
 		 * | + area:double       |                     +--------------------+
 		 * +---------------------+                     |                    |
-		 * |                     | 기능 -> 멤버메서드  +--------------------+
+		 * |                     | 기능 -> 멤버메서드      +--------------------+
 		 * +---------------------+
 		 * 
 		 * 1. 위에 작성한 클래스 다이어그램을 보고 클래스를 만든다.

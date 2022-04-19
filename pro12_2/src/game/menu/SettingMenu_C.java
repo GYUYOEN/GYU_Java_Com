@@ -68,7 +68,9 @@ public class SettingMenu_C {
 		
 	}
 
+	// 파일에 있는 것을 배열로 생성 -> 배열의 데이터를 수정 -> 배열의 데이터를 덮어씌움
 	private void modifyMenu() {
+		// 길이를 반환해준 이유 : 목록에 없는 번호를 입력했을 경우 오류메시지 출력하게 하기 위해
 		int numberMax = _penaltyListUp();
 		
 		System.out.println("위 목록중에서 수정할 벌칙을 선택하세요.");
@@ -117,17 +119,23 @@ public class SettingMenu_C {
 			System.out.print(": ");
 		}
 		
+//		pDB.remove(number - 1, penalty);
 		pDB.remove(number - 1);
 		System.out.println("선택한 벌칙이 삭제되었습니다.");
 		
 	}
 	
+	// 입력된 벌칙을 보여주기 위한 작업
 	private int _penaltyListUp() {
 		String[] penaltys = pDB.getList();
 		StringBuilder sb = new StringBuilder();
+		
+		// 불러온걸 출력해줌
 		for(int i = 0; i < penaltys.length; i++) {
 			sb.append(String.format("%d. %s\n", i + 1, penaltys[i]));
 		}
+		
+		// 출력도 하고 리턴도 해줌
 		System.out.print(sb.toString());
 		return penaltys.length;
 	}

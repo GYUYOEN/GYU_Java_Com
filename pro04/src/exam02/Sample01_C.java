@@ -26,6 +26,7 @@ public class Sample01_C {
 		
 		System.out.print("----------------------------------\n");
 		
+		// Arrays.toString 을 사용하여 출력
 		for(int i = 0; i < arr1.length; i++) {
 			System.out.println(Arrays.toString(arr1[i]));
 		}

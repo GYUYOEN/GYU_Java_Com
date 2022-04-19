@@ -1,15 +1,7 @@
 package game.db;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,23 +12,50 @@ public class Database_C {
 
 	private File file;
 	
+	// 정해진 파일을 미리 지정
 	public Database_C() {
-		this.file = new File("C:/Users/user1/gbo_game.record");
+		this.file = new File("C:/Users/GUE1/gbo_game.record");
 	}
 	
+	// 파일을 바꾸고 싶은 경우
 	public Database_C(File file) {
 		this.file = file;
 	}
 	
+	// 불러오기
 	public int[] load() {
 		int[] nArr = new int[3];
 		
+		// 파일이 있는지 확인
 		if(file.exists()) {
-			try (DataInputStream dis = new DataInputStream(new BufferedInputStream(new FileInputStream(file)))) {
-				int i = 0;
-				while(dis.available() > 0) {
-					nArr[i++] = dis.readInt();
+			StringBuilder sb = new StringBuilder();
+			try(FileReader fr = new FileReader(file)) {
+				char[] buffer = new char[4];
+				char[] readChars = new char[0];
+			
+				while(true) {
+					int i = fr.read(buffer);
+				
+					if(i == -1) {
+						break;
+					}
+				
+					int endIndex = readChars.length;
+					readChars = Arrays.copyOf(readChars, readChars.length + i);
+					System.arraycopy(buffer, 0, readChars, endIndex, i);
 				}
+			
+				sb.append(new String(readChars));
+			
+				// 골백을 기준으로 문자열 분리
+				StringTokenizer st = new StringTokenizer(sb.toString(), " ");
+				nArr = new int[st.countTokens()];
+				int i = 0;
+				while(st.hasMoreTokens()) {
+					String s = st.nextToken();
+					nArr[i++] = Integer.parseInt(s);
+				}
+			
 			} catch (FileNotFoundException e) {
 				System.out.println("FileReader 클래스로 읽을 파일을 찾지 못했습니다.");
 				e.printStackTrace();
@@ -45,18 +64,18 @@ public class Database_C {
 				e.printStackTrace();
 			}
 		}
-		
 		return nArr;
 	}
-	
+
+	// 저장
 	public void save(int[] record) {
-		try (DataOutputStream dos = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(file)))) {
-			
+		try (FileWriter fw = new FileWriter(file)) {
 			for(int i = 0; i < record.length; i++) {
-				dos.writeInt(record[i]);
+				// 정수 배열 아스키코드로 쓰여짐 -> 정수를 문자열로 변환시켜줌
+				fw.write(Integer.valueOf(record[i]).toString() + " ");
 			}
 			
-			dos.flush();
+			fw.flush();
 		} catch (FileNotFoundException e) {
 			System.out.println("쓰기 작업을 위한 파일을 찾을 수 없습니다.");
 			e.printStackTrace();

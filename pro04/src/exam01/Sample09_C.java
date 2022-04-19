@@ -13,28 +13,30 @@ public class Sample09_C {
 		 */
 		int[] arr1 = new int[3];
 		arr1[0] = 10;	arr1[1] = 20;	arr1[2] = 30;
-		// 1
 		System.out.println(Arrays.toString(arr1));
 		
-		// 2
+		// 1번쩨 방법
 		int[] temp = new int[arr1.length + 1];
 		for(int i = 0; i < arr1.length; i++) {
 			temp[i] = arr1[i];
 		}
 		arr1 = temp; // 얕은 복사
 		System.out.println(Arrays.toString(arr1));
-		// 3
+		
+		// 2번쩨 방법
 		temp = Arrays.copyOf(arr1, arr1.length + 1); // 뒷쪽에 값을 추가할떄
 		arr1 = temp;
 		System.out.println(Arrays.toString(arr1));
-		// 4
+		
+		// 3번째 방법
 		temp = new int[arr1.length + 1];
 		System.arraycopy(arr1, 0, temp, 0, arr1.length);
 		arr1 = temp;
 		System.out.println(Arrays.toString(arr1));
-		// 5
+		
+		// 3-2
 		temp = new int[arr1.length + 1];
-		System.arraycopy(arr1, 0, temp, 1, arr1.length); // 앞쪽에 ㄱ밧을 추가하고 싶을때
+		System.arraycopy(arr1, 0, temp, 1, arr1.length); // 앞쪽에 빈공간을 추가하고 싶을때
 		arr1 = temp;
 		System.out.println(Arrays.toString(arr1));
 	}

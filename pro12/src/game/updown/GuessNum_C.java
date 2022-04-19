@@ -3,7 +3,7 @@ package game.updown;
 import java.util.Random;
 import java.util.Scanner;
 
-public class GuessNum_C extends Result_C {
+public class GuessNum_C {
 	private Random rand = new Random();
 	private int guess;
 	private int guessLimit;

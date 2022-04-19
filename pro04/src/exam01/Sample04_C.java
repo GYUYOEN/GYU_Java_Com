@@ -16,7 +16,7 @@ public class Sample04_C {
 		System.out.printf("n1 -> %d, n2 -> %d\n", n1, n2);
 		
 		/*
-		 * 배열 복사 -> 얕은 복사
+		 * 배열 복사 -> 얕은 복사 : 같은 공간을 참조함
 		 */
 		int[] arr1 = new int[] {1, 2, 3, 4, 5};
 		int[] arr2 = arr1; // 두개의 공간이 하나의 배열을 공유함
@@ -28,7 +28,7 @@ public class Sample04_C {
 		System.out.printf("arr1[0] -> %d, arr2[0] -> %d\n", arr1[0], arr2[0]);
 		
 		/*
-		 * 배열 복사 -> 깊은 복사
+		 * 배열 복사 -> 깊은 복사 : 똑같은 배열을 하나 복사하여 서로 다른 공간을 참조함
 		 */
 		int[] arr3 = new int[] {1, 2, 3, 4, 5};
 		int[] arr4 = new int[5]; // 두개의 배열을 만들어 두개의 공간이 각 하나씩 들어감

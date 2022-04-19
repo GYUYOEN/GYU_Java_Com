@@ -43,18 +43,18 @@ public class Sample05_C {
 		
 		String res1 = "";
 		String res2 = "";
-		// 문자 배열을 문자열로 만들어서 출력하기 위해 반복문을 사용.
+		// 1. 문자 배열을 문자열로 만들어서 출력하기 위해 반복문을 사용.
 				for(int i = 0; i < origin.length; i++) {
 					res1 += origin[i];
 					res2 += crypto[i];
 				}
 		
 		// ->
-		// new 연산으로 문자열 생성을 할 때 문자 배열을 넣는다.
+		// 2. new 연산으로 문자열 생성을 할 때 문자 배열을 넣는다.
 		res1 = new String(origin);
 		res2 = new String(crypto);
 		// ->
-		// String.valueOf(문자배열) 메서드를 사용한다.
+		// 3. String.valueOf(문자배열) 메서드를 사용한다.
 		res1 = String.valueOf(origin);
 		res2 = String.valueOf(crypto);
 		
