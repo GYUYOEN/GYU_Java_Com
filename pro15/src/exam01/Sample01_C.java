@@ -1,12 +1,17 @@
-package pro15;
+package exam01;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Vector;
 
-class Person {
+// pList안에 있는 요소들을 sorting 하기 위해서는 Comparable 인터페이스 등록 
+// 비교가능한 Person 객체
+// 기본정렬
+class Person implements Comparable<Person>{
 	private String name;
 	private int age;
 	
@@ -27,7 +32,26 @@ class Person {
 	public void setAge(int age) {
 		this.age = age;
 	}
-}
+
+	// 기존의 것을 바꾸고 싶을때 사용
+	// 내림차순
+	@Override
+	public int compareTo(Person o) {
+		if(this.getName().compareTo(o.getName()) > 0) {
+			return 1;
+		} else if(this.getName().compareTo(o.getName()) < 0) {
+			return -1;
+		} else {
+			if(this.getAge() > o.getAge()) {
+				return -1;
+			} else if(this.getAge() < o.getAge()) {
+				return 1;
+			}
+		}
+		return 0;
+		}
+	}
+
 
 public class Sample01_C {
 	
@@ -35,12 +59,17 @@ public class Sample01_C {
 		/*
 		 * List 계열 컬렉션 - ArrayList
 		 */
-		// E : 참조타입을 저장해줌
-		List<Integer> aList = new ArrayList<Integer>();
+		// E(제너럴 차입) : 리스트 컬렉션에 저장할 참조타입을 저장해줌
+//		List<Integer> aList = new ArrayList<Integer>();
+//		List<Integer> aList = new Vector<Integer>();
+		List<Integer> aList = new LinkedList<Integer>();
+		
+		// 자동적으로 정수타입으로 저장됨
 		aList.add(100);
 		aList.add(200);
 		aList.add(300);
 		System.out.println(aList);
+		
 		
 		aList.add(2, 400);
 		System.out.println(aList);
@@ -58,11 +87,12 @@ public class Sample01_C {
 		System.out.println(i1 + " / " + aList);
 		
 		// 주어진 객체가 저장되어 있는지 확인
-		// 객체 타입으로 변경해줘야 함
+		// 객체 타입으로 변경해줘야 함 : Object를 요구하기 때문
 		// equals랑 유사
 		boolean result1 = aList.contains(Integer.valueOf(350));
 		System.out.println(result1);
 		
+		// 몇번 인덱스에 있는지 확인
 		int result2 = aList.indexOf(Integer.valueOf(350));
 		System.out.println(result2); // 없으면 -1이 나옴
 		
@@ -88,20 +118,22 @@ public class Sample01_C {
 		System.out.println(result1);
 		
 		// 리턴 타입은 List<Integer>에서 <>에 있는 것에 맞춰서 리턴함
-		// 삭제한 데이터를 i에 리턴함(반환, 저장)
+		// 삭제한 데이터를 i1에 리턴함(반환, 저장)
+		// 임시 삭재 -> 삭제한 데이터 i1에 저장됨
 		i1 = aList.remove(0);
 		System.out.println(i1 + " / " + aList);
 		
 		System.out.println("<<<<< Iterator 사용 >>>>>");
 		Iterator<Integer> iter = aList.iterator();
-		// 반복할 객체가 있는지 확인
+		// hasNext() : 반복할 객체가 있는지 확인
 		while(iter.hasNext()) {
-			Integer i2 = iter.next();
+			Integer i2 = iter.next(); // next() : 반복할 객체가 있으면 꺼내옴
 			System.out.println(i2);
 		}
 		
+		// Iterator라는 메서드가 있으면 for each문 쓸수 있음 -> 다른 컬랙션들도 마찬가지
 		System.out.println("<<<<< for each 문 >>>>>");
-		// aList에 있는 요소들이 모두 소진 될때까지 i3에 담음
+		// aList에 있는 요소들이 모두 소진 될때까지 i3에 aList 객체의 Integer를 하나씩 담음
 		for(Integer i3: aList) {
 			System.out.println(i3);
 		}
@@ -111,22 +143,23 @@ public class Sample01_C {
 		Collections.reverse(aList);
 		System.out.println("리버스 후 : " + aList);
 		
-		// 오름 차순으로 정렬
+		// 오름 차순으로 정렬 : 크기순
 		System.out.println("정렬 전 : " + aList);
 		Collections.sort(aList);
 		System.out.println("정렬 후 : " + aList);
 		
 		// 내림차순으로 정렬하기 위해서는 오름차순 후 리버스
 		
-		// 내림차순 위 방법이 마음에 안들 때
-		// 객체를 정렬할 때 많이 사용 : 사람 => 이름, 나이, 성별 순서대로 나열
+		// 내림차순 위 방법이 마음에 안들 때, 바로 내림차순을 하고 싶을 때
+		// 객체를 정렬할 때 많이 사용 : 사람 => 이름순, 나이순(이름 같으면), 성별순(나이 같으면) 순서대로 나열하기
 		Collections.sort(aList, new Comparator<Integer>() {
-			// 0번(i1), 1번(i2) -> 1번, 2번... 이렇게 순차적으로 비교 
+			// 0번(i1), 1번(i2) -> 1번, 2번... 이렇게 순차적으로 비교하여 위치를 바꿔줌 
 			// 반환값을 바꾸면 오름차순이 됨
 			@Override
 			public int compare(Integer i1, Integer i2) {
+//				return i1 > i2 ? -1 : (i1 == i2 ? 0 : 1);
 				if(i1 > i2) {
-					return -1; // 순서 바꾸지 않음
+					return -1; // -1 일때 내림차순 정렬, 반환값을 1과 바꾸면 오름차순
 				} else if(i1 == i2) {
 					return 0;
 				}
@@ -145,13 +178,18 @@ public class Sample01_C {
 		Person p2 = pList.get(1);
 		Person p3 = pList.get(2);
 		
-		// 홍길동의 코드값 - 김철수의 코드값
+		// compareTo : 문자열의 비교
+		// 홍길동의 유니코드값 - 김철수의 유니코드값
 		System.out.println(p1.getName().compareTo(p2.getName()));
+		// 김철수의 유니코드값 - 홍길동의 유니코드값 : 음수, 홍길동이 더 뒤에 있고 김철수는 홍길동보다 더 앞에 잇음
+		// 같은 값이면 0
 		System.out.println(p2.getName().compareTo(p1.getName()));
 		System.out.println(p2.getName().compareTo(p3.getName()));
 		
 		Collections.sort(pList, new Comparator<Person>() {
 			
+			// 오름차순
+			// 기본정렬을 바꾸고 싶을 때 사용
 			@Override
 			public int compare(Person p1, Person p2) {
 				if(p1.getName().compareTo(p2.getName()) > 0) {
@@ -169,6 +207,15 @@ public class Sample01_C {
 			}
 		});
 		
+		for(Person p : pList) {
+			System.out.println(p.getName() + " | " + p.getAge());
+		}
+		
+		System.out.println("=========================");
+		
+		// Person 객체에 implements Comparable<Person> 안하면 Collections.sort에 에러뜸
+		// sort : Comparable 한것만 인식
+		Collections.sort(pList);
 		for(Person p : pList) {
 			System.out.println(p.getName() + " | " + p.getAge());
 		}
