@@ -150,6 +150,7 @@ public class Sample01_C {
 		
 		// 내림차순으로 정렬하기 위해서는 오름차순 후 리버스
 		
+		// Integer는 이미 Comparable를 상속하고 있음 -> Comparator와 compare 사용가능
 		// 내림차순 위 방법이 마음에 안들 때, 바로 내림차순을 하고 싶을 때
 		// 객체를 정렬할 때 많이 사용 : 사람 => 이름순, 나이순(이름 같으면), 성별순(나이 같으면) 순서대로 나열하기
 		Collections.sort(aList, new Comparator<Integer>() {
