@@ -25,12 +25,15 @@ class Person {
 	public void setAge(int age) {
 		this.age = age;
 	}
-
+	
+	// 이거 생성 안하면 주소값으로 출력됨
 	@Override
 	public String toString() {
 		return "Person [name=" + name + ", age=" + age + "]";
 	}
 
+	// 중복을 걸러 내주기 위해 생성
+	// 이름만 중복 걸러내고 싶으면 이름만 체크해서 생성 haxhCode() and equals 생성
 	@Override
 	public int hashCode() {
 		return Objects.hash(age, name);

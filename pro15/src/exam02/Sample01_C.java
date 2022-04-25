@@ -85,6 +85,8 @@ public class Sample01_C {
 //			System.out.println("Next : " + data);
 //		}
 		
+		// 그냥 사용할 순없고 객체에 인덱스 번호(aList.size()-1)를 지정해 주어야함
+		// 양방향이기 때문에 hasNext를 해준 뒤 previous 사용
 		while(iter1.hasPrevious()) {
 			Integer data = iter1.previous();
 			System.out.println("Previous : " + data);
