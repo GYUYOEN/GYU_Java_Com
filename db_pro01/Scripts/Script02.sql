@@ -4,9 +4,9 @@
 
 -- 직원 테이블
 SELECT * FROM EMPLOYEES;
--- �̰͸� ����ϰ� ���� ��
+-- SELECT에 명시한 것만 출력됨
 SELECT  EMPLOYEE_ID, FIRST_NAME, LAST_NAME FROM EMPLOYEES;
--- EMPLOYEE_ID�� 100�� ��(=_, 100���� ū ��(>), �ƴ� ��(!= or <>)
+-- EMPLOYEE_ID가 100인 것만 조회, 100이 아닌것만 조회 : != or <>
 SELECT  EMPLOYEE_ID, FIRST_NAME, LAST_NAME FROM EMPLOYEES WHERE EMPLOYEE_ID = 100;
 SELECT  EMPLOYEE_ID, FIRST_NAME, LAST_NAME FROM EMPLOYEES WHERE EMPLOYEE_ID > 100;
 SELECT  EMPLOYEE_ID, FIRST_NAME, LAST_NAME FROM EMPLOYEES WHERE EMPLOYEE_ID != 100;
@@ -103,30 +103,34 @@ SELECT * FROM EMPLOYEES
 
 -- LIKE : 특정 문자열에 대한 범위 출력
 SELECT * FROM EMPLOYEES
--- AD라는 문자열이 포함된 거 출력(% : AD로 시작하는 문자열 출력)
+-- AD라는 문자열이 포함된 거 출력(% 가 뒤에 붙은 경우 : AD로 시작하는 문자열 출력)
  WHERE JOB_ID LIKE 'AD%';
 
 SELECT * FROM EMPLOYEES
--- % : VP로 끝나는 문자열 출력
+-- % 가 앞에 붙은 경우 : VP로 끝나는 문자열 출력
  WHERE JOB_ID LIKE '%VP';
 
 SELECT * FROM EMPLOYEES
--- % : A가 있는 문자열 출력
+-- % 가 앞,뒤에 붙은 경우 : A를 포함하고 있는 문자열 출력
  WHERE JOB_ID LIKE '%A%'
  
 SELECT * FROM EMPLOYEES
 -- _ : 자릿수 지정, 자릿수에 해당하는 문자열 출력(3.3.4)
  WHERE PHONE_NUMBER LIKE '___.___.____';
 
+-- % : 자릿수 지정 X
+-- _ : 자릿수 지정 O
 
 SELECT * FROM EMPLOYEES
  WHERE PHONE_NUMBER LIKE '___.127.____';
  
 SELECT * FROM EMPLOYEES
--- # : _OOO에 해당하는 문자 출력
+-- # : _라는 문자를 자릿수 지정할 때말고 _가 포함된 문자열을 출력하고 싶을 때 사용
 -- #_(1) + ___(3) -> 언더바 총 4개
+-- -> _OOO에 해당하는 문자 출력
  WHERE JOB_ID LIKE '%#____' ESCAPE  '#';
 
+-- # 말고도 ESCAPE 문자를 지정해주면 어떤 문자로도 사용 가능
 SELECT * FROM EMPLOYEES
  WHERE JOB_ID LIKE '%\____' ESCAPE  '\';
 
@@ -150,4 +154,4 @@ SELECT EMPLOYEE_ID
 -- COMMISSION_PCT가 NULL 이 아닌 것 출력
 -- IS 말고 != 나 <>를 사용하면 조회 불가능
  WHERE COMMISSION_PCT IS NOT NULL;
- 
+
