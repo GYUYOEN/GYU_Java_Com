@@ -9,34 +9,36 @@
  * 추가로 100원 단위는 절사한다.
  * 입사일을 기준으로 오름차순 정력하여 조회하도록 한다.
  */
-SELECT FIRST_NAME || ' ' || LAST_NAME "이름"
+SELECT EMPLOYEE_ID 
+	 , CONCAT(FIRST_NAME, CONCAT(' ', LAST_NAME)) "이름"
+	 , FIRST_NAME || ' ' || LAST_NAME "이름"
 	 , REPLACE(PHONE_NUMBER, '.', '-') "전화번호"
-	 , EMAIL || '@example.com' "이메일"
-	 , TO_CHAR(HIRE_DATE, 'YYYY"년" MM"월" DD"일"') || MONTHS_BETWEEN(HIRE_DATE, SYSDATE)
-	 , TO_CHAR((TRUNC(((SALARY * (1 + NVL(COMMISSION_PCT,0)) * 1262)), -2)), '999,999,999') "총 급여"
+	 , CONCAT(LOWER(EMAIL), '@example.com')"이메일"
+	 , TO_CHAR(HIRE_DATE, 'YYYY"년" MM"월" DD"일"')
+	 , FLOOR(SYSDATE - HIRE_DATE) "근속일"
+	 , FLOOR(MONTHS_BETWEEN(SYSDATE, HIRE_DATE)) "근속월"
+	 , FLOOR(MONTHS_BETWEEN(SYSDATE, HIRE_DATE) / 12) "근속년"
+	 , TRUNC(SALARY * 1262 * (1 + NVL(COMMISSION_PCT, 0)), -3) "급여"
   FROM EMPLOYEES
-  ORDER BY HIRE_DATE ASC;
- 
- SELECT * FROM EMPLOYEES;
+ ORDER BY HIRE_DATE;
  
 /*
  * 전화번호 회신을 집계하기 위한 조회 쿼리를 만드시오.
  * 		- 전화번호 회신은 515, 500, 650, 011, 603 별로 구분하여 얼마나 사용되고 있는지 조회하도록 한다.
- * 		- MANAGER_ID 가 NULL 경우는 제외하여 조회하도록 한다.
+ * 		- 번호별 회신 수에 추가로 전채 회신 수가 조회될 수 있도록 한다.
  */
-SELECT PHONE_NUMBER
-	 , COUNT(*)
+SELECT NVL(SUBSTR(PHONE_NUMBER, 1, 3), '총합') "회신번호"
+	 , COUNT(*) "회신수"
   FROM EMPLOYEES
- WHERE MANAGER_ID IS NOT NULL
-   AND PHONE_NUMBER LIKE '515.%' 
-    OR PHONE_NUMBER LIKE '500.%'
-    OR PHONE_NUMBER LIKE '650.%'
-    OR PHONE_NUMBER LIKE '011.%'
- GROUP BY PHONE_NUMBER;
+ GROUP BY ROLLUP(SUBSTR(PHONE_NUMBER, 1, 3));
  
 /*
  * MANAGER_ID 는 해당 EMPLOYEE_ID 를 관리하는 관리자 정보가 연결되어 있는 정보이다.
  * 		- 한 명의 관리자가 얼마나 많은 직원을 관리하고 있는지를 알 수 있도록 조회 쿼리를 작성한다.
  * 		- MANAGER_ID 가 NULL 인 경우는 제외하여 조회하도록 한다.
  */
-SELECT USERNAME FROM ALL_USERS;
+SELECT MANAGER_ID "관리자ID"
+	 , COUNT(*) "인원수"
+  FROM EMPLOYEES
+ WHERE MANAGER_ID IS NOT NULL
+ GROUP BY MANAGER_ID;
