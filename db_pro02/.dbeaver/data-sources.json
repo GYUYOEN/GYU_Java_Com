@@ -1,0 +1,106 @@
+{
+	"folders": {},
+	"connections": {
+		"oracle_thin-1806e275ebb-2b51cc7a744a0604": {
+			"provider": "oracle",
+			"driver": "oracle_thin",
+			"name": "db202204220305_medium",
+			"save-password": false,
+			"read-only": false,
+			"configuration": {
+				"host": "localhost",
+				"port": "1521",
+				"database": "ORCL",
+				"url": "jdbc:oracle:thin:@db202204220305_medium?TNS_ADMIN=C:\\\\Users\\\\GUE1\\\\eclipse\\\\oracle\\\\Wallet_DB202204220305",
+				"home": "C:\\app\\GUE1\\product\\18.0.0\\dbhomeXE",
+				"type": "dev",
+				"provider-properties": {
+					"@dbeaver-connection-type@": "CUSTOM",
+					"show-only-one-schema@": "false",
+					"@dbeaver-check-schema-content@": "false",
+					"@dbeaver-always-show-dba@": "false",
+					"@dbeaver-always-use-dba-views@": "false",
+					"@dbeaver-meta-use-sys-schema@": "false",
+					"@dbeaver-meta-use-simple-constraints@": "false",
+					"@dbeaver-use-rule-hint@": "false",
+					"@dbeaver-use-meta-optimizer@": "true",
+					"@dbeaver-meta-use-alternative-table-query@": "false",
+					"oracle.meta-search-in-synonyms": "false",
+					"@dbeaver-sid-service@": "SERVICE"
+				},
+				"auth-model": "oracle_native"
+			}
+		},
+		"oracle_thin-1806e275eee-7ff8bee3a9f4cdba": {
+			"provider": "oracle",
+			"driver": "oracle_thin",
+			"name": "Local_puser1",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"host": "localhost",
+				"port": "1521",
+				"database": "XEPDB1",
+				"url": "jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+				"home": "C:\\app\\GUE1\\product\\18.0.0\\dbhomeXE",
+				"type": "dev",
+				"provider-properties": {
+					"@dbeaver-connection-type@": "BASIC",
+					"show-only-one-schema@": "false",
+					"@dbeaver-check-schema-content@": "false",
+					"@dbeaver-always-show-dba@": "false",
+					"@dbeaver-always-use-dba-views@": "false",
+					"@dbeaver-meta-use-sys-schema@": "false",
+					"@dbeaver-meta-use-simple-constraints@": "false",
+					"@dbeaver-use-rule-hint@": "false",
+					"@dbeaver-use-meta-optimizer@": "true",
+					"@dbeaver-meta-use-alternative-table-query@": "false",
+					"oracle.meta-search-in-synonyms": "false",
+					"@dbeaver-sid-service@": "SERVICE"
+				},
+				"auth-model": "oracle_native"
+			}
+		},
+		"oracle_thin-1806e275f19-23bf251d30f98b34": {
+			"provider": "oracle",
+			"driver": "oracle_thin",
+			"name": "XEPDB1",
+			"save-password": false,
+			"read-only": false,
+			"configuration": {
+				"host": "localhost",
+				"port": "1521",
+				"database": "XEPDB1",
+				"url": "jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+				"home": "C:\\app\\GUE1\\product\\18.0.0\\dbhomeXE",
+				"type": "dev",
+				"provider-properties": {
+					"show-only-one-schema@": "false",
+					"@dbeaver-check-schema-content@": "false",
+					"@dbeaver-always-show-dba@": "false",
+					"@dbeaver-always-use-dba-views@": "false",
+					"@dbeaver-meta-use-sys-schema@": "false",
+					"@dbeaver-meta-use-simple-constraints@": "false",
+					"@dbeaver-use-rule-hint@": "false",
+					"@dbeaver-use-meta-optimizer@": "true",
+					"@dbeaver-meta-use-alternative-table-query@": "false",
+					"oracle.meta-search-in-synonyms": "false",
+					"@dbeaver-connection-type@": "BASIC",
+					"@dbeaver-sid-service@": "SERVICE"
+				},
+				"auth-model": "oracle_native"
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": false,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}
