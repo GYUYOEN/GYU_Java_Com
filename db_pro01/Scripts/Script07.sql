@@ -67,7 +67,7 @@ SELECT DEPARTMENT_ID
  -- DEPARTMENT_ID 에서 같은 숫자끼리 묶고 묶은 것끼리에 대한 최소값, 최대값, 평균 ... 등을 구함
  GROUP BY DEPARTMENT_ID
  ORDER BY DEPARTMENT_ID;
-
+ 
 SELECT DEPARTMENT_ID
 	 , JOB_ID
 	 , MIN(SALARY)
