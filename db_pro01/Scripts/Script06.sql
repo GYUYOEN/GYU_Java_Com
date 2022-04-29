@@ -9,7 +9,8 @@ SELECT 10 * NVL(NULL, 0) AS COL1
   FROM DUAL;
 
  -- DECODE(표현식, 조건1, 결과1, 조건2, 결과2, ..., DEFAULT)
- -- 범위보다는 특정 값일 때 사용
+ -- DEFAULT = COUNTRY_NAME : 어떠한 조건에도 해당되지 않으며 COUNTRY_NAME 출력
+ -- 범위보다는 특정 값일 때 사용 : SWITCH 문과 비슷
 SELECT COUNTRY_ID
 	 , COUNTRY_NAME
 	 , DECODE(COUNTRY_ID, 'IT', '이테리', 'JP', '일본', 'US', '미국', 'CA', '캐나다', COUNTRY_NAME) AS COUNTRY_KOR
@@ -19,7 +20,7 @@ SELECT COUNTRY_ID
 --		WHEN 조건2 THEN 결과2 ... 
 -- 		ELSE 결과N
 -- END
--- 범위일때 사용
+-- 범위일때 사용 : IF 문과 비슷
 SELECT EMPLOYEE_ID
 	 , FIRST_NAME
 	 , LAST_NAME
@@ -39,7 +40,8 @@ SELECT SUM(SALARY)
 SELECT AVG(SALARY)
   FROM EMPLOYEES;
  
--- 주의사항 : NULL 데이터가 포함되어 있는 경우
+-- 주의사항 : NULL 데이터가 포함되어 있는 경우 
+-- -> 통계 계산할 때 오류날 수 있음
 SELECT AVG(COMMISSION_PCT)
   FROM EMPLOYEES
  WHERE COMMISSION_PCT IS NOT NULL;
@@ -47,18 +49,22 @@ SELECT AVG(COMMISSION_PCT)
 -- 최소값 
 SELECT MIN(COMMISSION_PCT)
 	 , MIN(HIRE_DATE)
-	 -- 글자길이의 최소값
+	 -- 사전순 가장 앞에 있는거
 	 , MIN(FIRST_NAME)
   FROM EMPLOYEES;
 
 -- 최대값
 SELECT MAX(COMMISSION_PCT)
 	 , MAX(HIRE_DATE)
-	 -- 글자길이의 최대값
+	 -- 사전순 가장 뒤에 있는거
 	 , MAX(FIRST_NAME)
   FROM EMPLOYEES;
   
 -- 총 개수
+-- * : 어떤 컬럼을 넣던 값이 동일하기 때문에 * 사용
+SELECT COUNT(*)
+  FROM EMPLOYEES;
+ 
 SELECT COUNT(*)
   FROM EMPLOYEES
  -- COMMISSION_PCT가 NULL인 총 개수
