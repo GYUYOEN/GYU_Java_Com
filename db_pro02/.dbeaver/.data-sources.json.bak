@@ -1,5 +1,7 @@
 {
-	"folders": {},
+	"folders": {
+		"DEVADMIN": {}
+	},
 	"connections": {
 		"oracle_thin-1806e275ebb-2b51cc7a744a0604": {
 			"provider": "oracle",
@@ -37,6 +39,7 @@
 			"name": "Local_puser1",
 			"save-password": true,
 			"read-only": false,
+			"folder": "DEVADMIN",
 			"configuration": {
 				"host": "localhost",
 				"port": "1521",
@@ -97,7 +100,7 @@
 			"name": "Development",
 			"color": "255,255,255",
 			"description": "Regular development database",
-			"auto-commit": true,
+			"auto-commit": false,
 			"confirm-execute": false,
 			"confirm-data-change": false,
 			"auto-close-transactions": false

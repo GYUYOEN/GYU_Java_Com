@@ -1,0 +1,122 @@
+CREATE TABLE SAMPLE(
+	   ID NUMBER		 				PRIMARY KEY
+	 , NAME VARCHAR2(30) 				NOT NULL
+	 , GENDER CHAR(1) 	 				CHECK(GENDER IN ('F', 'M'))
+	 , AGE NUMBER 			DEFAULT(0) 	NOT NULL
+);
+
+DROP TABLE SAMPLE;
+
+INSERT INTO SAMPLE(ID, NAME, GENDER, AGE) VALUES(1, '홍길동', 'M', 27);
+INSERT INTO SAMPLE(ID, NAME, GENDER, AGE) VALUES(2, '김주영', 'M', 30);
+-- 에러안난 이유 : DEFAULT(0)
+INSERT INTO SAMPLE(ID, NAME, GENDER     ) VALUES(3, '박수안', 'F'    );
+INSERT INTO SAMPLE(ID, NAME, GENDER, AGE) VALUES(4, '이종석', 'M', 25);
+-- INSERT INTO SAMPLE VALUES(5, '최설은', 'F'); 
+-- : 오류 -> 그냥 SAMPLE만 명시하면 4개의 컬럼이 다 들어올거라 생각함
+INSERT INTO SAMPLE VALUES(5, '최설은', 'F', DEFAULT);
+
+SELECT * FROM SAMPLE;
+
+COMMIT;
+
+-- 권한이 있는지 확인
+SELECT * FROM USER_SYS_PRIVS;
+
+DROP TABLE V_SAMPLE;
+
+CREATE OR REPLACE VIEW V_SAMPLE
+	AS SELECT ID
+			, NAME
+			, GENDER
+			, AGE
+		 FROM SAMPLE;
+
+CREATE OR REPLACE VIEW V_SAMPLE
+	AS SELECT ID
+			, NAME
+			, GENDER
+		 FROM SAMPLE
+		WHERE AGE BETWEEN 20 AND 29
+WITH READ ONLY;
+--WITH CHECK OPTION;
+
+-- WITH CHECK OPTION; 조건의 위배 (AGE = 21 은 가능)
+-- WITH READ ONLY; (AGE = 21도 불가능)
+UPDATE V_SAMPLE
+   SET AGE = 35 -- BETWEEN 20 AND 29 범위를 벗어남
+ WHERE ID = 1;
+
+-- VIEW를 보여줌
+SELECT * FROM USER_VIEWS; 
+
+SELECT * FROM SAMPLE;
+SELECT * FROM V_SAMPLE;
+
+-- ID가 NULL로 되어있음 : 오류 -> VIEW의 경우 NULL이 있으면 안됨
+-- INSERT INTO V_SAMPLE VALUES('곽종수', 'F', 30);
+
+-- ID를 넣어도 VIEW가 3개이므로 오류
+-- INSERT INTO V_SAMPLE VALUES(6, '곽종수', 'F', 30);
+
+-- AGE에 DEFAULT가 있으므로 넣어줘도 오류안뜸
+--INSERT INTO V_SAMPLE VALUES(6, '곽종수', 'F');
+
+-- 오류 : 가상열(산술 연산자(AGE - 2)) 은 사용할 수 없음
+-- INSERT INTO V_SAMPLE VALUES(7, '김도연', 'F', 23);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DROP SEQUENCE SEQ_TEST;
+CREATE SEQUENCE SEQ_TEST
+		  START WITH 300
+	  INCREMENT BY	   5
+	   MAXVALUE 	 310
+	   MINVALUE 	 250 -- 이거 안쓰면 1번 부터 시작
+	      CYCLE
+	  --NOCYCLE
+	    --CACHE 5;
+	    NOCACHE;
+	   
+-- NEXTVAL : 다음번호(처음 실행할 때 먼저사용) 
+-- -> 300부터 시작하는 거니까 다음번호 300 출력 그 다음 305
+-- NOCYCLE의 경우 최대수(310)이 넘어가면 오류
+SELECT SEQ_TEST.NEXTVAL FROM DUAL;
+COMMIT;
+
+-- CURRVAL : 현재까지 생성된 번호
+-- 번호가 생성된게 없으므로 테이블 생성후 바로 생성하면 오류
+SELECT SEQ_TEST.CURRVAL FROM DUAL;
+
+-- 생성한 SEQUENCE 테이블 조회
+-- LAST_NUMBER : 다음에 생성되는 숫자
+SELECT * FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_TEST';
+
+DROP SEQUENCE SEQ_SAMPLE;
+
+-- 1부터 최대값(10의 27승-1)까지 계속 증가시킴
+CREATE SEQUENCE SEQ_SAMPLE NOCACHE;
+
+CREATE SEQUENCE SEQ_SAMPLE START WITH 7 NOCACHE;
+
+SELECT * FROM SAMPLE;
+-- SEQ_SAMPLE.NEXTVAL : 숫자를 일일이 써줘서 증가시킬 필요 없음
+-- -> 알아서 1씩 증가되는 값으로 추가됨
+-- 25번까지 생성했을 때 25번을 지운다고 해서 다시 25번으로 출력되게 하지는 않음 -> 26, 27 ...
+-- 삭제된 데이터에 대해서는 관리를 하지 않음, 삭제된 데이터에 대해서 SEQUENCE가 채워주지 않음
+INSERT INTO SAMPLE VALUES(SEQ_SAMPLE.NEXTVAL, '시퀀스', 'F', 0);
+DELETE FROM SAMPLE WHERE ID = 7;
+
+COMMIT;

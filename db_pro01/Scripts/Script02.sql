@@ -46,7 +46,7 @@ SELECT EMPLOYEE_ID "사번"
 FROM EMPLOYEES;
 
 -- 조건절
--- 별칭을 바꿔도 EMPLOYEESS로 츨력
+-- 별칭을 바꿔도 EMPLOYEES로 츨력
 -- 실행순서 : FROM > WHERE > SELECT 
 -- 3
 SELECT EMPLOYEE_ID "사번"
