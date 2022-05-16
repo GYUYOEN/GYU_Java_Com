@@ -53,6 +53,7 @@ public class JoinView {
 		System.out.print("나이(15세 이상) : ");
 		data.setAge(sc.nextLine());
 		
+		// data에 사용자가 입력한 모든 정보가 등록됨
 		boolean result = jc.join(data);
 		
 		if(result) {

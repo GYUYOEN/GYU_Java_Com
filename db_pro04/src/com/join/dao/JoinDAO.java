@@ -43,6 +43,7 @@ public class JoinDAO {
 			pstat.setString(4, Character.toString(data.getGender()));
 			pstat.setInt(5, data.getAge());
 			
+			// 여기서 반환된 int는 추가가(INSERT) 된 행수 (무조건 1 이 나와야함)
 			int rs = db.sendInsertQuery();
 			if(rs == 1) {
 				db.commit();
@@ -120,6 +121,7 @@ public class JoinDAO {
 			
 			ResultSet rs = db.sendSelectQuery();
 			if(rs.next()) {
+				// JoinVo data에 담아줌
 				JoinVo data = new JoinVo();
 				data.setUserid(rs.getString("userid"));
 				data.setUserpw(rs.getString("userpw"));

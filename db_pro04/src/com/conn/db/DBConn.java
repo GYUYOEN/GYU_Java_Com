@@ -22,20 +22,6 @@ public class DBConn {
 	private String url_address;
 	private Connection conn;
 	private Statement stat;
-	private PreparedStatement pstat;
-	
-	public DBConn(File config) throws Exception {
-			Map<String, String> map = new HashMap<String, String>();
-//			FileReader fr = new FileReader(config);
-			BufferedReader br = new BufferedReader(new FileReader(config));
-			while(br.ready()) {
-//				sb.append((char)fr.read());
-				String[] keyValue = br.readLine().split("=");
-				map.put(keyValue[0].strip(), keyValue[1].strip());
-			}
-			url_address = String.format("%s:%s/%s", map.get("host"), map.get("port"), map.get("service"));
-			this.initConnect(map.get("username"), map.get("password"));
-	}
 	
 	// 로컬 or 도커에 연결하는 형식
 	public DBConn(String domain, String port, String serviceName, String username, String password) throws Exception {
@@ -62,33 +48,28 @@ public class DBConn {
 //		stat = conn.createStatement();
 	}
 	
-	public PreparedStatement getPstat(String sql) throws Exception {
-		pstat = conn.prepareStatement(sql);
-		return pstat;
-	}
-	
-	public ResultSet sendSelectQuery() throws Exception {
+	public ResultSet sendSelectQuery(String sql) throws Exception {
 //		ResultSet rs = this.stat.executeQuery(sql);
-		ResultSet rs = this.pstat.executeQuery();
+		ResultSet rs = this.stat.executeQuery(sql);
 		return rs; // 다양하게 활용하기 위해 반환(반환안하면 한가지 형태로만 사용가능)
 	}
 	
 	// 행에 대한 업데이트(n행이 반영되었습니다) -> int(INSERT, DELETE도 같음)
-	public int sendUpdateQuery() throws Exception {
+	public int sendUpdateQuery(String sql) throws Exception {
 //		int rs = this.stat.executeUpdate(sql);
-		int rs = this.pstat.executeUpdate();
+		int rs = this.stat.executeUpdate(sql);
 		return rs;
 	}
 	
-	public int sendInsertQuery() throws Exception {
+	public int sendInsertQuery(String sql) throws Exception {
 //		int rs = this.stat.executeUpdate(sql);
-		int rs = this.pstat.executeUpdate();
+		int rs = this.stat.executeUpdate(sql);
 		return rs;
 	}
 	
-	public int sendDeleteQuery() throws Exception {
+	public int sendDeleteQuery(String sql) throws Exception {
 //		int rs = this.stat.executeUpdate();
-		int rs = this.pstat.executeUpdate();
+		int rs = this.stat.executeUpdate(sql);
 		return rs;
 	}
 	
@@ -103,7 +84,7 @@ public class DBConn {
 	public void close() throws Exception {
 		// 5. 연결 해제
 //		this.stat.close();
-		this.pstat.close();
+		this.stat.close();
 		this.conn.close();
 	}
 
@@ -120,8 +101,10 @@ public class DBConn {
 //		int rowCount = myDB.sendDeleteQuery("DELETE FROM DEPARTMENTS WHERE DEPARTMENT_ID = 280");
 //		System.out.println(rowCount + " 개 행이 반영되었습니다.");
 //		
+		// DEPARTMENTS 모두 조회
 //		ResultSet rs = myDB.sendSelectQuery("SELECT * FROM DEPARTMENTS");
 //		// next가 있으면(true면) 커서가 움직임(행데이터 이동(다음행으로 이동))
+		// 거짓이 나올때까지 반복
 //		while(rs.next()) {
 //			System.out.print(rs.getInt("DEPARTMENT_ID") + "\t");
 //			System.out.print(rs.getString("DEPARTMENT_NAME") + "\t");
