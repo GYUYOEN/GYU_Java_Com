@@ -7,9 +7,16 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/GUE1/Downloads/ojdbc8.jar"/>
 	<classpathentry kind="lib" path="C:/Users/GUE1/Downloads/oraclepki.jar"/>
 	<classpathentry kind="lib" path="C:/Users/GUE1/Downloads/osdt_cert.jar"/>
 	<classpathentry kind="lib" path="C:/Users/GUE1/Downloads/osdt_core.jar"/>
+=======
+	<classpathentry kind="lib" path="C:/Users/GUE1/eclipse/oracle/jar/ojdbc8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/GUE1/eclipse/oracle/jar/oraclepki.jar"/>
+	<classpathentry kind="lib" path="C:/Users/GUE1/eclipse/oracle/jar/osdt_cert.jar"/>
+	<classpathentry kind="lib" path="C:/Users/GUE1/eclipse/oracle/jar/osdt_core.jar"/>
+>>>>>>> branch 'main' of https://github.com/GYUYOEN/GYU_Java_Com.git
 	<classpathentry kind="output" path="bin"/>
 </classpath>

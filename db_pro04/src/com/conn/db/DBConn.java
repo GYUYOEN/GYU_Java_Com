@@ -24,18 +24,37 @@ public class DBConn {
 	private Statement stat;
 	private PreparedStatement pstat;
 	
+	// 파일이 잘 읽히는지 확인
+	// 파일 읽기을 읽어서 데이터베이스와 연결하는 작업
 	public DBConn(File config) throws Exception {
-			Map<String, String> map = new HashMap<String, String>();
-//			FileReader fr = new FileReader(config);
-			BufferedReader br = new BufferedReader(new FileReader(config));
+			Map<String, String> map = new HashMap<String,String>();
+			// StringBuilder sb = new StringBuilder();
+			// FileReader fr = new FileReader(config);
+			BufferedReader br = new BufferedReader(new FileReader(config)); // 보조스트림을 이용하여 줄단위로 분류
 			while(br.ready()) {
-//				sb.append((char)fr.read());
+				// sb.append((char)fr.read());
 				String[] keyValue = br.readLine().split("=");
-				map.put(keyValue[0].strip(), keyValue[1].strip());
+				map.put(keyValue[0].strip(), keyValue[1].strip()); // "=" 앞뒤 공백 삭제
 			}
-			url_address = String.format("%s:%s/%s", map.get("host"), map.get("port"), map.get("service"));
+			if(map.get("host") != null) {
+				url_address = String.format("%s:%s/%s", map.get("host"), map.get("port"), map.get("service"));			
+			} else if(map.get("tns_alias") != null) {
+				url_address = String.format("%s?TNS_ADMIN=%s", map.get("tns_alias"), map.get("wallet_path"));
+			} else {
+				System.out.println("DB 연결 파일 구성이 잘못되었습니다.");
+			}
 			this.initConnect(map.get("username"), map.get("password"));
+			// String[] lines = sb.toString.split("\r\n"); // 문자열로 변환, 열로 분류
+			//System.out.println(lines[0]); // 분류된 열 출력
+			//System.out.println(lines[1]);
+			//System.out.println(lines[2]);
 	}
+	
+//	// 파일이 잘 읽히는지 확인
+//	public static void main(String[] args) {
+//		String homePath = System.getProperty("user.home");
+//		DBConn db = new DBConn(new File(homePath + "/oracle_db.conf"));
+//	}
 	
 	// 로컬 or 도커에 연결하는 형식
 	public DBConn(String domain, String port, String serviceName, String username, String password) throws Exception {
@@ -58,7 +77,7 @@ public class DBConn {
 		// true : 자동커밋 사용 , false : 자동커밋 사용x (기본상테 : true)
 		conn.setAutoCommit(false);
 		
-		// 3. Statement 생성
+		// 3. Statement 생성 -> PreparedStatement 로 변경함
 //		stat = conn.createStatement();
 	}
 	
@@ -120,8 +139,10 @@ public class DBConn {
 //		int rowCount = myDB.sendDeleteQuery("DELETE FROM DEPARTMENTS WHERE DEPARTMENT_ID = 280");
 //		System.out.println(rowCount + " 개 행이 반영되었습니다.");
 //		
+		// DEPARTMENTS 모두 조회
 //		ResultSet rs = myDB.sendSelectQuery("SELECT * FROM DEPARTMENTS");
 //		// next가 있으면(true면) 커서가 움직임(행데이터 이동(다음행으로 이동))
+		// 거짓이 나올때까지 반복
 //		while(rs.next()) {
 //			System.out.print(rs.getInt("DEPARTMENT_ID") + "\t");
 //			System.out.print(rs.getString("DEPARTMENT_NAME") + "\t");
@@ -161,6 +182,32 @@ public class DBConn {
 //		rs.close();
 //		stat.close();
 //		conn.close();
+//	}
+	
+//	// 파일이 잘 읽히는지 확인
+//	// 파일 읽기을 읽어서 데이터베이스와 연결하는 작업
+//	public DBConn(File config) {
+//			Map<String, String> map = new HashMap<String,String>();
+//			// StringBuilder sb = new StringBuilder();
+			// FileReader fr = new FileReader(config);
+//			BufferedReader br = new BufferedReader(new FileReader(config)); // 보조스트림을 이용하여 줄단위로 분류
+//			while(br.ready()) {
+//				// sb.append((char)fr.read());
+//				String[] keyValue = br.readLine().split("=");
+//				map.put(keyValue[0].strip(), keyValue[1].strip()); // "=" 앞뒤 공백 삭제
+//			}
+//			url_address = String.format("%s:%s/%s", map.get("host"), map.get("port"), map.get("service"));
+//			this.initConnect(map.get("username"), map.get("password"));
+//			// String[] lines = sb.toString.split("\r\n"); // 문자열로 변환, 열로 분류
+//			//System.out.println(lines[0]); // 분류된 열 출력
+//			//System.out.println(lines[1]);
+//			//System.out.println(lines[2]);
+//	}
+	
+//	// 파일이 잘 읽히는지 확인
+//	public static void main(String[] args) {
+//		String homePath = System.getProperty("user.home");
+//		DBConn db = new DBConn(new File(homePath + "/oracle_db.conf"));
 //	}
 //	
 //	public static void main(String[] args) throws Exception {

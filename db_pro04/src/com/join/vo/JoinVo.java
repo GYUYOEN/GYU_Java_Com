@@ -47,6 +47,7 @@ public class JoinVo {
 		this.gender = gender;
 	}
 	
+	// 문자열을 받으면면 정수로 바꿔줌
 	public void setGender(String gender) {
 		this.gender = gender.charAt(0);
 	}
@@ -59,6 +60,7 @@ public class JoinVo {
 		this.age = age;
 	}
 	
+	// 문자열로 받음면 정수로 바꿔줌
 	public void setAge(String age) {
 		this.age = Integer.parseInt(age);
 	}

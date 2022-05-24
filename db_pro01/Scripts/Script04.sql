@@ -253,7 +253,7 @@ SELECT TO_NUMBER('20220425')
 	 , TO_NUMBER('FFFF', 'XXXX')
   FROM DUAL;
   
--- 문자열 날짜를 숫자로 변환하는 법 : 날짜를 문자로 바꾼 후 문자를 숫자로 바꿈
+-- 날짜를 숫자로 변환하는 법 : 날짜를 문자로 바꾼 후 문자를 숫자로 바꿈
 -- 이때 문자의 형식은 반드시 'YYYYMMDD'형식으로 지정
 SELECT TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD'))
   FROM DUAL;

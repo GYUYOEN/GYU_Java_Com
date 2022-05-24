@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- 
+			문서에 대한 정보를 설명하기 위해 사용하는 영역 
+			<title>, <meta>, <link>, <script>, <style 태그가 사용된다.
+		-->
+		<meta charset = "UTF-8">
+		<!-- refresh : 자동 새로고침, 5 : 5초 간격으로 새로고침, 현재 페이지에 계속 접속할거면 url안쓰고 5;만 써도됨-->
+		<meta http-equiv = "refresh" content = "5;url=http://localhost:8080/web01/sample01.html">
+		<!--  sample01 에 접속했는대 sample02 로 납치 -->
+		<!-- <meta http-equiv = "refresh" content = "5;url=http://localhost:8080/web01/sample02.html"> -->
+		<!-- 2초 후 네이버로 이동 -->
+		<!-- <meta http-equiv = "refresh" content = "2;url=https://naver.com"> -->
+		<!-- text 문서이고 html 문서라는 걸 알려주는 메타 태그(text/html : MIME type(text/css, text/javascript, image/png, image/jpeg) -->
+		<!-- -> 구글에 mime type치면 나옴(mime타입의 전체목록) -->
+		<meta http-equiv = "content-type" content = "text/html;charset=utf-8">
+		<!-- link : 외부문서를 지정할 때 사용 -->
+		<link rel = "icon" type = "image/webp" href = "img/logo.webp">
+		<link rel = "stylesheet" type = "text/css" href = "css/sample01.css">
+		<!-- http://localhost:8080/web01/page/ = ./ : 여기를 base로 삼고 쓰겠다(현재 위치) -> 페이지 이름을 변경했을 때 여기만 고치면 됨 -->
+		<base href = "http://localhost:8080/web01/page/" target = "_blank">
+		<!-- target에 _self 사용하면 현재 패이지에서 링크이동라고, _blank 사용하면 새로운 페이지 열고 이동 -->
+		<!-- 브라우저의 제목 -->
+		<title>Hello HTML Document</title>
+		<!-- HTML에 직접 적용, 특정 페이지에 대해서 일부 디자인을 변경하고 싶을 때 사용(link는 외부에서 불러옴) -->
+		<!-- CSS에 color가 적용되어 있어도 style이 먼저 적용됨 -->
+		<style>
+			body {
+				color: lightgreen;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- ./ : 현재경로를 의미(localhost:8080/web01/ -->
+		<!-- page폴더가 아닌 지금 폴더로만 이동을 한다면 base사용 안하고 아래만 작성 -->
+		<!-- <a href="./sample02.html">sample02 페이지 이동!</a> -->
+		<!-- psge폴더를 만들고 그곳으로 접근을 원한다면 아래와 같이 작성 -->
+		<!-- <a href="./page/sample02.html">sample02 페이지 이동!</a> -->
+		<!-- 하지만 page폴더로 이동할 경우 base에 현재 위치 지정해 줬으므로 page/ 안써도됨 -->
+		<a href="./sample02.html">sample02 페이지 이동!</a><br>
+		<a href="./sample03.html">sample03 페이지 이동!</a><br>
+		<!-- 
+			브라우저 화면에 출력하여 보여 줄 태그 정보를 작성하는 영역
+			<h1>, <p>, ... 등 다양한 태그들이 사용 된다.(head 태그에서 사용하는 태그를 제외한 모든 태그)
+		-->
+		안녕하세요!
+</body>
+</html>

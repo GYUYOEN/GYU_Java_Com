@@ -12,6 +12,7 @@ public class JoinController {
 	private JoinDAO dao = new JoinDAO();
 
 	public boolean join(JoinVo data) {
+		// data에 이미 모든 정보 들어있음
 		switch(data.getGender()) {
 			case '남' :
 				data.setGender('M'); break;
@@ -25,8 +26,10 @@ public class JoinController {
 			return false;
 		}
 		
+		// userid 조회 후 account 에 저장
 		JoinVo account = dao.get(data.getUserid());
 		
+		// 
 		if(account != null) {
 			return false;
 		}
@@ -56,10 +59,12 @@ public class JoinController {
 		// 사용자가 입력한 userid가 있는지 확인
 		JoinVo data = dao.get(userid);
 		
-		// 패스워드가 맞는지 확인
+		// 패스워드가 일치하는지 확인
 		if(data.getUserpw().equals(userpw)) {
+			// 참이면 데이터 넘겨줌
 			return data;
 		}
+		// 아니면 NULL로
 		return null;
 	}
 

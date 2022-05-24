@@ -17,6 +17,9 @@ public class JoinDAO {
 	
 	public JoinDAO() {
 		try {
+			// 파일 위치만 지정해주면 그 구성에 따라 연결
+			// getProperty : 사용자 디렉터리 경로
+			// 파일 입출력을 사용하는 이유 : 관리자가 하나의 파일을 만들어서 공유하면 파일만 불러들이면 되므로 관리가 편해짐
 			db = new DBConn(new File(System.getProperty("user.home") + "/oracle_db.conf"));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -37,12 +40,14 @@ public class JoinDAO {
 		String query = "INSERT INTO accounts VALUES(?, ?, ?, ?, ?, SYSDATE)";
 		try {
 			PreparedStatement pstat = db.getPstat(query);
-			pstat.setString(1, data.getUserid());
+			pstat.setString(1, data.getUserid()); // 1 : ? 위치 지정
 			pstat.setString(2, data.getUserpw());
 			pstat.setString(3, data.getUsername());
 			pstat.setString(4, Character.toString(data.getGender()));
 			pstat.setInt(5, data.getAge());
 			
+			// 여기서 반환된 int는 추가가(INSERT) 된 행수 (무조건 1 이 나와야함)
+//			int rs = db.sendInsertQuery(query);
 			int rs = db.sendInsertQuery();
 			if(rs == 1) {
 				db.commit();
@@ -78,6 +83,7 @@ public class JoinDAO {
 			pstat.setInt(4, data.getAge());
 			pstat.setString(5, data.getUserid());
 			
+//			int rs = db.sendUpdateQuery(query);
 			int rs = db.sendUpdateQuery();
 			if(rs == 1) {
 				db.commit();
@@ -98,6 +104,7 @@ public class JoinDAO {
 			PreparedStatement pstat = db.getPstat(query);
 			pstat.setString(1, data.getUserid());
 			
+//			int rs = db.sendDeleteQuery(query);
 			int rs = db.sendDeleteQuery();
 			if(rs == 1) {
 				db.commit();
@@ -118,8 +125,10 @@ public class JoinDAO {
 			PreparedStatement pstat = db.getPstat(query);
 			pstat.setString(1, userid);
 			
+//			ResultSet rs = db.sendSelectQuery(query);
 			ResultSet rs = db.sendSelectQuery();
 			if(rs.next()) {
+				// JoinVo data에 담아줌
 				JoinVo data = new JoinVo();
 				data.setUserid(rs.getString("userid"));
 				data.setUserpw(rs.getString("userpw"));

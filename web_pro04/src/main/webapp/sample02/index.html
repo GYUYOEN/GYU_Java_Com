@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+<body>
+	<form id="f1" action="./run.jsp" method="GET">
+		<fieldset form="f1">
+			<legend>구역 1</legend>
+			<label for="id_input1">값1</label>
+			<input form="f1" id="id_input1" type="text" maxlength="12" size="12" name="v1" value="초기값" required>
+		</fieldset>
+		<fieldset>
+			<legend>구역 2</legend>
+			<label for="id_input2">값2</label>
+			<input type="password" minlength="4" maxlength="12" size="12" name="pass" value="초기값"><br>
+			<input id="id_input2" type="text" name="v2" value="읽기전용 readonly" readonly><br>
+			<input type="text" name="v3" value="비활성 disabled" disabled><br>
+			<input type="hidden" name="v4" value="숨김"><br>
+			<input id="n1" type="number" min="10" max="100" step="2" name="v5" oninput="n2.value = this.value"><br>
+			<input id="n2" type="range" min="1" max="99" name="v6" oninput="n1.value = this.value"><br>
+			<label for="id_chk1">체크1</label><input id="id_chk1" type="checkbox" name="chk1" value="a" checked>
+			<label for="id_chk2">체크2</label><input id="id_chk2" type="checkbox" name="chk1" value="b">
+			<label for="id_chk3">체크3</label><input id="id_chk3" type="checkbox" name="chk1" value="c"><br>
+			<label for="id_rdo1">라디오1</label><input id="id_rdo1" type="radio" name="rdo1" value="a">
+			<label for="id_rdo2">라디오2</label><input id="id_rdo2" type="radio" name="rdo1" value="b">
+			<label for="id_rdo3">라디오3</label><input id="id_rdo3" type="radio" name="rdo1" value="c" checked><br>
+			<input type="date" name="d1" min="2022-01-01" max="2022-12-31" value="2022-05-23"><br>
+			<input type="time" name="d2" min="06:00:00" max="15:59:59" value="12:30:00"><br>
+			<input type="month" name="d3" value="2022-05"><br>
+			<input type="datetime-local" name="d4" value="2022-05-23T00:30:30"><br>
+			<input type="search" name="v7"><br>
+			<input type="url" name="v8"><br>
+			<input type="email" name="v9"><br>
+			<input type="tel" name="v10" pattern="010-[0-9]{4}-[0-9]{4}"><br>
+			<input type="button" value="일반버튼"><br>
+			<input type="submit" value="전송버튼"><br>
+			<input type="reset" value="초기화"><br>
+			<!-- input보다 button이 디자인 적용할때 다채로운 디자인을 사용가능, input은 디자인에 제약이 있음 -->
+			<button type="button">일반버튼</button><br>
+			<button type="submit">전송버튼</button><br>
+			<button type="reset">초기화</button><br>
+			<input type="text" list="data_list1" placeholder="클릭하여 선택하세요.">
+			<datalist id="data_list1">
+				<!-- Option 1 : 실제값 -->
+				<option value="Option 1"></option>
+				<option value="Option 2"></option>
+				<option value="Option 3"></option>
+			</datalist><br>
+			<input type="color" oninput="c1.value = this.value">
+			<input id="c1" type="text" readonly><br>
+			<input type="file" name="v12" accept="image/png, image/jpeg"><br> <!-- form 태그 속성에 enctype="multipart/form-data" 추가해야함 method="POST" 로 사용 -->
+			<input type="file" name="v13" multiple><br>
+			<select name="v14">
+				<option value="a">값 선택 1</option>
+				<option value="b" selected>값 선택 2</option>
+				<option value="c">값 선택 3</option>
+			</select><br>
+			<select name="v15" size="8" multiple>
+				<optgroup label="그룹1">
+					<option value="a">값 선택 1</option>
+					<option value="b" selected>값 선택 2</option>
+					<option value="c">값 선택 3</option>
+				</optgroup>
+				<optgroup label="그룹2">
+					<option value="d">값 선택 1</option>
+					<option value="e">값 선택 2</option>
+					<option value="f">값 선택 3</option>
+				</optgroup>
+			</select><br>
+			<textarea cols="25" rows="10" name="v16" style="resize: none;">여기에 초기값을 설정 value 속성을 필요 없음</textarea>
+		</fieldset>
+		<button form="f1" type="submit">전송</button>
+	</form>
+</body>
+</html>
