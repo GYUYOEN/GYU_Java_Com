@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form id="f1" action="./run.jsp" method="GET">
+		<fieldset>
+			<label for="id_input">아이디</label><br>
+			<input id="id_input" name="id"><br>
+			<label for="pass_input1">비밀번호</label><br>
+			<input id="pass_input1" type="password" name="pass1"><br>
+			<label for="pass_input2">비밀번호 재확인</label><br>
+			<input id="pass_input2" type="password" name="pass2"><br>
+			<label for="name_input">이름</label><br>
+			<input id="name_input" type="text" name="name"><br>
+			<label for="birth_input">생년월일</label><br>
+			<input id="birth_input" type="number" name="birthyear" placeholder="년(4자리)"></input>
+			<input type="number" list="month_list" placeholder="월"></input>
+			<datalist id="month_list">
+				<option value="1"></option>
+				<option value="2"></option>
+				<option value="3"></option>
+				<option value="4"></option>
+				<option value="5"></option>
+				<option value="6"></option>
+				<option value="7"></option>
+				<option value="8"></option>
+				<option value="9"></option>
+				<option value="10"></option>
+				<option value="11"></option>
+				<option value="12"></option>
+			</datalist>
+			<input id="birth_input" type="number" name="birthdate" min="1" max="31" placeholder="월"></input><br>
+			<label>성별</label><br>
+			<input type="text" list="gender_list" placeholder="성별"></input><br>
+			<datalist id="gender_list">
+				<option value="여"></option>
+				<option value="남"></option>
+			</datalist>
+			<label for="email_input">이메일 확인</label><br>
+			<input type="email" name="email"></input><br>
+			
+		</fieldset>
+	</form>
+</body>
+</html>

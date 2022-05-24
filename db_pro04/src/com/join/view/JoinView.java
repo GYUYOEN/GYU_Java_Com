@@ -95,16 +95,21 @@ public class JoinView {
 					System.out.println(account.getGender());
 					System.out.println(account.getAge());
 					
+					// 원하는 날짜 포멧으로 변경
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
 					
-					// 중복이 되므로
-					// 날짜에 해당하는 밀리세컨즈 값이 나옴
+					// java.util.Date와 java.sql.Date가 중복이 되므로 둘중하나는 직접 다 작성해야함(둘다 import 불가능)
+					// account.getCreateDate() : java.sql.Date 타입
+					// sql 타입을 util 타입으로 변경
+					// getTime() : 날짜에 해당하는 밀리세컨즈 값이 나옴
 					java.util.Date createDate = new java.util.Date(account.getCreateDate().getTime());
 					
 					String sDate = dateFormat.format(account.getCreateDate().getTime());
 					
 					System.out.println(sDate);
 					
+					
+					// util의 현재시간을 가져다 sql로 변환하고 싶을 떄
 					java.util.Date now = new java.util.Date();
 					
 					// 주의 : java.sql.Date 는 날짜만 다루는 객체. 시간까지 다루기 위해서는 java.sql.timestamp 를 사용해야함

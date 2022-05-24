@@ -1,0 +1,505 @@
+<!-- index.html은 기본 페이지라 "localhost:8080/web02/" 만 작성해도 인식해서 이동 -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>기본 HTML 태그</title>
+</head>
+<body>
+	<h1 id = "h_tag">제목 태그 1</h1>
+	<h2>제목 태그 2</h2>
+	<h3>제목 태그 3</h3>
+	<h4>제목 태그 4</h4>
+	<h5>제목 태그 5</h5>
+	<h6>제목 태그 6</h6>
+	
+	<!-- 수평 줄을 긋기 위해 사용 -->
+	<hr>
+	
+	글자를 <Strong>강조</Strong> 하기위해 strong 태그를 사용<br>
+	글자를 <b>강조</b> 하기위해 b 태그를 사용<br>
+	strong은 검색엔진 또는 봇에 의해 강조된 문장을 찾을 떄 즉, 강조라는 의미가 가미된 문장을 찾기 위해 사용된다.<br>
+	b 태그는 아무런 의미 없이 글자의 굵기를 두껍게 만들어 준다.<br>
+	태그에 의미가 부여가 되는 형태의 태그 시멘틱(semantic) 태그라도 한다.<br>
+	
+	<br>
+	
+	글자에 형광팬으로 <mark>하이하이팅을</mark> 주기위해 mark 태그를 사용<br>
+	글자에 <b><mark>하이하이팅과 두께를</mark></b> 조정할 수 있다.<br>
+	<br>
+	<s>취소선</s>과 <u>밑줄</u>을 긋기 위한 s, u 태그<br>
+	<hr>
+	글자에 <em>기울임</em>을 <i>적용</i>하기 위한 em, i 태그<br>
+	em : 기울임 + 강조, 의미 부여(semantic)
+	<hr>
+	글자의 크기를 <small>작게</small> 표시하여 부가 정보를 표현하기 위한 small 태그<br>
+	<hr>
+	다른 사이트 또는 책의 문구를 인용한 경우 사용하는 blockquote(자동으로 들여쓰기, 하나의 블럭이 생성), q(자동으로 "", 블럭생성없이 ""으로만 묶어줌) 태그<br>
+	blockquote : 자동으로 들여쓰기, 하나의 블럭이 생성, 명언<br>
+	q : 자동으로 "", 블럭생성없이 ""으로만 묶어줌, 기사에서 누가 "~" 이렇게 말했습니다<br>
+	태그 사용 전 <blockquote>안녕하세요.</blockquote> 태그 사용 후<br>
+	태그 사용 전 <q>안녕하세요.</q> 태그 사용 후<br>
+	block tag(브라우저 전체를 차지) : hr, blockquote , h1, h2<br> 
+	inline tag(필요한 영역만 차지) : q<br>
+	<hr>
+	<sup>위</sup>첨자, <sub>아래</sub>첨자를 적용하기 위한 sup, sub 태그<br>
+	<hr>
+	약어에 사용하며, 약어에 대한 툴팁 표기 기능이 있는 abbr 태그<br>
+	<abbr title="abbreviation(약어)">abbr</abbr>
+	<hr>
+	인용문에 <cite>츨처</cite>를 표기하기 위한 cite 태그<br>
+	<hr>
+	<code>컴퓨터 인식을 위한 소스 코드를 담기 위한 태그</code>
+	<pre><code>pre 태그와 같이 사용하면 코드의
+		들여쓰기 개행 등이 바로 적용되며
+		코드 작성이 용이해 진다.</code></pre>
+	<hr>
+	<kbd>키보드</kbd> 입력이나 음성 명령 같은 사용자 입력 내용을 표기하기 위한 kbd 태그<br>
+	<hr>
+	<p>문단 작성을 위해 사용하는 p 태그</p>
+	<hr>
+	<a href="http://naver.com">링크</a>를 만들기 위한 a 태그<br>
+	문자 내부의 특정 영역에 연결을 할 수 있다. <a href = "#h_tag">제목태그이동</a><br>
+	: id가 h_tag인 문서내무에서 찾아감<br>
+	<hr>
+	<ul>
+		<li>순서 없는 목록</li>
+		<li>순서 없는 목록</li>
+		<li>순서 없는 목록</li>
+	</ul>
+	<ul type="circle">
+		<li>순서 없는 목록</li>
+		<li>순서 없는 목록</li>
+		<li>순서 없는 목록</li>
+	</ul>
+	<ul type="square">
+		<li>순서 없는 목록</li>
+		<li>순서 없는 목록</li>
+		<li>순서 없는 목록</li>
+	</ul>
+	<hr>
+	<ol>
+		<li>순서 있는 목록</li>
+		<li>순서 있는 목록</li>
+		<li>순서 있는 목록</li>
+	</ol>
+	<ol type="A">
+		<li>순서 있는 목록</li>
+		<li>순서 있는 목록</li>
+		<li>순서 있는 목록</li>
+	</ol>
+	<ol type="a">
+		<li>순서 있는 목록</li>
+		<li>순서 있는 목록</li>
+		<li>순서 있는 목록</li>
+	</ol>
+	<ol type="I">
+		<li>순서 있는 목록</li>
+		<li>순서 있는 목록</li>
+		<li>순서 있는 목록</li>
+	</ol>
+	<ol type="i">
+		<li>순서 있는 목록</li>
+		<li>순서 있는 목록</li>
+		<li>순서 있는 목록</li>
+	</ol>
+	<ol type="A" start="4">
+		<li>순서 있는 목록</li>
+		<li>순서 있는 목록</li>
+		<li>순서 있는 목록</li>
+	</ol>
+	<ol type="I" reversed>
+		<li>순서 있는 목록</li>
+		<li>순서 있는 목록</li>
+		<li>순서 있는 목록</li>
+	</ol>
+	<ol>
+		<li>순서 있는 목록</li>
+		<li value="4">순서 있는 목록</li>
+		<li>순서 있는 목록</li>
+	</ol>
+	<hr>
+	<ol>
+		<li>중첩 된 목록</li>
+		<li>중첩 된 목록</li>
+		<ol>
+			<li>중첩 된 목록</li>
+			<li>중첩 된 목록</li>
+			<ul>
+				<li>중첩 된 목록</li>
+				<li>중첩 된 목록</li>
+				<li>중첩 된 목록</li>
+			</ul>
+		</ol>
+		<li>중첩 된 목록</li>
+		<li>중첩 된 목록</li>	
+		<ul>
+			<li>중첩 된 목록</li>
+			<li>중첩 된 목록</li>
+			<li>중첩 된 목록</li>
+		</ul>
+	</ol>
+	<hr>
+	<dl>
+		<dt>정의 목록</dt>
+		<dd>사전과 같이 특전 단어에 대한 정의를 설명하기 위한 용도로 사용할 수 있다.</dd>
+		<dt>d1</dt>
+		<dd>Description List 의 약자이다.</dd>
+		<dd>정의 목록을 나타내기 위해 사용한다.</dd>
+		<dt>dt</dt>
+		<dd>Description Term 의 약자이다.</dd>
+		<dd>정의 대상이 되는 용어, 단어를 작성하기 위해 사용한다.</dd>
+		<dt>dd</dt>
+		<dd>Description Detail 의 약자이다.</dd>
+		<dd>dt 의 상세 내용을 작성하기 위해 사용한다.</dd>
+	</dl>
+	<hr>
+	<!-- 
+	첫번쩨 열의 열의 수가 n 으로 정해지면
+	나머지 열의 열의 수도 첫번째 열의 수와 동일해야 한다.
+	 -->
+	 <table>
+	 	<tr>
+	 		<td>내용 1</td>
+	 		<td>내용 2</td>
+	 		<td>내용 3</td>
+	 	</tr>
+	 	<tr>
+	 		<td>내용 4</td>
+	 		<td>내용 5</td>
+	 		<td>내용 6</td>
+	 	</tr>
+	 	<tr>
+	 		<td>내용 7</td>
+	 		<td>내용 8</td>
+	 		<td>내용 9</td>
+	 	</tr>
+	 </table>
+	 
+	 	 <table border="1">
+	 	<tr>
+	 		<th>제목열1</th>
+	 		<th>제목열2</th>
+	 		<th>제목열3</th>
+	 	</tr>
+	 	<tr>
+	 		<td>내용 4</td>
+	 		<td>내용 5</td>
+	 		<td>내용 6</td>
+	 	</tr>
+	 	<tr>
+	 		<td>내용 7</td>
+	 		<td>내용 8</td>
+	 		<td>내용 9</td>
+	 	</tr>
+	 </table>
+	 <table border="1">
+	 	<tr>
+	 		<th>제목열1</th>
+	 		<th>제목열2</th>
+	 		<th>제목열3</th>
+	 	</tr>
+	 	<tr>
+	 		<th>제목행4</th>
+	 		<td>내용 5</td>
+	 		<td>내용 6</td>
+	 	</tr>
+	 	<tr>
+	 		<th>제목행5</th>
+	 		<td>내용 8</td>
+	 		<td>내용 9</td>
+	 	</tr>
+	 </table>
+	 <hr>
+	 <table border="1">
+	 	<caption>테이블 제목</caption>
+	 	<tr>
+	 		<th>제목열1</th>
+	 		<th>제목열2</th>
+	 		<th>제목열3</th>
+	 	</tr>
+	 	<tr>
+	 		<th>제목행4</th>
+	 		<td>내용 5</td>
+	 		<td>내용 6</td>
+	 	</tr>
+	 	<tr>
+	 		<th>제목행5</th>
+	 		<td>내용 8</td>
+	 		<td>내용 9</td>
+	 	</tr>
+	 </table>
+	 <figure>
+		 <figcaption>테이블 제목(상단)</figcaptoin>
+		 <table border="1">
+	 		<tr>
+	 			<th>제목열1</th>
+	 			<th>제목열2</th>
+	 			<th>제목열3</th>
+	 		</tr>
+	 		<tr>
+	 			<th>제목행4</th>
+	 			<td>내용 5</td>
+	 			<td>내용 6</td>
+	 		</tr>
+	 		<tr>
+	 			<th>제목행5</th>
+	 			<td>내용 8</td>
+	 			<td>내용 9</td>
+	 		</tr>
+		 </table>
+		 <figcaption>테이블 제목(하단)</figcaptoin>
+	 </figure>
+	 <hr>
+	 <table border="1">
+	 	<thead>
+	 		<tr>
+	 			<th>thead</th>
+	 			<th>시멘틱태그</th>
+	 			<th>테이블의 제목행에 해당하는 영역임을 의미</th>
+	 		</tr>
+	 	</thead>
+	 	<tbody>
+	 		<tr>
+	 			<th>tbody</th>
+	 			<td>시멘틱태그</td>
+	 			<td>테이블의 본문</td>
+	 		</tr>
+	 		<tr>
+	 			<th>내용에</th>
+	 			<td>해당하는 영역임을</td>
+	 			<td>의미한다</td>
+	 		</tr>
+	 	</tbody>
+	 	<tfoot>
+	 		 <tr>
+	 			<th>tfoot</th>
+	 			<td>시멘틱태그</td>
+	 			<td>테이블의 소계 또는 요약에 해당하는 영역임을 의미</td>
+	 		</tr>
+		</tfoot>
+	 </table>
+	 
+	 <table border="1">
+	 <!-- tfoot : 어디에 배치하든 항상 마지막에 출력됨(소계, 요약에 해당 -->
+	 <!-- thead : 어디에 배치하든 항상 처음에 출력됨(제목에 해당) -->
+	 <!-- tbody : 어디에 배치하든 항상 가운데에 출력됨(네용에 해당) -->
+	 	 <tfoot>
+	 		 <tr>
+	 			<th>tfoot</th>
+	 			<td>시멘틱태그</td>
+	 			<td>테이블의 소계 또는 요약에 해당하는 영역임을 의미</td>
+	 		</tr>
+		</tfoot>
+	 	<thead>
+	 		<tr>
+	 			<th>thead</th>
+	 			<th>시멘틱태그</th>
+	 			<th>테이블의 제목행에 해당하는 영역임을 의미</th>
+	 		</tr>
+	 	</thead>
+	 	<tbody>
+	 		<tr>
+	 			<th>tbody</th>
+	 			<td>시멘틱태그</td>
+	 			<td>테이블의 본문</td>
+	 		</tr>
+	 		<tr>
+	 			<th>내용에</th>
+	 			<td>해당하는 영역임을</td>
+	 			<td>의미한다</td>
+	 		</tr>
+	 	</tbody>
+	 </table>
+	 <hr>
+	 <table border="1">
+	 	<tr>
+	 		<th rowspan="3">제목열1</th>
+	 		<th>제목열2</th>
+	 		<th>제목열3</th>
+	 	</tr>
+	 	<tr>
+	 		<td>내용 5</td>
+	 		<td>내용 6</td>
+	 	</tr>
+	 	<tr>
+	 		<td>내용 8</td>
+	 		<td>내용 9</td>
+	 	</tr>
+	 </table>
+	 <table border="1">
+	 	<tr>
+	 		<th rowspan="3">제목열1</th>
+	 		<th colspan="2">제목열2</th>
+	 	</tr>
+	 	<tr>
+	 		<td>내용 5</td>
+	 		<td>내용 6</td>
+	 	</tr>
+	 	<tr>
+	 		<td>내용 8</td>
+	 		<td>내용 9</td>
+	 	</tr>
+	 </table>
+	 <hr>
+	 <!-- 이렇게 작성하면 나중에 관리하기 번거러움 -->
+	 <table border="1">
+	 	<caption>테이블 제목</caption>
+	 	<tr>
+	 		<th style="background-color: #DDDDDD">제목열1</th>
+	 		<th>제목열2</th>
+	 		<th style="background-color: #DDDDDD">제목열3</th>
+	 		<th>제목열2</th>
+	 		<th style="background-color: #DDDDDD">제목열3</th>
+	 	</tr>
+	 	<tr>
+	 		<th style="background-color: #DDDDDD">제목행4</th>
+	 		<td>내용 5</td>
+	 		<td style="background-color: #DDDDDD">내용 6</td>
+	 		<th>제목열2</th>
+	 		<th style="background-color: #DDDDDD">제목열3</th>
+	 	</tr>
+	 	<tr>
+	 		<th style="background-color: #DDDDDD">제목행5</th>
+	 		<td>내용 8</td>
+	 		<td style="background-color: #DDDDDD">내용 9</td>
+	 		<th>제목열2</th>
+	 		<th style="background-color: #DDDDDD">제목열3</th>
+	 	</tr>
+	 </table>
+	 <style>
+	 	.cell {
+	 		background-color: #DDDDDD;
+	 		width: 120px;
+	 	}
+	 </style>
+	 <table border="1">
+	 	<caption>테이블 제목</caption>
+	 	<!-- colgroup : 컬럼에 대한 그룹 -->
+	 	<colgroup>
+	 		<col class="cell">
+	 		<col>
+	 		<col class="cell">
+	 		<col>
+	 		<col class="cell">
+	 	</colgroup>
+	 	<tr>
+	 		<td>1행 1열</td>
+	 		<td>1행 2열</td>
+	 		<td>1행 3열</td>
+	 		<td>1행 4열</td>
+	 		<td>1행 5열</td>
+	 	</tr>
+	 	<tr>
+	 		<td>2행 1열</td>
+	 		<td>2행 2열</td>
+	 		<td>2행 3열</td>
+	 		<td>2행 4열</td>
+	 		<td>2행 5열</td>
+	 	</tr>
+	 	<tr>
+	 		<td>3행 1열</td>
+	 		<td>3행 2열</td>
+	 		<td>3행 3열</td>
+	 		<td>3행 4열</td>
+	 		<td>3행 5열</td>
+	 	</tr>
+	 </table>
+	 <table border="1">
+	 	<caption>테이블 제목</caption>
+	 	<colgroup>
+	 		<col style="background-color: #DDDDDD; width: 120px;">
+	 		<col>
+	 		<col style="background-color: #DDDDDD; width: 120px;">
+	 		<col>
+	 		<col style="background-color: #DDDDDD; width: 120px;">
+	 	</colgroup>
+	 	<!-- 행에 대한 스타일을 변경하고 싶을떄는 <tr>에다가 작성하면 됨 -->
+	 	<tr style="background-color: lightblue;">
+	 		<td>1행 1열</td>
+	 		<td>1행 2열</td>
+	 		<td>1행 3열</td>
+	 		<td>1행 4열</td>
+	 		<td>1행 5열</td>
+	 	</tr>
+	 	<tr>
+	 		<td>2행 1열</td>
+	 		<td>2행 2열</td>
+	 		<td>2행 3열</td>
+	 		<td>2행 4열</td>
+	 		<td>2행 5열</td>
+	 	</tr>
+	 	<tr style="background-color: lightblue;">
+	 		<td>3행 1열</td>
+	 		<td>3행 2열</td>
+	 		<td>3행 3열</td>
+	 		<td>3행 4열</td>
+	 		<td>3행 5열</td>
+	 	</tr>
+	 </table>
+	 <hr>
+	 <!-- 테두리가 합쳐지는 형태로 보임 -->
+	 <table border="1" style="border-collapse: collapse;">
+	 	<tr>
+	 		<td>1행 1열</td>
+	 		<td>1행 2열</td>
+	 		<td>1행 3열</td>
+	 	</tr>
+	 	<tr>
+	 		<td>2행 1열</td>
+	 		<td>2행 2열</td>
+	 		<td>2행 3열</td>
+	 	</tr>
+	 	<tr>
+	 		<td>3행 1열</td>
+	 		<td>3행 2열</td>
+	 		<td>3행 3열</td>
+	 	</tr>
+	 </table>
+	 <hr>
+	 <div style="height: 150px; background-color: lightcoral">
+	 	  block 영역(div)
+	 </div>
+	 <div style="height: 150px; background-color: lightblue">
+	 	  block 영역(div)
+	 </div>
+	 <div style="height: 150px; background-color: lightgreen">
+	 	  block 영역(div)
+	 	  <span style="background-color: lightcoral;">inline 영역1</span>
+	 	  <span style="background-color: lightblue;">inline 영역2</span>
+	 	  <span style="background-color: lightgreen;">inline 영역3</span>
+	 	  <span style="background-color: lightyellow;">inline 영역4</span>
+	 	  <span style="background-color: lightpink;">inline 영역5</span>
+		  <span style="background-color: lightsteelblue;">inline 영역6</span>
+	 </div>
+	 <span style="background-color: lightcoral;">inline 영역1</span>
+	 <span style="background-color: lightblue;">inline 영역1</span>
+	 <span style="background-color: lightgreen;">inline 영역1</span>
+	 <span style="background-color: lightyellow;">inline 영역1</span>
+	 <span style="background-color: lightpink;">inline 영역1</span>
+	 <span style="background-color: lightsteelblue;">inline 영역1</span>
+	 <hr>
+	 <header>시멘틱 태그 Header 머릿글에 해당하는 영역을 의미하는 태그로 사용(예: 최상단 메뉴, 검색가능, 로고이미지, ...)</header>
+	 <section>시멘틱 태그로 본문 내용(컨텐츠)이 들어가는 영역으로 내용들을 주제별로 묶기 위해 사용</section>
+	 <article>시멘틱 태그로 실제 본문 내용이 들어가는 영역으로 제배포 가능한 내용임을 의미한다.</article>
+	 <aside>시멘틱 태그로 사이드 광고 및 메뉴가 포함된 영역임을 알리는 태그</aside>
+	 <footer>시멘틱 태그로 회사 소개, 저작권, 연락처 정보등의 정보가 있는 영역임을 말한다. 보통 페이지 하단에 배치하여 사용한다.</footer>
+	 <nav>시멘틱 테그로 메뉴 네비게이션이 있는 영역임을 알린다.</nav>
+	 위에 작성한 시멘틱 영역 태그는 CSS 와 같이 사용하여 Layout 구성을 만들게 된다.
+	 <hr>
+	 <div>
+	 	<!-- iframe : 페이지 안에 페이지가 들어감 -->
+	 	<iframe width="100%" height="250px" src="https://www.iei.or.kr/login/login.kh"></iframe>
+	 </div>
+	 <div>
+	 	<iframe width="560" height="315" src="https://www.youtube.com/embed/m2trIAY8A0k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>>
+	 </div>
+	 <hr>
+	 <img alt="구글 이미지" src="">
+	 <img usemap="#imgmap" alt="구글 이미지" width="240px" src="">
+	 <map name="imgmap">
+	 	<area shape="rect" coords="0,0,120,60" href="http://google.com">
+	 	<area shape="rect" coords="120,0,240,60" href="http://naver.com">
+	 </map>
+</body>
+</html>

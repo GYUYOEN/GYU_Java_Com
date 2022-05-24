@@ -22,6 +22,39 @@ public class DBConn {
 	private String url_address;
 	private Connection conn;
 	private Statement stat;
+	private PreparedStatement pstat;
+	
+	// 파일이 잘 읽히는지 확인
+	// 파일 읽기을 읽어서 데이터베이스와 연결하는 작업
+	public DBConn(File config) throws Exception {
+			Map<String, String> map = new HashMap<String,String>();
+			// StringBuilder sb = new StringBuilder();
+			// FileReader fr = new FileReader(config);
+			BufferedReader br = new BufferedReader(new FileReader(config)); // 보조스트림을 이용하여 줄단위로 분류
+			while(br.ready()) {
+				// sb.append((char)fr.read());
+				String[] keyValue = br.readLine().split("=");
+				map.put(keyValue[0].strip(), keyValue[1].strip()); // "=" 앞뒤 공백 삭제
+			}
+			if(map.get("host") != null) {
+				url_address = String.format("%s:%s/%s", map.get("host"), map.get("port"), map.get("service"));			
+			} else if(map.get("tns_alias") != null) {
+				url_address = String.format("%s?TNS_ADMIN=%s", map.get("tns_alias"), map.get("wallet_path"));
+			} else {
+				System.out.println("DB 연결 파일 구성이 잘못되었습니다.");
+			}
+			this.initConnect(map.get("username"), map.get("password"));
+			// String[] lines = sb.toString.split("\r\n"); // 문자열로 변환, 열로 분류
+			//System.out.println(lines[0]); // 분류된 열 출력
+			//System.out.println(lines[1]);
+			//System.out.println(lines[2]);
+	}
+	
+//	// 파일이 잘 읽히는지 확인
+//	public static void main(String[] args) {
+//		String homePath = System.getProperty("user.home");
+//		DBConn db = new DBConn(new File(homePath + "/oracle_db.conf"));
+//	}
 	
 	// 로컬 or 도커에 연결하는 형식
 	public DBConn(String domain, String port, String serviceName, String username, String password) throws Exception {
@@ -44,32 +77,37 @@ public class DBConn {
 		// true : 자동커밋 사용 , false : 자동커밋 사용x (기본상테 : true)
 		conn.setAutoCommit(false);
 		
-		// 3. Statement 생성
+		// 3. Statement 생성 -> PreparedStatement 로 변경함
 //		stat = conn.createStatement();
 	}
 	
-	public ResultSet sendSelectQuery(String sql) throws Exception {
+	public PreparedStatement getPstat(String sql) throws Exception {
+		pstat = conn.prepareStatement(sql);
+		return pstat;
+	}
+	
+	public ResultSet sendSelectQuery() throws Exception {
 //		ResultSet rs = this.stat.executeQuery(sql);
-		ResultSet rs = this.stat.executeQuery(sql);
+		ResultSet rs = this.pstat.executeQuery();
 		return rs; // 다양하게 활용하기 위해 반환(반환안하면 한가지 형태로만 사용가능)
 	}
 	
 	// 행에 대한 업데이트(n행이 반영되었습니다) -> int(INSERT, DELETE도 같음)
-	public int sendUpdateQuery(String sql) throws Exception {
+	public int sendUpdateQuery() throws Exception {
 //		int rs = this.stat.executeUpdate(sql);
-		int rs = this.stat.executeUpdate(sql);
+		int rs = this.pstat.executeUpdate();
 		return rs;
 	}
 	
-	public int sendInsertQuery(String sql) throws Exception {
+	public int sendInsertQuery() throws Exception {
 //		int rs = this.stat.executeUpdate(sql);
-		int rs = this.stat.executeUpdate(sql);
+		int rs = this.pstat.executeUpdate();
 		return rs;
 	}
 	
-	public int sendDeleteQuery(String sql) throws Exception {
+	public int sendDeleteQuery() throws Exception {
 //		int rs = this.stat.executeUpdate();
-		int rs = this.stat.executeUpdate(sql);
+		int rs = this.pstat.executeUpdate();
 		return rs;
 	}
 	
@@ -84,7 +122,7 @@ public class DBConn {
 	public void close() throws Exception {
 		// 5. 연결 해제
 //		this.stat.close();
-		this.stat.close();
+		this.pstat.close();
 		this.conn.close();
 	}
 
@@ -144,6 +182,32 @@ public class DBConn {
 //		rs.close();
 //		stat.close();
 //		conn.close();
+//	}
+	
+//	// 파일이 잘 읽히는지 확인
+//	// 파일 읽기을 읽어서 데이터베이스와 연결하는 작업
+//	public DBConn(File config) {
+//			Map<String, String> map = new HashMap<String,String>();
+//			// StringBuilder sb = new StringBuilder();
+			// FileReader fr = new FileReader(config);
+//			BufferedReader br = new BufferedReader(new FileReader(config)); // 보조스트림을 이용하여 줄단위로 분류
+//			while(br.ready()) {
+//				// sb.append((char)fr.read());
+//				String[] keyValue = br.readLine().split("=");
+//				map.put(keyValue[0].strip(), keyValue[1].strip()); // "=" 앞뒤 공백 삭제
+//			}
+//			url_address = String.format("%s:%s/%s", map.get("host"), map.get("port"), map.get("service"));
+//			this.initConnect(map.get("username"), map.get("password"));
+//			// String[] lines = sb.toString.split("\r\n"); // 문자열로 변환, 열로 분류
+//			//System.out.println(lines[0]); // 분류된 열 출력
+//			//System.out.println(lines[1]);
+//			//System.out.println(lines[2]);
+//	}
+	
+//	// 파일이 잘 읽히는지 확인
+//	public static void main(String[] args) {
+//		String homePath = System.getProperty("user.home");
+//		DBConn db = new DBConn(new File(homePath + "/oracle_db.conf"));
 //	}
 //	
 //	public static void main(String[] args) throws Exception {
