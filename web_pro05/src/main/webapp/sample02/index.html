@@ -71,6 +71,57 @@
 			text-decoration: underline;
 			text-shadow: 2px 2px 2px blue;
 		}
+		/* 앞에 공간에 글자가 추가로 출력 */
+		.ex8 > .b::before {
+			content: "-";
+		}
+		/* 뒤에 공간에 글자가 추가로 출력 */
+		.ex8 > .a::after {
+			content: ";";
+		}
+		/* 클릭하면 변함 */
+		.ex9 > span:active {
+			border: 1px solid red;
+		}
+		/* 마우스를 올리면 변함 */
+		.ex9 > span:hover {
+			color: red;
+			font-weight: bold;
+		}
+		.ex10 > input {
+			/* 외각선 */
+			outline-style: none;
+			/* 테두리 */
+			border-style: none;
+		}
+		.ex10 > input:enabled {
+			background-color: #EFEFEF;
+		}
+		/* input이 비활성화(disabled) 상태일때  */
+		.ex10 > input:disabled {
+			background-color: black;
+		}
+		/* 입력이 활성화 되어있는 상태, 커서가 깜빡이는 상태 */
+		.ex10 > input:focus {
+			outline: 2px solid blue;
+		}
+		.ex10 > input:checked {
+			box-shadow: 0 0 0 3px red;
+		}
+		.ex11 > a:link {
+			color: red;
+			text-decoration: none;
+		}
+		/* 한번이라도 방문 했으면 아래와 같이 설정 아니면 위와 같이 설정*/
+		.ex11 > a:visited {
+			color: vlolet;
+			font-weight: bold;
+			text-decoration: none;
+		}
+		/* ex12에서 하위 목록이 p이고 그것의 클래스 이름이 t2가 아닌 것(not : 부정) */
+		.ex12 > p:not(.t2) {
+			color: red;
+		}
 		
 	</style>
 </head>
@@ -144,6 +195,33 @@
 	<hr>
 	<div class="ex7">
 		<p>CSS 테이스 페이지 입니다. 다양한 CSS 선택자를 사용하여 태스트를 하고 있습니다.
+	</div>
+	<hr>
+	<div class="ex8">
+		<p class="b">before<p>
+		<p class="a">after</p>
+	</div>
+	<hr>
+	<div class="ex9">
+		<span>active - 클릭을 유지 하세요.</span><br>
+		<span>hover - 마우스를 올려두세요.</span><br>	
+	</div>
+	<div class="ex10">
+		<input type="text"><br>
+		<input type="text"><br>
+		<input type="text" disabled><br>
+		<input type="checkbox">
+		<input type="checkbox">
+		<input type="checkbox" checked>
+	</div>
+	<hr>
+	<div class="ex11">
+		<a href="https://naver.com">네이버</a><br>
+	</div>
+	<div class="ex12">
+		<p class="t1">Hello</p>
+		<p class="t2">Hello</p>
+		<p class="t3">Hello</p>
 	</div>
 </body>
 </html>
