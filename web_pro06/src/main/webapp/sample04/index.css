@@ -1,0 +1,145 @@
+@charset "UTF-8";
+
+*{
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+.test1 > p {
+	display: inline-block;
+	vertical-align: top;
+	width: 200px;
+	height: 200px;
+	padding: 12px;
+	margin: 8px;
+	border: 1px solid black;
+}
+.test1 > .f-right {
+	float: right;
+}
+
+.test2 > p {
+	display: inline-block;
+	vertical-align: top;
+	width: 200px;
+	height: 200px;
+	padding: 12px;
+	margin: 8px;
+	border: 1px solid black;
+}
+
+.test2 > .f-left {
+	float: left;
+}
+
+.test3 > .box {
+	width: 48px;
+	height: 48px;
+	background-color: red;
+	float: left;
+}
+
+.test4 section {
+	width: 75%;
+	height: 360px;
+	background-color: lightcyan;
+	float: right;
+}
+
+.test4 aside {
+	width: 25%;
+	height: 360px;
+	background-color: lightcoral;
+	display: inline-block;
+}
+
+.test5 aside {
+	width: 25%;
+	height: 360px;
+	background-color: lightcoral;
+	display: inline-block;
+}
+
+.test5 section {
+	width: 50%;
+	height: 360px;
+	background-color: lightcyan;
+	display: inline-block;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.clear {
+	/* float을 사용하면 clear해야함(다음요소에 영양이 되지 않도록 하기 위해서) */
+	clear: both;
+}
+
+.test6 {
+	/* column-width: 250px; : 250px 만큼의 다단 생성 */
+	/* 단 갯수 지정 */
+	column-count: 3;
+	/* 단과 단 사이의 여백 */
+	column-gap: 60px;
+	/* 너비, 스타일, 색상 : border랑 똑같음 */
+	column-rule: 1px solid red;
+}
+
+.test7 {
+	column-count: 3;
+	column-rule: 1px solid red;
+}
+
+.test7 > h3 {
+	/* 단을 합침 */
+	column-span: all;
+}
+
+.test8 table, td, th {
+	border: 1px solid black;
+	/* border-collapse: collapse; */
+	/* collapse가 있으면 의미가 없음 */
+	/* 가로 새로 */
+	border-spacing: 8px 16px;
+}
+
+.test8 table {
+	width: 100%;
+	/* 제목 아래에 배치 */
+	caption-side: bottom;
+	table-layout: fixed;
+	word-break: break-all;
+}
+
+.test8 table > caption {
+	/* 오른쪽에 정렬 */
+	text-align: right;
+}
+
+.test8 td, th {
+	text-align: left;
+	vertical-align: top;
+	padding: 6px 12px;
+	/* 셀이 비어있으면 테두리까지 다 빠짐, 공간은 남아있음 */
+	empty-cells: hide;
+	height:auto;
+}
+
+col.w-60 {
+	width: 60px;
+}
+
+col.w-120 {
+	width: 120px;
+}
+
+col.w-240 {
+	width: 350px;
+}
+

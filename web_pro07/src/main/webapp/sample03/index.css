@@ -1,0 +1,119 @@
+@charset "UTF-8";
+
+.test1 {
+	width: 500px;
+	height: 500px;
+	border: 1px solid black;
+	/* 해당 컨테이너를 flex 를 사용하는 영역으로 설정 */
+	display: flex;
+}
+
+.test1 div {
+	/* flex 컨테이너 안의 요소에 대해 부모 요소(.test1)에 맞추어 높이, 너비를 자동 조정(균등) 되도록 함 */
+	/* 0 이라고 하면 안맞춰짐 */
+	flex: 1;
+}
+
+.test2 {
+	width: 500px;
+	height: 300px;
+	border: 1px solid black;
+	display: flex;
+}
+
+.test3 {
+	width: 100%;
+	height: 300px;
+	border: 1px solid black;
+	display: flex;
+}
+
+.test4 {
+	width: 100%;
+	height: 300px;
+	border: 1px solid black;
+	display: flex;
+	/* 어느 방향으로 flex를 적용할 것인지 */
+	/* 기본상태는 row */
+	/* row-reverse(오른쪽에서 왼쪽방향으로), column(위에서 아래), column-reverse(아래에서 위) */
+	flex-direction: row;
+}
+
+/* 브라우저 크기가 0 ~ 500px 이하일 뗴 안에 있는 test4를 실행하라 */
+/* (min-width: 0px) : 생략가능 */
+@media all and (min-width: 0px) and (max-width: 500px) {
+	/* 
+	 * 미디어 쿼리에서 사용하는 min-width, max-width 의미
+	 * min-width <= 브라우저크기 <= max-width
+	 *
+	 * 예)
+	 *		(min-width: 1024px) 만 사용한 경우
+	 * 		1024 <= 브라우저 크기
+	 
+	 *		(max-width: 1024px) 만 사용한 경우
+	 * 		브라우저 크기 <= 1024
+	 *
+	 * 		(min-widthL 640px) and (max-width: 1024px) 인 경우
+	 *		640 <= 브라우저 크기 <= 1024		
+	 */
+	.test4 {
+		width: 100%;
+		height: 300px;
+		border: 1px solid black;
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+.test5 {
+	width: 100%;
+	height: 300px;
+	border: 1px solid black;
+	display: flex;
+	/* 브라우저 화면을 줄였다가 늘였다가 하면서 
+	브라우저 화면이 가득차면 다음행으로 자동이동 */
+	flex-wrap: wrap;
+}
+
+.test3 div {
+	/* 기본 크기를 지정함 */
+	flex-basis: 200px;
+}
+
+/* 부모요소에 맞추어 1:2:3 비율로 나타냄 */
+.g1 {
+	/* 요소애 크기를 비율로 늘리거나 줄이기 위해 사용 */
+	flex-grow: 1;
+}
+
+.g2 {
+	/* 요소애 크기를 비율로 늘리거나 줄이기 위해 사용 */
+	flex-grow: 2;
+}
+
+.g3 {
+	/* 요소애 크기를 비율로 늘리거나 줄이기 위해 사용 */
+	flex-grow: 3;
+}
+
+.sr3 {
+	/* 다른 요소보다 더 많이 줄어들게 만듬(3배 더 많이 줄어듬) */
+	/* 설정해 놓은 기본크기 이하로 줄어들면 적용됨(.test3 div) */ 
+	flex-shrink: 3;
+}
+
+.box-red {
+	background-color: red;
+}
+
+.box-blue {
+	background-color: blue;
+}
+
+.box-green {
+	background-color: green;
+}
+
+.box-normal {
+	border: 1px solid black;
+}

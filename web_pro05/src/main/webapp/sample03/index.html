@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>CSS 적용 순서</title>
+	<link rel="stylesheet" type="text/css" href="./index1.css">
+	<!-- css가 2개고 그곳에 같은 값을 지정한다면 마지막에 있는 링크를 적용 -->
+	<link rel="stylesheet" type="text/css" href="./index2.css">
+	<!-- 실질적으로 head에 써진 순서에 따라 변함 : 제일 밑에 있는게 제일 마지막에 작용 -->
+	<!-- 내부스타일이 맨위로 가면 제일먼저 적용됨 -->
+	<style>
+		h1 {
+			background-color: #EFEFEF;
+			color: green;
+		}
+	</style>
+</head>
+<body>
+	<!-- css가 2개고 그곳에 같은 값을 지정한다면 마지막에 있는 링크를 적용 -->
+	<!-- 병합이라 겹치는게 있으면 변경이 되고 아니면 그대로 적용 -->
+	<h1 style="background-color:lightcoral;">외부 스타일 -> 내부 스타일 -> 
+	인라인 스타일 순으로 병합하여 적용</h1>
+	<h1>CSS 스타일에 !important 키워드가 적용되면 가장 높은 우선순위를 가진다.</h1>
+	<hr>
+	<h2>선택자에 의한 적용 순서</h2>
+	<h2 id="title2" class="txt-blue">태그 선택자 -> class 선택자 -> id 선택자 -> !important</h2>
+	<!-- 적용 순서는 f12 눌러서 개발자모드 킨다음 확인해 보는 방법이 제일 좋음 -->
+</body>
+</html>

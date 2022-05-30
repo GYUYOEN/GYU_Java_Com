@@ -1,0 +1,152 @@
+@charset "UTF-8";
+/* @import url('https://fonts.googleapis.com/css2?family=Grape+Nuts&family=Nanum+Myeongjo&family=Ubuntu:wght@300&display=swap'); */
+
+@font-face {
+	/* src에 지정한 폰트를 "나눔명조"라는 이름으로 사용하게 함 */
+	font-family: "나눔명조";
+	src: url(../static/Nanum_Myeongjo/NanumMyeongjo-Regular.ttf)
+}
+
+* {
+	/* google web font 검색 */
+	/* font-family: "Nanum Myeongjo", serif; */
+	font-family: "나눔명조";
+}
+
+/* 한 요소 : p1, p2, p3 */
+.p1 {
+	font-size: 16px;
+}
+
+/* em : p1의 16px의 2배 크기 (상대적) -> 32px */
+.p2 {
+	font-size: 2em;
+}
+
+/* em : p2의 32px의 2배 크기 -> 64px */
+.p3 {
+	font-size: 2em;
+}
+
+.p4 {
+	font-size: 8px;
+}
+
+/* rem : 기존크기(16px를 기준으로 두배) */
+.p5 {
+	font-size: 2rem;
+}
+
+/* rem : 기존크기(16px를 기준으로 두배) */
+.p6 {
+	font-size: 2rem;
+}
+
+.test1 > .ex1 {
+	font-variant: normal;
+}
+
+.test1 > .ex2 {
+	font-variant: small-caps;
+}
+
+.test2 {
+	font-family: "맑은 고딕";
+}
+
+.test2 > .ex1 {
+	font-style: normal;
+}
+
+.test2 > .ex2 {
+	font-style: italic;
+}
+
+.test2 > .ex3 {
+	font-style: oblique;
+}
+
+.test3 {
+	/* font: font=style font-variant font-weight font-size/line-height font-family */
+	/* line-height: 2 = 48px, 어느것을 써도 상관없음 */
+	font: italic small-caps bold 24px/48px "맑은고딕";
+}
+
+.test4 {
+	/* color: rgba(255, 0, 0, 0.3); */
+	color: #FF000080;
+}
+
+.test5 > .ex1 {
+	text-decoration: underline;
+}
+
+.test5 > .ex2 {
+	text-decoration: overline;
+}
+
+.test5 > .ex3 {
+	text-decoration: line-through;
+}
+
+.test5 > .ex4 > a {
+	text-decoration: none;
+}
+
+.test6 > .ex1 {
+	text-transform: capitalize;
+}
+
+.test6 > .ex2 {
+	text-transform: uppercase;
+}
+
+.test6 > .ex3 {
+	text-transform: lowercase;
+}
+
+.test7 > .ex1 {
+	/* 가로, 세로, 번짐, 섹상 */
+	/* 번짐 : 값이 커질수록 많이 번짐 */
+	text-shadow: 10px 5px 4px red;
+}
+
+.test8 > .ex1 {
+	white-space: pre-wrap;
+}
+
+.test9 > .ex1 {
+	letter-spacing: 20px;
+}
+
+.test9 > .ex2 {
+	/* 공백을 기준으로 단어를 구분 */
+	word-spacing: 20px;
+}
+
+.test10 > .ex1 {
+	/* direction: rt1; */
+	width: 20%;
+	text-align: left;
+	text-indent: 48px;
+	line-height: 24px;
+	
+	white-space: nowrap;
+	overflow: hidden;
+	/* text-overflow를 사용하기 위해서는 위의 두가지 속성을 같이 사용해야 함 */
+	text-overflow: ellipsis;
+}
+
+.test11 > ul {
+	/*
+	list-style-type: none;
+	list-style-image: url(./2577872.png);
+	/* 개발자 모드로 영역구분 확인
+	outside : 아이콘이 padding 영역으로 들어감, content 영역 바깥쪽으로 나감, 왼쪽 공간으로 들어가짐
+	inside : 아이콘이 padding 영역에서 벗어남, content 영역 안쪽으로 들어옴, 둘여쓰기 된것처럼 보임
+	list-style-position: inside;
+	*/
+	list-style: none inside url(./63659.png);
+	/* 크기를 늘릴 수록 padding 영역이 더 커짐, 들여쓰기 크기가 커짐 */
+	padding-inline-start: 80px;
+}

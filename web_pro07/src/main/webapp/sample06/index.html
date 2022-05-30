@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>flex로 이미지 갤러리 구성</title>
+	<link rel="stylesheet" type="text/css" href="./index.css">
+	<script type="text/javascript">
+		window.addEventListener("resize", imageWidth);
+
+		function imageWidth() {
+			gallery = document.getElementById("img_gallery");
+			images = gallery.getElementsByTagName("img");
+			total_height = 0;
+			max_height = 0;
+			for(img of images) {
+				total_height += img.height;
+				if(img.height > max_height) {
+					max_height = img.height;
+				}
+			}
+			// 컬럼 수
+			col = parseInt(window.innerWidth / images[0].width);
+			// 평균 높이.
+			avg_height = total_height / images.length;
+			// 하나의 컬럼에 배치될 평균 이미지 수
+			avg_count = parseInt(images.length / col);
+			gallery.style.height = avg_height * (avg_count + 1) + "px";
+		}
+	</script>
+</head>
+<body onload="imageWidth();">
+	<div id="img_gallery" class="flex-img-gallery">
+		<img src="./img/1.jpg">
+		<img src="./img/2.jpg">
+		<img src="./img/3.jpg">
+		<img src="./img/4.jpg">
+		<img src="./img/5.jpg">
+		<img src="./img/6.jpg">
+		<img src="./img/7.jpg">
+		<img src="./img/8.jpg">
+		<img src="./img/9.jpg">
+		<img src="./img/10.webp">
+		<img src="./img/1.jpg">
+		<img src="./img/2.jpg">
+		<img src="./img/3.jpg">
+		<img src="./img/4.jpg">
+		<img src="./img/5.jpg">
+		<img src="./img/6.jpg">
+		<img src="./img/7.jpg">
+		<img src="./img/8.jpg">
+		<img src="./img/9.jpg">
+		<img src="./img/10.webp">
+		<img src="./img/1.jpg">
+		<img src="./img/2.jpg">
+		<img src="./img/3.jpg">
+		<img src="./img/4.jpg">
+		<img src="./img/5.jpg">
+		<img src="./img/6.jpg">
+		<img src="./img/7.jpg">
+		<img src="./img/8.jpg">
+		<img src="./img/9.jpg">
+		<img src="./img/10.webp">
+	</div>
+</body>
+</html>

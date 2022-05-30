@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+* {
+	margin: 0; padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: black;
+}
+
+.flex-img-gallery {
+	display: flex;
+	flex-wrap: wrap;
+	/* 위에서 아래로 사진이 배치되는데 이때 너비는 고정이고 높이는 원래높이 반영 */
+	flex-direction: column;
+	/* vw : viewpoint width(브라우저의 너비) -> 높이에 지정 */
+	/* 지정해준 한게에 도달하면 오른쪽으로 출력 */
+	height: 100vw;
+}
+
+
+@media screen and (max-width: 500px) {
+	/*
+	.flex-img-gallery {
+		height: 100%;
+	}
+	*/
+	
+	.flex-img-gallery img {
+		display: inline-block;
+		/* 컬럼 1개 */
+		width: 100%;
+	}
+}
+
+@media screen and (min-width: 501px) and (max-width: 960px) {
+	/*
+	.flex-img-gallery {
+	   -- vw (viewpoint width) : 높이 고정 -> 높이 한계에 도달하면 오른쪽으로 이동 --
+			height: 200vw;
+		}
+	*/
+	
+	.flex-img-gallery img {
+		display: inline-block;
+		/* 컬럼 2개 */
+		width: 50%;
+	}	
+}
+
+@media screen and (min-width: 961px) and (max-width: 1200px) {
+	/*
+	.flex-img-gallery {
+			height: 200vw;
+	}
+	*/
+	
+	.flex-img-gallery img {
+		display: inline-block;
+		/* 컬럼 3개 */
+		width: 33.3%;
+	}	
+}
+
+@media screen and (min-width: 1200px) {
+	/*
+	.flex-img-gallery {
+		height: 200vw;
+	}
+	*/
+	
+	.flex-img-gallery img {
+		display: inline-block;
+		/* 컬럼 4개 */
+		width: 25%;
+	}	
+}

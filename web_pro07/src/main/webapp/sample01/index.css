@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+nav ul.top-menu {
+	list-style-type: none;
+	background-color: black;
+}
+
+ul.top-menu li, a {
+	display: inline-block;
+}
+
+ul.top-menu a.menu-link {
+	text-decoration: none;
+	color: white;
+	padding: 1em 1em;
+}
+
+ul.top-menu a.menu-link:hover {
+	background-color: white;
+	color: black;
+}
+
+ul.top-menu .active {
+	background-color: gray;
+	color: black;
+}
+
+ul.side-menu {
+	list-style-type: none;
+	background-color: black;
+	width: 480px;
+	padding: 0;
+}
+
+ul.side-menu a.menu-link {
+	/* 기본적으로 li는 블럭인데 a는 인라인  */
+	display: block;
+	text-decoration: none;
+	color: white;
+	padding: 1em;
+}
+
+ul.side-menu a.menu-link:hover {
+	background-color: white;
+	color: black;
+}
+
+/* 사용자가 현재 어떤 메뉴에 위치하고 있는지 알수있게 활성화  */
+ul.side-menu .active {
+	background-color: gray;
+	color: black;
+}

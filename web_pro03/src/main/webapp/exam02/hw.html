@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Date and time formats used in HTML</h1>
+	
+	<p>Certain HTML elements use date and/or time values. The formats of the strings that specify these values are described in this article.</p>
+	
+	<!-- &lt;, &gt; : 왼쪽, 오른쪽 꺽새(<>)  -->
+	<!-- link를 어디로 보내야 할지 모를 때는 #만 넣어줌 -->
+	<p>Elements that use such formats include certain forms of the <a href="#">&lt;input&gt;</a>
+	element that let the user choose or specify a date, time, or both, as well
+	as the <a href="#">&lt;ins&gt;</a> and <a href="#">&lt;del&gt;</a> elements, whose <a href="#">&lt;datetime&gt;</a> attribute specifies 
+	the date or date and time at which the insertion or deletion of content 
+	occurred.</p>
+
+	<p>]For &lt;input&gt;, the values of <a href="#">type</a> that return a value which contains a
+	string representing a date and/or time are:</p>
+	<ul>
+		<li><a href="#">date</a></li>
+		<li><a href="#">datetime-local</a></li>
+		<li><a href="#">month</a></li>
+		<li><a href="#">time</a></li>
+		<li><a href="#">week</a></li>
+	</ul>
+	<h2>Examples</h2>
+	<p>Before getting into the intricacies of how date and time strings are written and parsed in HTML, here are some examples that should give you a good idea what the more commonly-used date and time string formats look like.</p>
+	
+	<table border ="1">
+		<caption><b>Example HTML date and time strings</b></caption>
+			<tr>
+				<th>String</th>
+				<th colspan="2" >Date and/or time</th>
+			</tr>
+			<tr>
+				<td>2005-06-07</td>
+				<td>June 7, 2005</td>
+				<td><a href="#">[details]</a></td>
+			</tr>
+			<tr>
+				<td>08:45</td>
+				<td>8:45 AM</td>
+				<td><a href="#">[details]</a></td>
+			</tr>
+			<tr>
+				<td>08:45:25</td>
+				<td>8:45 AM and 25 seconds</td>
+				<td><a href="#">[details]</a></td>
+			</tr>
+			<tr>
+				<td>0033-08-04T03:40</td>
+				<td>3:40 AM on August 4, 33</td>
+				<td><a href="#">[details]</a></td>
+			</tr>
+			<tr>
+				<td>1977-04-01T14:00:30</td>
+				<td>30 seconds after 2:00 PM on April 1, 1977</td>
+				<td><a href="#">[details]</a></td>
+			</tr>
+			<tr>
+				<td>1901-01-01T00:00Z</td>
+				<td>Midnight UTC on January 1, 1901</td>
+				<td><a href="#">[details]</a></td>
+			</tr>
+			<tr>
+				<td>1901-01-01T00:00:01-04:00</td>
+				<td>1 second past midnight Eastern Standard<br> 
+				Time (EST) on January 1, 1901</td>
+				<td><a href="#">[details]</a></td>
+			</tr>
+	</table>
+		
+	<h2>Basics</h2>
+	<p>Before looking at the various formats of date and time related strings used by HTML elements, it is helpful to understand a few fundamental facts about the way they're defined. HTML uses a variation of the ISO 8601 standard for its date and time strings. It's worth reviewing the descriptions of the formats you're using in order to ensure that your strings are in fact compatible with HTML, as the HTML specification includes algorithms for parsing these strings that is actually more precise than ISO 8601, so there can be subtle differences in how date and time strings are expected to look.</p>
+		
+	<h3>Character set</h3>
+	<p>Dates and times in HTML are always strings which use the ASCII character set.</p>
+		
+	<h3>Year numbers</h3>
+	<p>In order to simplify the basic format used for date strings in HTML, the specification requires that all years be given using the modern (or proleptic) Gregorian calendar. While user interfaces may allow entry of dates using other calendars, the underlying value always uses the Gregorian calendar.</p>
+		
+	<p>While the Gregorian calendar wasn't created until the year 1582 (replacing the similar Julian calendar), for HTML's purposes, the Gregorian calendar is extended back to the year 1 C.E. Make sure any older dates account for this.</p>
+		
+	<p>For the purposes of HTML dates, years are always at least four digits long; years prior to the year 1000 are padded with leading zeroes ("0"), so the year 72 is written as 0072. Years prior to the year 1 C.E. are not supported, so HTML doesn't support years 1 B.C.E. (1 B.C.) or earlier.</p>
+		
+	<p>A year is normally 365 days long, except during leap years.</p>
+		
+	<h4>Leap years</h4>
+	<p>A leap year is any year which is divisible by 400 or the year is divisible by 4 but not by 100. Although the calendar year is normally 365 days long, it actually takes the planet Earth approximately 365.2422 days to complete a single orbit around the sun. Leap years help to adjust the calendar to keep it synchronized with the actual position of the planet in its orbit. Adding a day to the year every four years essentially makes the average year 365.25 days long, which is close to correct.</p>
+		
+	<p>The adjustments to the algorithm (taking a leap year when the year can be divided by 400, and skipping leap years when the year is divisible by 100) help to bring the average even closer to the correct number of days (365.2425 days). Scientists occasionally add leap seconds to the calendar (seriously) to handle the remaining three ten-thousandths of a day and to compensate for the gradual, naturally occurring slowing of Earth's rotation.</p>
+	<p>While month 02, February, normally has 28 days, it has 29 days in leap years.</p>
+		
+	<h3>Months of the year</h3>
+	<p>There are 12 months in the year, numbered 1 through 12. They are always represented by a two-digit ASCII string whose value ranges from 01 through 12. See the table in the section Days of the month for the month numbers and their corresponding names (and lengths in days).</p>
+		
+	<h3>Days of the month</h3>
+	<p>Month numbers 1, 3, 5, 7, 8, 10, and 12 are 31 days long. Months 4, 6, 9, and 11 are 30 days long. Month 2, February, is 28 days long most years, but is 29 days long in leap years. This is detailed in the following table.</p>
+</body>
+</html>

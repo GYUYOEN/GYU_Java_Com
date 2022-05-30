@@ -6,41 +6,70 @@
 </head>
 <body>
 	<form id="f1" action="./run.jsp" method="GET">
+		<!-- form="f1" : form 밖에 위치해도 위 form이랑 연결되어 있음을 알려줌 -->
 		<fieldset form="f1">
 			<legend>구역 1</legend>
+			<!-- label : 앞에 글자가 들어감 -->
+			<!-- label-for, input-id : 연결시켜 줌으로써 label(값1)을 누르면 input이 활성화됨 -->
 			<label for="id_input1">값1</label>
+			<!-- form="f1"과 연결이 되는 것은 다 작성해줘야 함 -->
+			<!-- required : 전송할 때 작성이 안되어 있으면 필수입력으로 체크함 -->
+			<!-- size="12" : 12자 입력할 수 있는 사이즈로 맞춰줌 -->
 			<input form="f1" id="id_input1" type="text" maxlength="12" size="12" name="v1" value="초기값" required>
 		</fieldset>
 		<fieldset>
 			<legend>구역 2</legend>
 			<label for="id_input2">값2</label>
-			<input type="password" minlength="4" maxlength="12" size="12" name="pass" value="초기값"><br>
-			<input id="id_input2" type="text" name="v2" value="읽기전용 readonly" readonly><br>
+			<!-- text와 password에 value를 설정하면 내가 지정한 값으로 초기값이 설정됨 -->
+			<!-- 일반 택스트에 대해 최소값, 최대값을 지정해주고 싶으면 length를 같이 써줘야 함 -->
+			<input id="id_input2" type="password" minlength="4" maxlength="12" size="12" name="pass" value="초기값"><br>
+			<!-- readonly : 읽기만 가능 -->
+			<input type="text" name="v2" value="읽기전용 readonly" readonly><br>
+			<!-- disabled : 아무런 반응이 없음(비활성화), 데이터 전송도 안됨, url에 표시안됨 -->
 			<input type="text" name="v3" value="비활성 disabled" disabled><br>
+			<!-- hidden은 전송이 됨 -->
 			<input type="hidden" name="v4" value="숨김"><br>
+			<!-- step : 숫자가 2단씩 올라감 -->
+			<!-- 두 n1과 n2를 서로 연동해서 사용 가능 (oninput 사용) -->
 			<input id="n1" type="number" min="10" max="100" step="2" name="v5" oninput="n2.value = this.value"><br>
-			<input id="n2" type="range" min="1" max="99" name="v6" oninput="n1.value = this.value"><br>
+			<input id="n2" type="range" min="1" max="99" name="v6" oninput="n1.value = this.value"><br> <!-- oninput="p1.value = this.value" -->
+			<!-- <output id="p1"></output> : 범위의 값을 드러냄 -->
+			<!-- chk1로 하나의 그룹이 묶임 -->
+			<!-- checked 옵션을 사용하면 초기 선책된 항목으로 설정됨 -->
+			<!-- for, id의 경우 checkbox 와 radio에 쓰면 좋음 : 체크하기가 훨씬 수월함 -->
 			<label for="id_chk1">체크1</label><input id="id_chk1" type="checkbox" name="chk1" value="a" checked>
 			<label for="id_chk2">체크2</label><input id="id_chk2" type="checkbox" name="chk1" value="b">
 			<label for="id_chk3">체크3</label><input id="id_chk3" type="checkbox" name="chk1" value="c"><br>
+			<!-- checkbox와 다르게 하나만 체크 가능, rdo1로 하나의 그룹이 묶임 -->
 			<label for="id_rdo1">라디오1</label><input id="id_rdo1" type="radio" name="rdo1" value="a">
 			<label for="id_rdo2">라디오2</label><input id="id_rdo2" type="radio" name="rdo1" value="b">
 			<label for="id_rdo3">라디오3</label><input id="id_rdo3" type="radio" name="rdo1" value="c" checked><br>
+			<!-- 날짜만 -->
 			<input type="date" name="d1" min="2022-01-01" max="2022-12-31" value="2022-05-23"><br>
+			<!-- 시간만 -->
 			<input type="time" name="d2" min="06:00:00" max="15:59:59" value="12:30:00"><br>
+			<!-- 년, 월만 -->
 			<input type="month" name="d3" value="2022-05"><br>
+			<!-- 날짜, 시간 다 -->
 			<input type="datetime-local" name="d4" value="2022-05-23T00:30:30"><br>
+			<!-- search : 입력하면 옆에 x 표시가 뜨는데 누르면 초기화 됨 -->
 			<input type="search" name="v7"><br>
 			<input type="url" name="v8"><br>
 			<input type="email" name="v9"><br>
+			<!-- 기본 패턴체크가 업으므로 페턴지정(스마트폰으로 접속할때는 키패드가 번호판 형식으로 바뀜) -->
 			<input type="tel" name="v10" pattern="010-[0-9]{4}-[0-9]{4}"><br>
+			<!-- 버튼만 생성 -->
 			<input type="button" value="일반버튼"><br>
+			<!-- 버튼 누르면 전송 -->
 			<input type="submit" value="전송버튼"><br>
+			<!-- 버튼 누르면 작성했던 내용들 초기화 -->
 			<input type="reset" value="초기화"><br>
 			<!-- input보다 button이 디자인 적용할때 다채로운 디자인을 사용가능, input은 디자인에 제약이 있음 -->
 			<button type="button">일반버튼</button><br>
 			<button type="submit">전송버튼</button><br>
 			<button type="reset">초기화</button><br>
+			<!-- 목록을 만들어줌 -->
+			<!-- placeholder : 힌트표기(값 x) -->
 			<input type="text" list="data_list1" placeholder="클릭하여 선택하세요.">
 			<datalist id="data_list1">
 				<!-- Option 1 : 실제값 -->
@@ -48,16 +77,29 @@
 				<option value="Option 2"></option>
 				<option value="Option 3"></option>
 			</datalist><br>
+			
+			<!-- 색상선택, 어떤 브라우저로 실행하냐에 따라 모양이 다름 -->
+			<!-- oninput : 색상코드를 출력할 수 있게 해줌 -->
 			<input type="color" oninput="c1.value = this.value">
 			<input id="c1" type="text" readonly><br>
-			<input type="file" name="v12" accept="image/png, image/jpeg"><br> <!-- form 태그 속성에 enctype="multipart/form-data" 추가해야함 method="POST" 로 사용 -->
+			<!-- 파일 업로드 -->
+			<!-- form 태그 속성에 enctype="multipart/form-data" 추가해야함 method="POST" 로 사용 -->
+			<!-- accept : 초기에 보이는게 작성한 것만 선택 가능하게 함(바꿀 수 있음) -->
+			<input type="file" name="v12" accept="image/png, image/jpeg"><br>
+			<!-- multiple : 파일 여러개 선택 가능 -->
 			<input type="file" name="v13" multiple><br>
+			<!-- datalist랑 비슷, 선택목록 표기 -->
 			<select name="v14">
+				<!-- 실제 전송되는 값은 value 임, '값 선택1'이 아님 -->
 				<option value="a">값 선택 1</option>
+				<!-- selected : 초기값 설정 -->
 				<option value="b" selected>값 선택 2</option>
 				<option value="c">값 선택 3</option>
 			</select><br>
+			<!-- size : 한 화면에 보여지는 크기(4 : 그룹1, 선택1, 선택2, 선택3 -->
+			<!-- multiple : 여러개 선택가능 -->
 			<select name="v15" size="8" multiple>
+				<!-- optgroup : 그룹으로 나눠져서 목록표기 -->
 				<optgroup label="그룹1">
 					<option value="a">값 선택 1</option>
 					<option value="b" selected>값 선택 2</option>
@@ -69,9 +111,15 @@
 					<option value="f">값 선택 3</option>
 				</optgroup>
 			</select><br>
+			<!-- input의 경우 한중밖에 작성이 안되는데 textarea는 여러줄 작성 가능 -->
+			<!-- cols(25자) 와 rows(10줄) 를 사용하여 한화면에 textarea를 보여줄 초기 크기 설정 가능  -->
+			<!-- textarea 는 크기 조정이 가능한데 style="resize: none" 사용하면 크기조정이 안되게함 -->
 			<textarea cols="25" rows="10" name="v16" style="resize: none;">여기에 초기값을 설정 value 속성을 필요 없음</textarea>
 		</fieldset>
 		<button form="f1" type="submit">전송</button>
 	</form>
+	<!-- 태그 종류의 경우 mozilla 사이트 이용하면 됨 -->
+	<!-- 혁신 -> MDN Web Docs -> html -> html 요소 참고서 -->
+	<!-- 아니면 w3school-->
 </body>
 </html>

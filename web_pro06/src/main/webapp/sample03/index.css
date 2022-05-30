@@ -1,0 +1,149 @@
+@charset "UTF-8";  
+
+*{
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+.test1 > .ex1 {
+	width: 120px;
+	height: 100px;
+	margin: 12px;
+	padding: 12px;
+	/* top, right, bottom, left (시계방향) */
+	/* border-style: solid dashed dotted double; */
+	
+	/* border-style: solid; */
+	/* border-bottom-style: solid;*/
+	
+	/* border-width: 1px; */
+	
+	/* top/bottom, left/right */
+	/* border-width: 1px 2px; */
+	/* border-top-width: 2px; */
+	
+	/* border-color: blue; */
+	border: 1px solid blue;
+	/* 값을 키울수록 동그래짐 */
+	/* 원 모양처럼 만들고 싶으면 높이와 넓이의 크기가 같게 설정하거나 border-radius: 50% 로 작성*/
+	border-radius: 5px;
+	/* 가로, 세로, 흐림, 번짐(그림자 영역이 커짐), 색상 */
+	/* inset을 쓰면 안쪽으로 그림자가 생성 */
+	box-shadow: 10px 10px 10px 10px lightskyblue;
+}
+
+.test2 > * {
+	display: inline-block;	
+}
+
+.test2 > p {
+	border: 1px solid black;
+	padding: 4px; margin: 4px;
+}
+
+.test2 > .rel {
+	position: relative;
+	/* top: 24px; : 위에서 24px 떨어진 위치*/
+	/* left: 24px; */
+	 right: 24px; 
+	 bottom: 24px; 
+}
+
+.test3 {
+	/* relative를 설정 안하면 전체 body 영역을 기준으로 봄 (위에 생성됨) */
+	/* relative를 어느 조상에 위치시키느냐에 따라 달라짐 */
+	position: relative;
+}
+
+.test3 > * {
+	display: inline-block;	
+}
+
+.test3 > p {
+	border: 1px solid red;
+	padding: 4px; margin: 4px;
+}
+
+.test3 > .abs {
+	/* test3 영역 안에서 적용 */
+	position: absolute;
+	top: 24px;
+	left: 24px; 
+	/* right: 24px; */
+	/* bottom: 24px; */
+}
+
+.test4 > * {
+	display: inline-block;	
+}
+
+.test4 > p {
+	border: 1px solid blue;
+	padding: 4px; margin: 4px;
+}
+
+.test4 > .fix {
+	position: fixed;
+	/* top: 24px; */
+	/* left: 24px; */
+	right: 24px;
+	bottom: 24px;
+}
+
+.test5 {
+	margin-bottom: 64px;
+}
+
+.test5 > * {
+	display: inline-block;	
+}
+
+.test5 > p {
+	border: 1px solid blue;
+	padding: 4px; margin: 4px;
+}
+
+.test5 > .ex1 {
+	/* display: none 쓰면 영역도 같이 사라짐 (hidden은 영역이 살아있음) */
+	visibility: visible;
+}
+
+.test6 > table, td {
+	border: 1px solid black;
+}
+
+.test6 .collapse {
+	/* 특정 컬럼을 숨겨지게 만들어줌, 공간은 남아 있음 */
+	visibility: collapse;
+}
+
+.test7 {
+	position: relative;
+}
+
+.test7 > p {
+	position: absolute;
+	width: 80px;
+	height: 80px;
+}
+
+.test7 > .z1 {
+	background-color: lightcyan;
+	/* 깂이 낮을수록 뒤로, 높을수록 앞으로 이동 */
+	z-index: 2;
+}
+
+.test7 > .z2 {
+	background-color: lightcoral;
+	top: 24px;
+	left: 23px;
+	z-index: 1;
+}
+
+.test7 > .z3 {
+	background-color: lightgreen;
+	top: 48px;
+	left: 48px;
+	z-index: 3;
+}

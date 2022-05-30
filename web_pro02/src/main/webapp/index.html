@@ -495,8 +495,14 @@
 	 	<iframe width="560" height="315" src="https://www.youtube.com/embed/m2trIAY8A0k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>>
 	 </div>
 	 <hr>
-	 <img alt="구글 이미지" src="">
-	 <img usemap="#imgmap" alt="구글 이미지" width="240px" src="">
+	 <!-- alt : 이미지가 제대로 출력안될 경우 대체 문자열 -->
+	 <!-- 이미지 주소 복사 (외부경로) -->
+	 <img alt="구글 이미지" src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+	 <br>
+	 <!-- 이미지 다른이름으로 저장 후 현재 위치에서 내부 경로, 이미지 위치 지정 (내부경로) -->
+	 <img usemap ="#imgmap" alt="구글 이미지" width="240px" src="./googlelogo_color_272x92dp.png">
+	 <!-- 사각형(rect) 영역설정하여 이미지에 이 영역을 클릭하면 해당 링크로 이동 -->
+	 <!--  coords=(x,y),(x,y),... : 첫번째 좌표에서 두번째 죄표까지 사각형을 그림 -->
 	 <map name="imgmap">
 	 	<area shape="rect" coords="0,0,120,60" href="http://google.com">
 	 	<area shape="rect" coords="120,0,240,60" href="http://naver.com">

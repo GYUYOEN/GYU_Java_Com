@@ -1,0 +1,19 @@
+@charset "EUC-KR";
+
+h1 {
+	color: red !important;
+	font-size: 48px;
+}
+
+h2 {
+	color: red;
+	font-size: 48px;
+}
+
+.txt-blue {
+	color: blue;
+}
+
+#title2 {
+	color: green;
+}

@@ -30,7 +30,7 @@
 		h6 {
 			font-size: 20px;
 		}
-		main_title {
+		#main_title {
 			border-bottom: 6px double black;
 		}
 		.red {
@@ -39,48 +39,60 @@
 		.blue {
 			color: blue;
 		}
+		
+		/* 여기서는 적용이 안되어 있어도 브라우저에 개발자 모드를 사용하면 tbody가 적용되어 있음 */
 		table > tbody > tr {
 			background-color: #BFBFBF;
 		}
+		
 		table td {
 			/* padding: 여백을 주기 위해 */
 			padding: 12px;
 		}
+		
+		/* td + td 를 할 경우 3열까지 다 빨간색으로 변하게 됨 */
 		th + td {
 			color: red;
 		}
 		th ~ td {
 			font-size: 12px;
 		}
-		/* required를 포함한 것에 적용 */
+		
+		/* required 라는 속성을 포함하고 있으면 적용 */
 		[required] {
 			background-color: #EFEFEF;
 		}
-		/* 일치 */
+		
+		/* 정확하게 일치 */
 		[type=number] {
 			color: red;
 		}
-		/* 공백을 구분자로 포함 */
+		
+		/* 공백을 구분자로 포함하면 두개다 적용 시켜줌 */
 		[class~=bgred] {
 			background-color: red;
 		}
 		[class~=fgwhite] {
 			color: white;
 		}
-		/* user를 포함하면서 '-'까지 인식 (user-) */
+		
+		/* user를 포함하면서 '-'까지 인식 (user-), '-'까지 포함되어야 함 */
 		[name|=user] {
 			font-weight: bold;
 		}
-		/* 접두사 */
+		
+		/* 접두사(앞에 id 붙어 있으면 적용) */
 		[id^=id] {
 			background-color: blue;
 			color: white;
 		}
-		/* 접미사 */
+		
+		/* 접미사(뒤에 id 붙어 있으면 적용) */
 		[id$=id] {
 			color: orange;
 		}
-		/* 앞에 있든 중간에 있든 뒤에 있든 포함만 하면 됨 */
+		
+		/* 앞에 있든 중간에 있든 뒤에 있든 혼자 있든 포함만 하면 됨 */
 		[name*=green] {
 			color: green;
 			font-weight: bold;
@@ -88,6 +100,7 @@
 	</style>
 </head>
 <body>
+	<!-- id 랑 class 같이 적용 가능 -->
 	<h1 id="main_title" class="red">제목1</h1>
 	<h2 class="red">제목2</h2>
 	<h3 class="red">제목3</h3>

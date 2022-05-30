@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+* {
+	box-sizing: border-box;
+}
+
+.flex-menu .menu {
+	/* display: flex; : media쿼리를 안쓰고 이거를 썼을 경우 효과가 달라짐(tablet 효과) */
+	display: flex;
+}
+
+.flex-menu .menu-item {
+	/* flex-basis: 245px; : media쿼리를 안쓰고 이거를 썼을 경우 효과가 달라짐(tablet 효과) */
+	flex-grow: 1;
+}
+
+
+@media screen and (max-width: 500px) {
+	.flex-menu .menu {
+		/* 500px이하로 떨어지면 가로에서 세로 형태로 바뀜 */ 
+		flex-wrap: wrap;
+		/* flex-direction: clolumn; 써도됨 */
+	}
+	
+	.flex-menu .menu-item {
+		/* wrap을 사용할려면 기본크기가 지정되어있어야함 */
+		/* flex-direction: clolumn; 을 사용했을 때는 안써도됨 */ 
+		flex-basis: 480px;
+	}
+}
+
+
+ul.menu {
+	list-style-type: none;
+	padding: 0;
+}
+
+.menu .menu-item {
+	/* display: inline-block; */
+	text-align: center;
+	width: 120px;
+}
+.menu-link {
+	/* link는 기본 display가 inline이라서 
+	inline의 경우 padding영역이 제대도 지정이 안됨으로 써줘야험 */
+	display: inline-block;
+	text-decoration: none;
+	padding: 1rem 2rem;
+	width: 100%;
+}
+
+.bg-red {
+	background-color: red;
+}
+
+.bg-red :hover {
+	background-color: darkred;
+}
+
+.fg-white * {
+	color: white;
+}
+
+.fg-white :hover {
+	color: white;
+	font-weight: bold;
+}
