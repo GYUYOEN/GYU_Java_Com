@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>네이버 : 회원가입</title>
+	<link rel="stylesheet" type="text/css" href="./index.css">
+	<!-- google icon link 복사 -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<h1 class="logo-title">NAVER</h1>
+	</header>
+	<section class="content-center w580">
+		<form>
+			<div class="form-control">
+				<label class="form-label">아이디</label>
+				<input class="form-input" type="text">
+			</div>
+			<div class="form-control">
+				<label class="form-label">비밀번호</label>
+				<div class="form-input-icon">
+					<input class="form-input" type="password">
+					<span class="material-icons-outlined">lock</span>
+				</div>
+			</div>
+			<div class="form-control">
+				<label class="form-label">비밀번호 재확인</label>
+				<div class="form-input-icon">
+					<input class="form-input" type="password">
+					<span class="material-icons-outlined">lock</span>
+				</div>
+			</div>
+			<br>
+			<div class="form-control">
+				<label class="form-label">이름</label>
+				<input class="form-input" type="text">
+			</div>
+			<!-- input요인이 여러개 있어서 다른 class 지정 -->
+			<div class="form-control-inline">
+				<label class="form-label">생년월일</label>
+				<input class="form-input" type="text" placeholder="년(4자리)">
+				<!-- form-control-inline은 inline-block이 적용되서 한번더 감싸 flex가 적용될 수 있도록 한다. -->
+				<div class="input-group">
+					<div class="form-input-icon">
+						<select class="form-input">
+							<option>월</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+						<span class="material-icons-outlined">expand_more</span>
+					</div>
+				</div>
+				<input class="form-input" type="text" placeholder="일"><br>
+			</div>
+			<div class="form-control">
+				<label class="form-label">성별</label><br>
+				<select class="form-input">
+					<option>성별</option>
+					<option value="M">남자</option>
+					<option value="F">여자</option>
+					<option>선택없음</option>
+				</select>
+			</div>
+			<div class="form-control">
+				<label class="form-label">본인 확인 이메일(선텍)</label>
+				<input class="form-input" type="text" placeholder="선택입력">
+			</div>
+			<br>
+			<div class="form-control-group">
+				<label class="form-label">휴대전화</label>
+				<div class="form-input-icon">
+					<select class="form-input">
+						<option value="+224">가나 +224</option>
+						<option value="+374">아르메니아 +374</option>
+						<option value="+92">파티스탄 +92</option>
+						<option value="+82" selected>대한민국 +82</option>
+						<option value="+49">독일 +49</option>
+					</select>
+					<span class="material-icons-outlined">expand_more</span>
+				</div>
+				<div class="input-group">
+					<!-- 두개가 한줄에 나와야 하기 때문에 div로 다시 묶어줌 -->
+					<div class="form-control-flex">
+						<input class="form-input g4" type="text" placeholder="전화번호 입력">
+						<button class="btn btn-green" type="button">인증번호 받기</button>
+					</div>	
+				</div>
+				<input class="form-input" type="text" placeholder="인증번호 입력하세요" disabled>
+			</div>
+			<div class="form-control">
+				<button class="btn btn-block btn-green" type="button">가입하기</button>
+			</div>
+		</form>
+	</section>
+	<footer class="content-center w580 mg-b-1">
+		<div class="text-center">
+			<a href="#">이용약관</a> | 
+			<a href="#"><b>개인정보처리방침</b></a> | 
+			<a href="#">책임의 한계와 법적고지</a> | 
+			<a href="#">회원정보 고객센터</a>
+		</div>
+	</footer>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="./index.css">
+</head>
+	<section class="container content-center">
+		<div class="table-option align-right">
+			<div class="notice-hide">
+				<!-- for, id로 연결하여 label을 눌러도 체크될 수 있게함 -->
+				<input id="id_notice_hide_chk" type="checkbox">
+				<label for="id_notice_hide_chk"></label>
+				<label for="id_notice_hide_chk">공지 숨기기</label>
+			</div>
+			<span class="separator"></span>
+			<div class="list-type">
+				<span class="material-symbols-outlined">view_agenda</span>
+				<span class="material-symbols-outlined">grid_view</span>
+				<span class="material-symbols-outlined">article</span>
+			</div>
+			<div class="list-view-count">
+				<select class="list-view-select">
+					<option class="list-view-option">5개씩</option>
+					<option class="list-view-option">10개씩</option>
+					<option class="list-view-option">15개씩</option>
+					<option class="list-view-option">20개씩</option>
+					<option class="list-view-option">30개씩</option>
+					<option class="list-view-option">40개씩</option>
+					<option class="list-view-option">50개씩</option>
+				</select>
+			</div>
+		</div>
+		<div>
+			<table>
+				<thead>
+					<tr>
+						<th colspan="2">제목</th>
+						<th>작성자</th>
+						<th>작성일</th>
+						<th>조회</th>
+						<th>좋아요</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>추천</td>
+						<td>봉자네 소소한 나눔 감사합니다 [59]</td>
+						<td>봉자</td>
+						<td>2022.05.25</td>
+						<td>428</td>
+						<td>35</td>
+					</tr>
+					<tr>
+						<td>추천</td>
+						<td>(마감)흑청 레깅스 [27]</td>
+						<td>철학이</td>
+						<td>2022.05.25</td>
+						<td>569</td>
+						<td>30</td>
+					</tr>
+					<tr>
+						<td>추천</td>
+						<td>얼큰이를 위한 초특대형 마스크및 발송현황 [28]</td>
+						<td>세 뺌</td>
+						<td>2022.05.24</td>
+						<td>257</td>
+						<td>30</td>
+					</tr>
+					<tr>
+						<td>92032660</td>
+						<td>원단무료나눔(생지 불량 땡처리원단)</td>
+						<td>과실수</td>
+						<td>09:22</td>
+						<td>37</td>
+						<td>0</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<div>
+				<ul class="paging-list align-center">
+					<li class="paging-item active">
+						<a href="#">1</a>
+					</li>
+					<li class="paging-item">
+						<a href="#">2</a>
+					</li>
+					<li class="paging-item">
+						<a href="#">3</a>
+					</li>
+					<li class="paging-item">
+						<a href="#">4</a>
+					</li>
+					<li class="paging-item">
+						<a href="#">5</a>
+					</li>
+					<li class="paging-item">
+						<a href="#">6</a>
+					</li>
+					<li class="paging-item">
+						<a href="#">7</a>
+					</li>
+					<li class="paging-item">
+						<a href="#">8</a>
+					</li>
+					<li class="paging-item">
+						<a href="#">9</a>
+					</li>
+					<li class="paging-item">
+						<a href="#">10</a>
+					</li>
+					<li class="paging-item next-item">
+						<a href="#">다음</a>
+					</li>
+				</ul>
+			</div>
+			<div>
+				<select>
+					<option>전체기간</option>
+					<option>1일</option>
+					<option>1주</option>
+					<option>1개월</option>
+					<option>6개월</option>
+					<option>1년</option>
+					<optgroup label="기간입력">
+						<option></option>
+					</optgroup>
+				</select>
+				<select>
+					<option>제목만</option>
+					<option>글작성자</option>
+					<option>댓글내용</option>
+					<option>댓글작성자</option>
+				</select>
+				<input type="text" placeholder="검색어를 입력해주세요.">
+				<button type="button">검색</button>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
