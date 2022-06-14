@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>자바스크립트 - 배열</title>
+	<link rel ="stylesheet" type="text/css" href="../static/css/sample01.css">
+</head>
+<body>
+	<h1>배열</h1>
+	<p id="res1"></p>
+	<hr>
+	<h2>문제 1</h2>
+	<p>
+		다음의 input 요소에 있는 값을 배열로 만들어 exam1 에 출력<br>
+		출력형식은 ['a', 'b', 'c', 'd', 'e'] 와 같이 대괄호 안에 값이 출력되도록 한다.
+	</p>
+	<div>
+		<input id="id_input1" type="text" value="a, b, c, d, e" readonly>
+	</div>
+	<p id="exam1"></p>
+	<hr>
+	<h2>문제 2</h2>
+	<p>
+		다음의 input 요소에 있는 값을 문제 1에서 만든 배열에 추가 후 출력<br>
+		출력형식은 문제 1과 동일한다.
+		추가로 input 요소에 있는 값의 총 합을 구하여 배열에 추가도 한다.
+	</p>
+	<div>
+		<input id="id_input2" type="text" value="10, 20, 30, 40" readonly>
+	</div>
+	<p id="exam2"></p>
+</body>
+	<!-- script 를 head 에 썼을 경우 id가 안읽힘 -> null 값으로 출력됨  -->
+	<script type ="text/javascript" src="../static/js/sample01.js"></script>
+</html>

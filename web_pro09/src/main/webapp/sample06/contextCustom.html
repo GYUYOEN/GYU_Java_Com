@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>마우스 오른쪽 클릭 메뉴 커스텀</title>
+	<style type="text/css">
+		* {
+			margin: 0; padding: 0;
+		}
+		
+		.context-menu {
+			display: inline-block;
+			position: absolute;
+			box-sizing: border-box;
+		}
+		
+		.context-menu .context-list {
+			list-style-type: none;
+			border: 1px solid black;
+		}
+		
+		.context-menu .context-list .context-item {
+			display: block;
+			box-sizing: border-box;
+			padding: 0.5rem 5rem 0.5rem 0.5rem;
+		}
+		
+		.context-menu .context-list .context-item:hover {
+			background-color: whitesmoke;
+			cursor: pointer;
+		}
+	</style>
+	<script type="text/javascript">
+		window.addEventListener("load",
+			function() {
+				window.addEventListener("contextmenu",
+					function(e) {
+						var contextMenu = document.querySelector(".context-menu");
+						if(contextMenu) {
+							contextMenu.getAttribute("class", "context-menu");
+							contextMenu.style.left = e.offsetX + "px";
+							contextMenu.style.top = e.offsetY +"px";
+						}
+						e.preventDefault();
+					}
+				);
+				window.addEventListener("click",
+					function(e) {
+						var contextMenu = document.querySelector(".context-menu");
+						if(contextMenu) {
+							contextMenu.setAttribute("class", "context-menu hidden");
+						}
+					}
+				);
+			}
+		);
+	</script>
+</head>
+<body>
+	<div class="context-menu hidden">
+		<ul class="context-list">
+			<li class="context-item" onclick="alert('복사메뉴를 클릭 했습니다.')">복사</li>
+			<li class="context-item" onclick="alert('잘라내기 메뉴를 클릭 했습니다.')">잘라내기</li>
+			<li class="context-item" onclick="alert('붙여넣기 메뉴를 클릭 했습니다.')">붙여넣기</li>
+		</ul>
+	</div>
+</body>
+</html>
