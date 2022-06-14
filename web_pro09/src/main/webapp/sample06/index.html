@@ -207,6 +207,8 @@
 					var input8 = document.getElementById("input8");
 					input8.addEventListener("keydown",
 						function(e) {
+							// a 를 눌렀을 때 -> code : "a", key : "a", keyCode : 65
+							// 한글은 구분하기 힘듬으로 key에는 웬만하면 사용x
 							console.log(e);
 							res8.innerText += e.key;
 					});
@@ -220,11 +222,11 @@
 					<label id="res9"></label>
 					<input id="input9" type="text">
 					<script type="text/javascript">
-					// ctrl + a -> ctrlkey : true , a -> ctrlkey : false (shift, alt 등 가능한거 몇개 있음)
 					var res9 = document.getElementById("res9");
 					var input9 = document.getElementById("input9");
 					input9.addEventListener("keyup",
 						function(e) {
+							// ctrl + a -> ctrlkey : true , a -> ctrlkey : false (shift, alt 등 가능한거 몇개 있음)
 							console.log(e);
 							res9.innerText += e.key;
 					});
@@ -472,7 +474,7 @@
 						var res20 = document.getElementById("res21");
 						f2.addEventListener("submit", function(e) {
 							res21.innerText = "입력값을 전송합니다.";
-							// form 에서만 가능 -> this.submit 가능
+							// form 에서만 사용 가능 -> this.submit 가능
 							e.submit();
 							e.preventDefault();
 						});
