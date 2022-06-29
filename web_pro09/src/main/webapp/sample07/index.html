@@ -4,9 +4,58 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	<link rel ="stylesheet" type="text/css" href="../static/css/sample07.css">
+	<script type ="text/javascript" src="../static/js/jquery-3.6.0.js"></script> <!-- 내부 경로 -->
+	<!-- jquery 가 잘 실행됐는지는 console에 $; 작성 -->
 	<script type ="text/javascript" src="../static/js/sample07.js"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 외부 경로 -->
 </head>
 <body>
-
+	<h2>선택박스 전체 선택/해제</h2>
+	<div>
+		<input type="checkbox" name="chk1" value="a">a
+		<input type="checkbox" name="chk1" value="b">b
+		<input type="checkbox" name="chk1" value="c">c
+		<input type="checkbox" name="chk1" value="d">d
+		<input type="checkbox" name="chk1" value="all" onclick="toggleAll(this);">전체선택
+	</div>
+	<hr>
+	<h2>1 ~ 12 월 까지의 select/option 자동 생성</h2>
+	<div>
+		<select class="sel-month" name="month">
+			<!-- 1 ~ 12월 까지의 option을 스크립트로 생성 -->
+			<option>월</option>
+		</select>
+	</div>
+	<hr>
+	<h2>1 ~ 28, 29, 30, 31 일 select/option 자동 생성</h2>
+	<div id=div2>
+		<!-- this.nextElementSibling : 다음요소 선택 (일 select) -->
+		<select class="sel-month" onchange="createOptionDate(this, this.nextElementSibling);">
+			<!-- 1 ~ 12월 까지의 option을 스크립트로 생성 -->
+			<option>월</option>
+		</select>
+		<select>
+			<!-- 1 ~ 28, 29, 30, 31일 을 선택한 월에 맞추어 자동 생성(년도는 현재년으로 한다.) -->
+			<option>일</option>
+		</select>
+	</div>
+	<hr>
+	<h2>네이버 메뉴 슬라이더</h2>
+	<nav class="slider">
+		<div class="circle left-arrow" onclick="prevMenu();"></div>
+		<div class="slide-menu">
+			<a class="slide-item active" href="#" >엔터</a>
+			<a class="slide-item" href="#">스포츠</a>
+			<a class="slide-item" href="#">자동차</a>
+			<a class="slide-item" href="#">웹툰</a>
+			<a class="slide-item" href="#">경제M</a>
+			<a class="slide-item" href="#">추천/구독</a>
+			<a class="slide-item" href="#">레시피</a>
+			<a class="slide-item" href="#">리빙</a>
+			<a class="slide-item hidden" href="#">책방</a>
+			<a class="slide-item hidden" href="#">패션뷰티</a>
+		</div>
+		<div class="circle right-arrow" onclick="nextMenu();"></div>
+	</nav>
 </body>
 </html>

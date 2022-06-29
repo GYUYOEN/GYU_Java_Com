@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="exampleMapper">
+	<!-- 부서별 인원 파악을 위한 구문 
+			- 지정한 부서의 인원을 파악하여 총원이 얼마인지를 알아낸다.
+			- 단일 부서 및 2 개 이상의 부서를 지정 했을 경우에도 모두 출력이 될 수 있게 한다.
+			- 2 개 이상의 부서를 지정할 때 IN 연산 뿐만아니라 BETWEEN 연산도 사용할 수 있게 한다.
+			- 존재하지 않은 부서를 지정한 경우 해당 부서가 없다는 메시지가 출력 되로록 한다.
+			- 검색 결과의 컬럼은 총원, 부서명, 부서코드가 반드시 나와야 한다.
+	-->
+	<select id="empOfDeptCount" parameterType="map" resultType="map">
+		SELECT COUNT(*) AS TOTAL 
+			 , D.DEPARTMENT_NAME AS DEPT_NAME
+			 , E.DEPARTMENT_ID AS DEPT_CODE
+		  FROM EMPLOYEES E
+		  JOIN DEPARTMENTS D
+		    ON (E.DEPARTMENT_ID = D.DEPARTMENT_ID)
+		<trim prefix="WHERE">
+		    <choose>
+			    <when test="deptId != null">
+			    	E.DEPARTMENT_ID = #{deptId}
+			    </when>
+			    <when test="deptList != null">
+					E.DEPARTMENT_ID IN
+					<foreach collection="deptList" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</when>
+				<when test="stDeptId != null and edDeptId != null">
+					E.DEPARTMENT_ID BETWEEN #{stDeptId} AND #{edDeptId}
+				</when>
+		 	</choose>
+		 </trim>
+		 GROUP BY D.DEPARTMENT_NAME, E.DEPARTMENT_ID
+	</select>
+</mapper>

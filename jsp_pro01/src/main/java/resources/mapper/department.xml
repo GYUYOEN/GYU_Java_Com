@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="deptMapper">
+	<resultMap type="deptDto" id="deptDtoMap">
+		<result property="deptId" column="DEPARTMENT_ID"/>
+		<result property="deptName" column="DEPARTMENT_NAME"/>
+		<result property="mngId" column="MANAGER_ID"/>
+		<result property="locId" column="LOCATION_ID"/>
+	</resultMap>
+	<select id="deptSelectAll" resultMap="deptDtoMap">
+		SELECT * FROM DEPARTMENTS
+	</select>
+	<select id="deptSelectId" resultMap="deptDtoMap">
+		SELECT * FROM DEPARTMENTS
+		 WHERE DEPARTMENT_ID = #{id}
+	</select>
+</mapper>

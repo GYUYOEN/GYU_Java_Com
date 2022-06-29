@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/sample09.css">
+	<script type="text/javascript" src="../static/js/sample09.js"></script>
+	<!--
+	<script type="text/javascript">
+		var ch = document.getElementsByClassName("inputCheck");
+		var res2 = document.getElementsById("res2");
+		for(idx in ch) {
+			if(ch[idx] === undefined) {
+				res2.innerText = "필수 입력 항목입니다.";
+			}
+		}
+	</script>
+	-->
+</head>
+<body>
+	<section class="container">
+		<form class="join-form" action="">
+			<div class="input-control">
+				<label class="input-label">아이디</label>
+				<input class="input-form" type="text" name="username" required>
+			</div>
+			<div class="message-control">
+				<label class="message-label"></label>
+			</div>
+			<div class="input-control">
+				<label class="input-label">패스워드</label>
+				<input class="input-form" type="password" name="password" required>
+			</div>
+			<div class="message-control">
+				<label class="message-label"></label>
+			</div>
+			<div class="input-control">
+				<label class="input-label">패스워드 확인</label>
+				<input class="input-form" type="password" name="password_chk" required>
+			</div>
+			<div class="message-control">
+				<label class="message-label"></label>
+			</div>
+			<div class="input-control">
+				<label class="input-label">이메일</label>
+				<div class="input-inline">
+					<input class="input-inline-form" type="text" name="email">
+					@
+					<input class="input-inline-form" type="text" name="email">
+				</div>
+			</div>
+			<div class="input-control">
+				<label class="input-label">주소</label>
+				<input class="input-form" type="text" name="address1">
+			</div>
+			<div class="input-control">
+				<label class="input-label"></label>
+				<input class="input-form" type="text" name="address2">
+			</div>
+			<div class="button-control">
+				<button class="btn-block" type="button">가 입</button>
+			</div>
+		</form>
+	</section>
+
+
+
+
+<!--
+	<form>
+		<div class="form-control">
+			<label class="form-label">아이디</label>
+			<input class="form-input inputCheck" type="text">
+		</div>
+		<div class="form-control">
+			<label class="form-label">패스워드</label>
+			<input class="form-input inputCheck" type="text" id="hoinPs">
+			<label class="form-sublabel" id="res1"></label>
+			<script type="text/javascript">
+					var psw = document.getElementById("joinPs");
+					var res1 = document.getElementById("res1");
+						psw.addEventListener("click", function(e) {
+						res1.innerText = "영문자 대,소문자 특수문자, 숫자 포함 8~32자";
+					});
+			</script>
+		</div>
+		<div class="form-control">
+			<label class="form-label">패스워드 확인</label>
+			<input class="form-input inputCheck" type="text">
+		</div>
+		<div class="form-control">
+			<label class="form-label">이메일</label>
+			<input class="form-input" type="text">
+		</div>
+		<div class="form-control">
+			<label class="form-label">주소</label>
+			<input class="form-input" type="text">
+		</div>
+		<div class="form-control">
+			<label class="form-label"></label>
+			<input class="form-input" type="text">
+		</div>
+		<div class="form-control">
+			<button class="btn" type="button">가입</button>
+		</div>
+	</form>
+-->
+</body>
+</html>

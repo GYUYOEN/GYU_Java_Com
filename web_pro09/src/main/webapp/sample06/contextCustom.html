@@ -29,6 +29,9 @@
 			background-color: whitesmoke;
 			cursor: pointer;
 		}
+		.hidden {
+			display: none;
+		}
 	</style>
 	<script type="text/javascript">
 		window.addEventListener("load",
@@ -37,7 +40,7 @@
 					function(e) {
 						var contextMenu = document.querySelector(".context-menu");
 						if(contextMenu) {
-							contextMenu.getAttribute("class", "context-menu");
+							contextMenu.setAttribute("class", "context-menu");
 							contextMenu.style.left = e.offsetX + "px";
 							contextMenu.style.top = e.offsetY +"px";
 						}

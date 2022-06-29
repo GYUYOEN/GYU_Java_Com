@@ -254,13 +254,15 @@
 				<td>mouseenter/mouseleave</td>
 				<td>마우스가 요소 위에 올려져 있을 때 발생</td>
 				<td>
-					<label id="res11"></label>
 					<div id="input11" style="display:inline-block; height:80px; background-color:white;">
+						<label id="res11">...</label>
 						<input type="text">
 					</div>
 					<script type="text/javascript">
 						var res11 = document.getElementById("res11");
 						var input11 = document.getElementById("input11");
+						// div 영역에만 동작(input 영역에 왔다갔다해도 div 영역을 벗어나지 않으면 동작x)
+						// 지정한 요소에만 올라가거나(mouseenter) 벗어났을 때(mouseleave) 동작
 						input11.addEventListener("mouseenter",
 							function(e) {
 								res11.innerText = "마우스가 요소에 올려졌습니다.";
@@ -268,6 +270,7 @@
 						var input11 = document.getElementById("input11");
 						input11.addEventListener("mouseleave",
 							function(e) {
+								console.log(e);
 								res11.innerText = "마우스가 요소에서 벗어났습니다.";
 						});
 					</script>
@@ -277,20 +280,22 @@
 				<td>mouseover/mouseout</td>
 				<td>마우스가 요소 위에 올려져 있을 때 발생(하위 요소 포함)</td>
 				<td>
-					<label id="res12"></label>
 					<div id="input12" style="display:inline-block; height:80px; background-color:white;">
+						<label id="res12">...</label>
 						<input type="text">
 					</div>
 					<script type="text/javascript">
 						var res12 = document.getElementById("res12");
 						var input12 = document.getElementById("input12");
+						// input 과 div 영역 왔다갔다 할때도 동작 (하위요소 왔다갔다할 때 동작)
+						// 하위요소까지 다 동작
 						input12.addEventListener("mouseover",
 							function(e) {
 								res12.innerText = "마우스가 요소에 올려졌습니다.";
 						});
-						var input12 = document.getElementById("input12");
 						input12.addEventListener("mouseout",
 							function(e) {
+								// screenX, screenY : 모니터 전체 / clientX, clientY : 브라우저 화면
 								console.log(e);
 								res12.innerText = "마우스가 요소에서 벗어났습니다.";
 						});
@@ -354,10 +359,13 @@
 								res15.innerText = "휠 조직!";
 						});
 						// window.addEventListener 을 사용하고 e.preventDefault() 추가하면 
-						// 브라우저에서 오른쪽 클릭했을 때 메뉴 안뜸
+						// 브라우저에서 오른쪽 클릭했을 때 메뉴 안뜸(마우스 오른쪽 클릭 금지)
 						input15.addEventListener("contextmenu",
 							function(e) {
 								res15.innerText = "마우스 오른쪽 클릭!";
+								// e.preventDefault(); 을 사용하면 
+								// 내가 등록한 이벤트가 기본이라고 만들어주면 기존에 동작했던 이벤트 동작x -> 마우스 클릭x
+								// 주석을 달면 기본 이벤트도 동작
 								e.preventDefault(); // 주석 달면 메뉴뜨고 안달면 안뜸
 						});
 					</script>
@@ -365,6 +373,7 @@
 			</tr>
 			<tr>
 				<td>change</td>
+				<!-- 엔터키를 누르거나 포스를 옮기거나 할때 작용, 옵샨은 선탣하면 작용 -->
 				<td>값이 변경되었을 때(input, select textarea)</td>
 				<td>
 					<div>
@@ -392,6 +401,7 @@
 			</tr>
 			<tr>
 				<td>select</td>
+				<!-- input type="text", textarea 두 요소에 대해서만 사용 가능 -->
 				<td>텍스트가 선택되었을 때(input type="text", textarea)</td>
 				<td>
 					<textarea id="input18">select 이벤트 텍스트용 textarea 입니다.</textarea>
@@ -403,6 +413,7 @@
 						
 						// 드래그한 문자가 나옴
 						input18.addEventListener("select", function(e) {
+							// this.selectionStart, this.selectionEnd : 드래그한 위치값을 찾아줌(선택한 영역 표시)
 							res18.innerText = this.value.substring(this.selectionStart, this.selectionEnd);
 						});
 					</script>
@@ -410,6 +421,8 @@
 			</tr>
 			<tr>
 				<td>input</td>
+				<!-- input, select, textarea 해당 요소에서만 사용 가능 -->
+				<!-- 한자한자 감지  -->
 				<td>입력이 발생할 때(input, select, textarea)</td>
 				<td>
 				<div>
@@ -426,7 +439,7 @@
 						var input20 = document.getElementById("input20");
 						var res19 = document.getElementById("res19");
 						
-						// 한글 한자 한자 인식
+						// 한자 한자 인식
 						input19.addEventListener("input", function(e) {
 							res19.innerText = this.value;
 						});
@@ -453,7 +466,7 @@
 						f1.addEventListener("reset", function(e) {
 							this.username.value = "지정된 초기값";
 							res20.innerText = "입력값이 초기화 되었습니다.";
-							// 초기값 설정하려면 필요
+							// 지정된 값으로 설정하려면 필요, 안쓰면 기본 이벤트가 동작하여 전부 초기화됨 (다 지워짐)
 							e.preventDefault();
 						});
 					</script>
@@ -474,8 +487,10 @@
 						var res20 = document.getElementById("res21");
 						f2.addEventListener("submit", function(e) {
 							res21.innerText = "입력값을 전송합니다.";
+							// 전송하기 위한 메서드
 							// form 에서만 사용 가능 -> this.submit 가능
 							e.submit();
+							// 기본 이벤트가 동작하지 않고 내가 작성한 로직만 동작하게 함
 							e.preventDefault();
 						});
 					</script>

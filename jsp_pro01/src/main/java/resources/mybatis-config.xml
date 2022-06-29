@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration> <!-- 최상위 태그 -->
+	<!-- 태그 순서대로 작성 -->
+	<!-- <properties url="file:///C:/Users/GUE1/oracle_db.conf"> --> <!-- 메모장에 있는 것(외부파일)을 불러올 떄 사용(속성값들 사용) --> <!-- 외부파일은 url -->
+	<properties resource="resources/oracle_db.conf"> <!-- 미리 값을 설정하여 활용하는 방법(외부파일을 불러옴) --> <!-- 포로젝트 안에 있을 때는 resource 사용 -->
+		<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+	</properties>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/> <!-- 자바타입에 null 이 발생했을 때 oracle에 null 이라는 타입으로 인식 -> 에러가 발생한지 않게 해줌 -->
+	</settings>
+	<typeAliases> <!-- MyBatis에서 사용할 자료형의 별칭 선언 (사용할 데이터 객체 알려줌) -->
+		<typeAlias type="dept.model.DeptDTO" alias="deptDto"/> <!-- com.data.vo.EmpVO(package(import)) 너무 길어서 별칭 부여, alias : 별칭 -> reusltType 지정 -->
+		<typeAlias type="locs.model.LocsDTO" alias="locsDto"/>
+	</typeAliases>
+ 	<environments default="development"> <!-- MyBatis에서 연동할 DataBase 정보 등록 -->
+    	<environment id="development">
+      		<transactionManager type="JDBC"/>
+      		<dataSource type="POOLED">
+        		<!-- <property name="driver" value="oracle.jdbc.driver.OracleDriver"/> -->
+        		<!-- <property name="url" value="jdbc:oracle:thin:@localhost:1521/XEPDB1"/> -->
+        		<property name="driver" value="${driver}"/> <!-- 변수로 설정 -->
+		        <property name="url" value="${url}"/> <!-- ${url} : 메모장에 url을 지칭 -->
+		        <property name="username" value="puser1"/>
+		        <property name="password" value="puser1"/>
+		        <property name="poolMaximumIdleConnections" value="5"/> <!-- 사용하지 않는 connection 최대 5개까지만 남아있을 수 있게 해줌 : 유휴 상태 -->
+		        <property name="poolMaximumActiveConnections" value="10"/> <!-- 최대 10개의 connection 활성화 -->
+     		 </dataSource>
+		</environment>
+		<!--
+		<environment id="product">
+      		<transactionManager type="JDBC"/>
+      		<dataSource type="POOLED">
+        		<property name="driver" value="${dirver}"/>
+		        <property name="url" value="${url}"/>
+		        <property name="username" value="puser1"/>
+		        <property name="password" value="puser1"/>
+     		 </dataSource>
+		</environment>
+		-->
+	</environments>
+	<mappers> <!-- mapper 파일 등록 -->
+	    <mapper resource="resources/mapper/department.xml"/> <!-- mapper 경로 설정 -->
+		<mapper resource="resources/mapper/location.xml"/>
+	</mappers>
+</configuration>
