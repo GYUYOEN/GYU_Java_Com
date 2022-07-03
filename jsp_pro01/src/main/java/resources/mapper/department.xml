@@ -9,11 +9,44 @@
 		<result property="mngId" column="MANAGER_ID"/>
 		<result property="locId" column="LOCATION_ID"/>
 	</resultMap>
-	<select id="deptSelectAll" resultMap="deptDtoMap">
+	<select id="deptSelectAll" resultMap="deptDtoMap"> <!-- 결과가 다양함으로 resultMap 해줌 -->
 		SELECT * FROM DEPARTMENTS
 	</select>
 	<select id="deptSelectId" resultMap="deptDtoMap">
 		SELECT * FROM DEPARTMENTS
 		 WHERE DEPARTMENT_ID = #{id}
 	</select>
+	<select id="deptSelectPage" resultMap="deptDtoMap">
+		SELECT * 
+  		  FROM (SELECT ROWNUM AS NUM
+	 		 , DEPARTMENT_ID
+			 , DEPARTMENT_NAME
+			 , MANAGER_ID
+			 , LOCATION_ID
+ 		  FROM DEPARTMENTS)
+ 		 WHERE NUM BETWEEN #{start} AND #{end}
+	</select>
+	<select id="deptTotalRow" resultType="_int"> <!-- SELECT 결과가 다양함으로 resultMap 해줌 -->
+		SELECT COUNT(*) FROM DEPARTMENTS
+	</select>
+	<select id="existManager" resultType="_int">
+		SELECT COUNT(*) FROM EMPLOYEES WHERE EMPLOYEE_ID = #{id} <!-- DEPARTMENTS 의 MANAGER_ID = EMPLOYESS EMOLOYEE_ID -->
+	</select>
+	<select id="existLocation" resultType="_int"> 
+		SELECT COUNT(*) FROM LOCATIONS WHERE LOCATION_ID = #{id}
+	</select>
+	<insert id="deptInsert" parameterType="deptDto"> <!-- INSERT는 결과 값이 int로 정해져 있음으로 resultMap, resultType 안써도 됨 -->
+		INSERT INTO DEPARTMENTS VALUES (#{deptId}, #{deptName}, #{mngId}, #{locId}) <!-- dto의 명칭들 사용 -->
+	</insert>
+	<update id="deptUpdate" parameterType="deptDto">
+		 UPDATE DEPARTMENTS
+		 	SET DEPARTMENT_NAME = #{deptName}
+		 	  , MANAGER_ID = #{mngId}
+		 	  , LOCATION_ID = #{locId}
+		  WHERE DEPARTMENT_ID = #{deptId}
+	</update>
+	<delete id="deptDelete" parameterType="_int">
+		DELETE FROM DEPARTMENTS
+		 WHERE DEPARTMENT_ID = #{id}
+	</delete>
 </mapper>

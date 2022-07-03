@@ -23,19 +23,19 @@
 		}
 		.required-box.show {
 		
-			opacity: 1; /* 1 : 불투명 */
+			opacity: 1; /* 투명도 -> 0 : 투명 , 1 : 불투명 (0 -> 1 전환이 될때 1s 라는 지속 시간동안 서서히 전환 ) */
 			transition: opacity 0.5s; /* 말풍선 서서히 나오게 표시, 속도 조절 가능 */
 		}
 		.required-box:after {
 			/* input 을 가리키는 말풍선 화살표 설정 */
 			content: '';
 			position: absolute;
-			top: 0; left: 15%; /* 화살표 위치 조정 */
+			top: 0; left: 15%; /* 화살표 위치 조정(박스 전체 크기의 15% 차지) */
 			width: 0; height: 0;
-			border: 6px solid transparent;
-			/border-bottom-color: black;
+			border: 6px solid transparent; /* 크기 조정시 화실표 모양의 크기가 바뀜 */
+			border-bottom-color: black; /* 화살표 색상 */
 			border-top: 0;
-			margin-left: -6px; margin-top: -6px;
+			margin-left: -6px; margin-top: -6px; /* 크기 조정시 화실표 모양의 크기가 바뀜 */
 		}
 		/* 테두리 모양을 하기 위해 설정
 		.required-box:before { 
@@ -43,10 +43,10 @@
 			position: absolute;
 			top: 0; left: 15%;
 			width: 0; height: 0;
-			border: 7px solid transparent;
-			border-bottom-color: black;
+			border: 8px solid transparent; /* 크기 조정해서 테두리 설정
+			border-bottom-color: white; /* 섹깔 조정해서 테두리 설정
 			border-top: 0;
-			margin-left: -7px; margin-top: -7px;
+			margin-left: -8px; margin-top: -8px; /* 크기 조정해서 테두리 설정
 		}
 		*/
 	</style>
@@ -80,6 +80,7 @@ function requiredBox(element, message) {
 	box.style.top = element.offsetHeight + 16 + "px";
 	box.setAttribute("class", "required-box show");
 	
+	// 일정시간 이후에 메세드가 동작되개 함
 	setTimeout(function() {
 		box.remove();
 	}, 1500); // box(말풍선) 를 1.5 초 뒤에 제거해라
@@ -90,8 +91,8 @@ function requiredBox(element, message) {
 	<div>
 		<form action="./locs" method="get">
 			<div>
-				<!-- data-required : box 에 나오는 텍스트 내용 입력 -> 없으면 동작안하도록 함 -->
-				<input type="text" name="search" data-required="지역코드를 입력하세요.">
+				<!-- data-required : box 에 나오는 텍스트 내용 입력 -> 이 옵션만 들어가면 전부 동작이 되게 js를 이용하여 만듬 -->
+				<input type="text" name="search" data-required="지역코드를 입력하세요."> <!-- 그냥 required 작성하면 기본 말풍선 뜸 -->
 				<button type="submit">조회</button>
 			</div>
 		</form>
