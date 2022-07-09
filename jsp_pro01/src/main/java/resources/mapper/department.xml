@@ -26,6 +26,7 @@
  		  FROM DEPARTMENTS)
  		 WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
+	<!-- 전체 갯수에서 10(출력할 리스트갯수) 을 나눠주면 페이지 갯수가 나옴 -->
 	<select id="deptTotalRow" resultType="_int"> <!-- SELECT 결과가 다양함으로 resultMap 해줌 -->
 		SELECT COUNT(*) FROM DEPARTMENTS
 	</select>

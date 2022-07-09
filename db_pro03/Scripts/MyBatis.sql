@@ -70,3 +70,28 @@ SELECT *
 			 , LOCATION_ID
  		  FROM DEPARTMENTS)
 WHERE NUM BETWEEN 11 AND 20;
+
+
+
+
+DROP TABLE BOARD;
+
+CREATE SEQUENCE SEQ_BOARD;
+
+CREATE TABLE board(
+    boardnum NUMBER,
+    boardwriter VARCHAR2(20) NOT NULL,
+    boardtitle VARCHAR2(50) NOT NULL,
+    boardcontent VARCHAR2(2000) NOT NULL,
+    boarddate DATE DEFAULT SYSDATE,
+    CONSTRAINT board_pk PRIMARY KEY(boardnum)
+);
+
+comment on TABLE  board is '게시판';
+COMMENT ON COLUMN board.boardnum IS '게시판 번호';
+COMMENT ON COLUMN board.boardwriter IS '게시판 작성자';
+COMMENT ON COLUMN board.boardtitle IS '게시판 제목';
+COMMENT ON COLUMN board.boardcontent IS '게시판 내용';
+COMMENT ON COLUMN board.boarddate IS '게시판 작성일';​
+
+SELECT * FROM BOARD;

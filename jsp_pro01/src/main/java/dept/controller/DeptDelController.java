@@ -16,20 +16,23 @@ public class DeptDelController extends HttpServlet {
 	
 	private DeptService service = new DeptService();
 	
+	// 조회 작업
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
 		
 		DeptDTO data = service.getId(id);
 		request.setAttribute("data", data);
 		
-		String view ="/WEB-INF/jsp/dept/del.jsp";
+		// 데이터가 있는지 없는지 controller에서 판단 -> 서로 다른 페이지로 이동
+		String view ="/WEB-INF/jsp/dept/del.jsp"; // 삭제할건지, 안할건지에 대한 확인 페이지
 		if(data == null) {
 			view ="/WEB-INF/jsp/dept/del_no.jsp";
 		}
 		
 		request.getRequestDispatcher(view).forward(request, response);
 	}
-
+	
+	// 삭제 작업
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String deptId = request.getParameter("deptId");
 		int result = service.deleteDept(deptId);

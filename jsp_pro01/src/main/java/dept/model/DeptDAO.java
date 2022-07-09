@@ -35,7 +35,9 @@ public class DeptDAO {
 		// start : 데이터를 가져오는 시작점에서 얼마나 떨어진 데이터인지
 		// end : 몇 개의 값을 가져올 것 인지 
 		RowBounds rb = new RowBounds(start, end);
-		Cursor<DeptDTO> cursor = session.selectCursor("deptMapper.deptSelectAll", null, rb);
+		
+		// null : 넘길 파라미터
+		Cursor<DeptDTO> cursor = session.selectCursor("deptMapper.deptSelectAll", null, rb); // selectCursor : mybatis에 있는 메서드
 		
 		List<DeptDTO> datas = new ArrayList<DeptDTO>();
 		Iterator<DeptDTO> iter = cursor.iterator();
@@ -59,10 +61,8 @@ public class DeptDAO {
 	public boolean insertDept(DeptDTO deptDto) {
 		int result = session.insert("deptMapper.deptInsert", deptDto);
 		if(result == 1) {
-			session.commit();
 			return true;
 		}
-		session.rollback();
 		return false;
 	}
 
@@ -85,20 +85,25 @@ public class DeptDAO {
 	public boolean updateDept(DeptDTO deptDto) {
 		int result = session.update("deptMapper.deptUpdate", deptDto);
 		if(result == 1) {
-			session.commit();
 			return true;
 		}
-		session.rollback();
 		return false;
 	}
 
 	public boolean deleteDept(int id) {
 		int result = session.delete("deptMapper.deptDelete", id);
 		if(result == 1) {
-			session.commit();
 			return true;
 		}
 		return false;
+	}
+	
+	public void commit() {
+		session.commit();
+	}
+	
+	public void rollback() {
+		session.rollback();
 	}
 	
 	public void close() {

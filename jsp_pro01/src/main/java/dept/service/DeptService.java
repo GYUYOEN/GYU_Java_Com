@@ -22,10 +22,11 @@ public class DeptService {
 		return datas;
 	}
 	
-	public List<DeptDTO> getPage(int pageNumber) {
+	public List<DeptDTO> getPage(int page, int pageCount) {
+		int pageNumber = page;
 		int start, end;
-		start = (pageNumber - 1) * 10;
-		end = 10;
+		start = (pageNumber - 1) * pageCount;
+		end = pageCount;
 		dao = new DeptDAO();
 		List<DeptDTO> datas = dao.searchPage(start, end);
 		dao.close();
@@ -46,13 +47,24 @@ public class DeptService {
 	}
 	*/
 	
-	public List<Integer> getPageList() {
+	public List<Integer> getPageList(int pageCount) {
 		dao = new DeptDAO();
 		
 		List<Integer> pageList = new ArrayList<Integer>();
-		int total = dao.totalRow();
+		int total = dao.totalRow(); // 전체행수를 알아냄
 		
-		for(int num = 0; num <= (total - 1) / 10; num++) {
+		/*
+		 * <int num = 1 이고 num <= (total) / 10 일때>
+		 * 		25 / 10 -> 2.5 -> 2 : 나머지 5 가지 목록도 나와야하므로 총 3페이지가 되어야함
+		 * 		30 / 10 -> 3 
+		 * =>
+		 * <int num = 0 이고 num <= (total - 1) / 10 일때>
+		 * 		(25 - 1) / 10 -> 2.4 -> 2
+		 * 		(30 - 1) / 10 -> 2.9 -> 2
+		 * 		0부터 시작함으로 0 1 2 -> 1 2 3
+		 */
+		
+		for(int num = 0; num <= (total - 1) / pageCount; num++) { // 알아낸 전체행수로 페이지 갯수가 나오도록 계산함 
 			pageList.add(num + 1);
 		}
 		
@@ -87,6 +99,7 @@ public class DeptService {
 		dao = new DeptDAO();
 		DeptDTO deptDto = null;
 		if(deptId.matches("\\d+") && mngId.matches("\\d+") && locId.matches("\\d+")) {
+			boolean isValid = true;
 			deptDto = new DeptDTO();
 			// 전달 받은 데이터 DeptDTO에 담아서 전달
 			deptDto.setDeptId(Integer.parseInt(deptId));
@@ -97,28 +110,51 @@ public class DeptService {
 			//SELECT * FROM DEPARTMENTS WHERE DEPARTMENT_ID = #{id} 로 무결성 제약조건 확인
 			if(dao.searchId(deptDto.getDeptId()) != null) { // DEPARTMENT_ID 가 존재함으로 해당 ID를 넣을 경우 무결성 제약조건에 위배됨 -> ID 중복
 				deptDto.setDeptId(-1);
-				dao.close();
-				return deptDto;
+				isValid = false;
+//				dao.rollback();
+//				dao.close();
+//				return deptDto;
 			}
 			
 			if(!dao.existManager(deptDto.getMngId())) {
 				deptDto.setMngId(-1);
-				dao.close();
-				return deptDto;
+				isValid = false;
+//				dao.rollback();
+//				dao.close();
+//				return deptDto;
 			}
 			
 			if(!dao.existLocation(deptDto.getLocId())) {
 				deptDto.setLocId(-1);
-				dao.close();
-				return deptDto;
+				isValid = false;
+//				dao.rollback();
+//				dao.close();
+//				return deptDto;
 			}
 			
-			boolean isSaved = dao.insertDept(deptDto);
-			if(!isSaved) {
-				dao.close();
-				return null;
+			if(isValid) {
+				boolean isSaved = dao.insertDept(deptDto);
+				if(isSaved) {
+					dao.commit();
+					dao.close();
+					return deptDto;
+				} else {
+					dao.rollback();
+					dao.close();
+					return null;
+				}
 			}
+			
+//			boolean isSaved = dao.insertDept(deptDto);
+//			
+//			if(!isSaved) {
+//				dao.rollback();
+//				dao.close();
+//				return null;
+//			}
 		} 
+		
+		dao.commit();
 		dao.close();
 		return deptDto;
 	}
@@ -127,35 +163,44 @@ public class DeptService {
 		dao = new DeptDAO();
 		
 		if(!dao.existManager(data.getMngId())) {
+			dao.rollback();
 			dao.close();
 			return -1;
 		}
 		
 		if(!dao.existLocation(data.getLocId())) {
+			dao.rollback();
 			dao.close();
 			return -2;
 		}
 		
 		boolean isSaved = dao.updateDept(data);
-		dao.close();
 		if(isSaved) {
+			dao.commit();
+			dao.close();
 			return 1;
 		}
+		dao.rollback();
+		dao.close();
 		return 0;
 	}
 
 	public int deleteDept(String id) {
 		dao = new DeptDAO();
 		if(dao.searchId(Integer.parseInt(id)) == null) {
+			dao.rollback();
 			dao.close();
 			return -1; // 삭제 대상이 없음을 알림
 		}
 		
 		boolean result = dao.deleteDept(Integer.parseInt(id));
-		dao.close();
 		if(result) {
+			dao.commit();
+			dao.close();
 			return 1;
 		}
+		dao.rollback();
+		dao.close();
 		return 0;
 	}
 }

@@ -7,7 +7,7 @@
 	<title>삭제 확인</title>
 </head>
 <body> <!--  -->
-		<p>삭제 대항 데이터가 존재하지 않습니다.</p>
+		<p>삭제 대상 데이터가 존재하지 않습니다.</p>
 		<div>
 			<button type="button" onclick="history.back();">돌아가기</button>
 		</div>

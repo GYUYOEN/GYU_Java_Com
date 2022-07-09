@@ -1,6 +1,9 @@
 package dept.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,21 +51,24 @@ public class DeptModController extends HttpServlet {
 		
 		String view = "/WEB-INF/jsp/dept/mod.jsp";
 		request.setAttribute("data", data);
-		
+
 		switch(result) {
 		case 1: // 성공
 //			response.sendRedirect("/jsp01/depts?search=" + data.getDeptId());
 			response.sendRedirect(request.getContextPath() + "/depts?search=" + data.getDeptId());
 			break;
 		case 0: // 실패
+			request.setAttribute("errorCode", "error");
 			request.setAttribute("errorMsg", "수정 작업 중 알 수 없는 문제가 발생하였습니다.");
 			request.getRequestDispatcher(view).forward(request, response);
 			break;
 		case -1: // 실패
+			request.setAttribute("errorCode", "mngId");
 			request.setAttribute("errorMsg", "관리자가 존재하지 않습니다.");
 			request.getRequestDispatcher(view).forward(request, response);
 			break;
 		case -2: // 실패
+			request.setAttribute("errorCode", "locId");
 			request.setAttribute("errorMsg", "해당 지역이 존재하지 않습니다.");
 			request.getRequestDispatcher(view).forward(request, response);
 			break;

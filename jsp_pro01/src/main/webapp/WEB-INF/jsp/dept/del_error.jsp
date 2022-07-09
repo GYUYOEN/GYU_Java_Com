@@ -9,7 +9,7 @@
 <body>
 	<p><%=request.getAttribute("errorMsg") %></p>
 	<div>
-		<button type="button" onclick="location.href='../'">돌아가기</button>
+		<button type="button" onclick="location.href='./'">돌아가기</button>
 	</div>
 </body>
 </html>
