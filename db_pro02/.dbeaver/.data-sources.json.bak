@@ -154,7 +154,7 @@
 		"oracle_thin-180d291ad31-64ee1dcc9724ee74": {
 			"provider": "oracle",
 			"driver": "oracle_thin",
-			"name": "Local_puser1 1",
+			"name": "STUDY",
 			"save-password": true,
 			"read-only": false,
 			"configuration": {
@@ -178,7 +178,8 @@
 					"oracle.meta-search-in-synonyms": "false",
 					"@dbeaver-sid-service@": "SERVICE"
 				},
-				"auth-model": "oracle_native"
+				"auth-model": "oracle_native",
+				"handlers": {}
 			}
 		}
 	},

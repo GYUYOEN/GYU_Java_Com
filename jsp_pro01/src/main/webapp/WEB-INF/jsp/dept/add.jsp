@@ -11,6 +11,8 @@
 	<title>부서 추가</title>
 	<%@ include file="../module/head.jsp" %>
 </head>
+<c:url var="ajaxDuplicateUrl" value="/ajax/duplicate" />
+<c:url var="ajaxExistsUrl" value="/ajax/exists" />
 <body>
 	<%@ include file="../module/navigation.jsp" %>
 	<section class="container">
@@ -55,12 +57,16 @@
 				<!-- <input type="text" class="input-text" name="deptId" value="${requestScope.data.deptId == -1 ? '' : requestScope.data.deptId}" data-required="부서 ID를 입력하세요."> // requestScope : 생략가능, data가 있든 없든(초기상테) 없으면 빈문자열 있으면 입력값 -->
 				<% } else { %>
 				--%>
-				<input type="text" class="input-text" name="deptId" value="${data.deptId == -1 ? '' : data.deptId}" data-required="부서 ID를 입력하세요."> <!-- data : setAttribute로 전달된 값 -->
+				<input type="text" class="input-text" name="deptId" onblur="duplicateCheck(this, '${ajaxDuplicateUrl}');"<%-- onchange : 값이 반드시 바껴야 함, oninput : 입력하는 순간마다 인식(서버 과부하 걸림) --%>
+					value="${data.deptId == -1 ? '' : data.deptId}" data-required="부서 ID를 입력하세요."> <!-- data : setAttribute로 전달된 값, this -> js에 element로 전달, this.value하면 value값만 전달 -->
 				<%-- <input type="text" class="input-text" name="deptId" value="<%=data.getDeptId() == -1 ? "" : data.getDeptId() %>" data-required="부서 ID를 입력하세요."> --%>
 				<!-- <input type="text" class="input-text" name="deptId" value="${param.deptId}" data-required="부서 ID를 입력하세요."> -->
+				<%--
 				<c:if test="${not empty error.deptId}"> <!-- 참이면 출력, not empty : error가 비어져 있지 않은지 확인 -->
 					<label class="input-label-error">${error.deptId}</label> <!-- error.deptId : error.(map의 키) -->
 				</c:if>
+				--%>
+				<label class="input-label-error"></label>
 				<%--
 				<% if(error.get("deptId") != null) { %>
 					<label class="input-label-error"><%= error.get("deptId") %></label>
@@ -71,23 +77,19 @@
 			<div class="input-form wide">
 				<label class="input-label">부서명</label>
 				<input type="text" class="input-text" name="deptName" value="${data.deptName}" data-required="부서명을 입력하세요.">
-				<c:if test="${not empty error.deptName}">
-					<label class="input-label-error">${error.deptName}</label>
-				</c:if>
+				<label class="input-label-error"></label>
 			</div>
 			<div class="input-form wide">
 				<label class="input-label">관리자ID</label>
-				<input type="text" class="input-text" name="mngId" value="${data.mngId == -1 ? '' : data.mngId}" data-required="관리자 ID를 입력하세요.">
-				<c:if test="${not empty error.mngId}">
-					<label class="input-label-error">${error.mngId}</label>
-				</c:if>
+				<input type="text" class="input-text" name="mngId" onblur="existsCheck(this, '${ajaxExistsUrl}');"
+					value="${data.mngId == -1 ? '' : data.mngId}" data-required="관리자 ID를 입력하세요.">
+				<label class="input-label-error"></label>
 			</div>
 			<div class="input-form wide">
 				<label class="input-label">지역ID</label>
-				<input type="text" class="input-text" name="locId" value="${data.locId == -1 ? '' : data.locId}" data-required="지역 ID를 입력하세요.">
-				<c:if test="${not empty error.locId}">
-					<label class="input-label-error">${error.locId}</label>
-				</c:if>
+				<input type="text" class="input-text" name="locId" onblur="existsCheck(this, '${ajaxExistsUrl}');"
+					value="${data.locId == -1 ? '' : data.locId}" data-required="지역 ID를 입력하세요.">
+				<label class="input-label-error"></label>
 			</div>
 			<div class="input-form wide form-right">
 				<button class="btn btn-outline btn-ok" type="submit">저장</button>

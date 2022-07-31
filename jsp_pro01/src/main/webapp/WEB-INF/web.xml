@@ -14,6 +14,7 @@
   	<url-pattern>/MainController</url-pattern> <!-- url-pattern 이 매치가 되면 servlet-name에 해당하는 이름을 찾음 -->
   </servlet-mapping>
   
+  <!-- 필터 시작 -->
   <filter>
   	<filter-name>EncodingFilter</filter-name>
   	<filter-class>filter.EncodingFilter</filter-class>
@@ -23,6 +24,34 @@
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
   
+  <filter>
+  	<filter-name>LoginFilter</filter-name>
+  	<filter-class>filter.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>LoginFilter</filter-name>
+  	<url-pattern>/myinfo</url-pattern>
+  	<url-pattern>/emps</url-pattern>
+  	<url-pattern>/emps/*</url-pattern>
+  	<url-pattern>/depts</url-pattern>
+  	<url-pattern>/depts/*</url-pattern>
+  	<url-pattern>/board/add</url-pattern>
+  </filter-mapping>
+  
+  <filter>
+  	<filter-name>PermFilter</filter-name>
+  	<filter-class>filter.PermFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>PermFilter</filter-name>
+  	<url-pattern>/emps</url-pattern>
+  	<url-pattern>/emps/*</url-pattern>
+  	<url-pattern>/depts</url-pattern>
+  	<url-pattern>/depts/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- 필터끝 -->
+  
   <!-- 
   // 에러 페이지 만들기
   // 개발단계임으로 사용x -> tomcat에서 제공하는 에러 페이지 필요
@@ -31,6 +60,26 @@
   	<location>/WEB-INF/error/404.html</location>
   </error-page>
   -->
+  
+   <!--  
+   <error-page>
+  	<error-code>404</error-code> 
+  	<location>/WEB-INF/error/404.html</location>
+  </error-page>
+  --> 
+  <!--
+    <error-page>
+  	<error-code>500</error-code> 
+  	<location>/WEB-INF/error/500.html</location>
+  </error-page>
+  --> 
+  <!--
+   <error-page>
+  	<error-code>403</error-code> 
+  	<location>/WEB-INF/error/403.html</location>
+  </error-page>
+  --> 
+  
   <!-- NullPointerException 이 일어났을 때 해당 페이지로 이동
   <error-page>
   	<exception-type>java.lang.NullPointerException</exception-type>

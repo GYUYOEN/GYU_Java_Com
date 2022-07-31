@@ -109,4 +109,20 @@ public class DeptDAO {
 	public void close() {
 		session.close();
 	}
+
+	public boolean selectManager(int id) {
+		int result = session.selectOne("deptMapper.existsManager", id);
+		if(result >= 1) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean selectLocation(int id) {
+		int result = session.selectOne("deptMapper.existsLocation", id);
+		if(result >= 1) {
+			return true;
+		}
+		return false;
+	}
 }

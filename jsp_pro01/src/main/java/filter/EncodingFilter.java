@@ -19,6 +19,7 @@ public class EncodingFilter extends HttpFilter implements Filter {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
+		
 		// doFilter 메서드 동작 전: 요청 필터
 		chain.doFilter(request, response); 
 		// doFilter 메서드 동작 후: 응답 필터

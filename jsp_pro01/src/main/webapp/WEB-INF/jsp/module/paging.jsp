@@ -8,7 +8,7 @@
 	<%--
 	<%
 		List<Integer> pageList = (List<Integer>) request.getAttribute("pageList");
-		int currentPage = (int)request.getAttribute("page");
+		int currentPage = (int)request.getAttribute("page"); // page : 현재페이지 (depts?page=1 에서 1 을 의미)
 		int prevPage = currentPage - 1;
 		int nextPage = currentPage + 1;
 	%>
@@ -16,6 +16,7 @@
 	<c:set var="currentPage" value="${page}" />
 	<c:set var="prevPage" value="${currentPage - 1}" />
 	<c:set var="nextPage" value="${currentPage + 1}" />
+	<c:set var="maxPage" value="${pageList.get(pageList.size() - 1)}" /> <!-- pageList.size() : 전체크기, (pageList.size() - 1) : 마지막 페이지-->
 	
 	<ul class="page center">
 		<li class="page-item">
@@ -24,7 +25,7 @@
 					<a class="page-link disabled material-symbols-outlined" href="#">keyboard_arrow_left</a>
 				</c:when>
 				<c:otherwise>
-					<a class="page-link material-symbols-outlined" href="./depts?page=${prevPage}">keyboard_arrow_left</a>
+					<a class="page-link material-symbols-outlined" href="${pageUrl}?page=${prevPage}">keyboard_arrow_left</a>
 				</c:otherwise>
 			</c:choose>
 			<%--
@@ -35,9 +36,11 @@
 			<% } %>
 			--%>
 		</li>
-		<c:forEach items="${pageList}" var="item">
+		<%-- <c:forEach begin="${currentPage}" end="${currentPage + 4}" var="item"> <!-- item 은 배열(5, 6, 7, 8, 9)  --> --%>
+		<c:forEach begin="${currentPage - 2 <= 0 ? 1 : currentPage - 2}" end="${currentPage + 2 > maxPage ? maxPage : currentPage + 2}" var="item">
 			<li class="page-item">
-				<a class="page-link ${currentPage == item ? ' active' : ''}" href="./depts?page=${item}">${item}</a>
+				<a class="page-link ${currentPage == pageList.get(item - 1) ? ' active' : ''}"
+				 href="${pageUrl}?page=${pageList.get(item - 1)}">${pageList.get(item - 1)}</a> <!-- (item - 1) : index 번호이므로 -1 해줌 -->
 			</li>
 		</c:forEach>
 		<%--
@@ -55,7 +58,7 @@
 					<a class="page-link disabled material-symbols-outlined" href="#">keyboard_arrow_right</a>
 				</c:when>
 				<c:otherwise>
-					<a class="page-link material-symbols-outlined" href="./depts?page=${nextPage}">keyboard_arrow_right</a>
+					<a class="page-link material-symbols-outlined" href="${pageUrl}?page=${nextPage}">keyboard_arrow_right</a>
 				</c:otherwise>
 			</c:choose>
 			<%--

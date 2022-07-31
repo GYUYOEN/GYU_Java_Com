@@ -40,11 +40,20 @@
 					<input class="input-text" type="text" name="search" data-required="부서코드를 입력하세요."> <!-- search 라는 parameter name으로 사용자가 입력한 값을 ./depts(controller) 에다가 요청 -->
 					<button class="btn btn-outline" type="submit">조회</button>
 					<!-- div class="required-box show">부서코드를 입력하세요.</div -->
-					<select class="select-form" onchange="location.href='./depts?pgc=' + this.value">
+					<%-- 
+					<select class="select-form" onchange="location.href='./depts?pgc=' + this.value"> <!-- onchange 값이 바뀌면 감지(servlet에 요청함 - servlet에서 만듦), this는 select 요소를 지칭 -->
 						<option value="5" ${pageCount == 5 ? 'selected' : ''}>5 개</option>
 						<option value="10" ${pageCount == 10 ? 'selected' : ''}>10 개</option>
 						<option value="15" ${pageCount == 15 ? 'selected' : ''}>15 개</option>
 						<option value="20" ${pageCount == 20 ? 'selected' : ''}>20 개</option>
+					</select>
+					--%>
+					<!-- 세션의 경우 아래와 같이 사용가능(setAttribute()를 session이랑 request 두곳에 구지 저장하지 않고 session에만 작성해도 됨 -->
+					<select class="select-form" onchange="location.href='./depts?pgc=' + this.value"> <!-- onchange 값이 바뀌면 감지(servlet에 요청함 - servlet에서 만듦), this는 select 요소를 지칭 -->
+						<option value="5" ${sessionScope.pageCount == 5 ? 'selected' : ''}>5 개</option>
+						<option value="10" ${sessionScope.pageCount == 10 ? 'selected' : ''}>10 개</option>
+						<option value="15" ${sessionScope.pageCount == 15 ? 'selected' : ''}>15 개</option>
+						<option value="20" ${sessionScope.pageCount == 20 ? 'selected' : ''}>20 개</option>
 					</select>
 				</div>
 			</form>
@@ -122,6 +131,7 @@
 		</table>
 		<c:choose>
 			<c:when test="${not empty pageList}">
+				<c:url var="pageUrl" value="./depts"/>
 				<%@ include file ="../module/paging.jsp" %>
 			</c:when>
 			<c:otherwise>

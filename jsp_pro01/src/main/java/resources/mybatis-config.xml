@@ -13,6 +13,12 @@
 	<typeAliases> <!-- MyBatis에서 사용할 자료형의 별칭 선언 (사용할 데이터 객체 알려줌) -->
 		<typeAlias type="dept.model.DeptDTO" alias="deptDto"/> <!-- com.data.vo.EmpVO(package(import)) 너무 길어서 별칭 부여, alias : 별칭 -> reusltType 지정 -->
 		<typeAlias type="locs.model.LocsDTO" alias="locsDto"/>
+		<typeAlias type="emps.model.EmpDTO" alias="empDto"/>
+		<typeAlias type="emps.model.EmpDetailDTO" alias="empDetailDto"/>
+		<typeAlias type="job.model.JobDTO" alias="jobDto"/>
+		<typeAlias type="login.model.PermDTO" alias="permDto"/>
+		<typeAlias type="board.model.EmpBoardDTO" alias="empBoardDto"/>
+		<typeAlias type="board.model.EmpBoardStatisDTO" alias="empBoardStatisDto"/>
 	</typeAliases>
  	<environments default="development"> <!-- MyBatis에서 연동할 DataBase 정보 등록 -->
     	<environment id="development">
@@ -42,6 +48,10 @@
 	</environments>
 	<mappers> <!-- mapper 파일 등록 -->
 	    <mapper resource="resources/mapper/department.xml"/> <!-- mapper 경로 설정 -->
+		<mapper resource="resources/mapper/emp_boards.xml"/>
+		<mapper resource="resources/mapper/employee.xml"/>
 		<mapper resource="resources/mapper/location.xml"/>
+		<mapper resource="resources/mapper/login.xml"/>
+		<mapper resource="resources/mapper/job.xml"/>
 	</mappers>
 </configuration>

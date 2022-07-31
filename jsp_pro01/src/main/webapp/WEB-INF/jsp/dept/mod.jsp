@@ -25,14 +25,14 @@
 			</div>
 			<div class="input-form wide">
 				<label class="input-label">관리자ID</label>
-				<input type="text" class="input-text" name="mngId" value="${data.mngId == -1 ? '' : data.mngId}" data-required="관리자 ID를 입력하세요."> <!-- data-required : js(javascript) 활용  -->
+				<input type="text" class="input-text" name="mngId" value="${data.mngId}" data-required="관리자 ID를 입력하세요."> <!-- data-required : js(javascript) 활용  -->
 				<c:if test="${errorCode == 'mngId'}">
 					<label class="input-label-error">${errorMsg}</label>
 				</c:if>
 			</div>
 			<div class="input-form wide">
 				<label class="input-label">지역ID</label>
-				<input type="text" class="input-text" name="locId" value="${data.locId == -1 ? '' : data.locId}" data-required="지역 ID를 입력하세요.">
+				<input type="text" class="input-text" name="locId" value="${data.locId}" data-required="지역 ID를 입력하세요.">
 				<c:if test="${errorCode == 'locId'}">
 					<label class="input-label-error">${errorMsg}</label>
 				</c:if>

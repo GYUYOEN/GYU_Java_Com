@@ -14,6 +14,10 @@ header {
 	align-items: center;
 }
 
+.top-nav > .right {
+	margin-left: auto;
+}
+
 .nav {
 	background-color: white;
 }
@@ -75,6 +79,7 @@ ul.nav,ol.nav {
 
 .nav-item.dropdown {
 	position: relative;
+	z-index: 99;
 }
 
 .nav-item.dropdown > .dropdown-nav {

@@ -11,10 +11,8 @@ import dept.model.DeptDTO;
 // 사용자에게 제공할 서비스 구현 (로직)
 public class DeptService {
 	
-	private DeptDAO dao;
-	
 	public List<DeptDTO> getAll() {
-		dao = new DeptDAO();
+		DeptDAO dao = new DeptDAO();
 		
 		List<DeptDTO> datas = dao.searchAll();
 		
@@ -27,7 +25,7 @@ public class DeptService {
 		int start, end;
 		start = (pageNumber - 1) * pageCount;
 		end = pageCount;
-		dao = new DeptDAO();
+		DeptDAO dao = new DeptDAO();
 		List<DeptDTO> datas = dao.searchPage(start, end);
 		dao.close();
 		return datas;
@@ -48,7 +46,7 @@ public class DeptService {
 	*/
 	
 	public List<Integer> getPageList(int pageCount) {
-		dao = new DeptDAO();
+		DeptDAO dao = new DeptDAO();
 		
 		List<Integer> pageList = new ArrayList<Integer>();
 		int total = dao.totalRow(); // 전체행수를 알아냄
@@ -89,14 +87,14 @@ public class DeptService {
 	
 	// 실질적인 로직
 	private DeptDTO _getId(int id) {
-		dao = new DeptDAO();
+		DeptDAO dao = new DeptDAO();
 		DeptDTO data = dao.searchId(id);
 		dao.close();
 		return data;
 	}
 
 	public DeptDTO addDept(String deptId, String deptName, String mngId, String locId) {
-		dao = new DeptDAO();
+		DeptDAO dao = new DeptDAO();
 		DeptDTO deptDto = null;
 		if(deptId.matches("\\d+") && mngId.matches("\\d+") && locId.matches("\\d+")) {
 			boolean isValid = true;
@@ -160,7 +158,7 @@ public class DeptService {
 	}
 
 	public int modifyDept(DeptDTO data) {
-		dao = new DeptDAO();
+		DeptDAO dao = new DeptDAO();
 		
 		if(!dao.existManager(data.getMngId())) {
 			dao.rollback();
@@ -186,7 +184,7 @@ public class DeptService {
 	}
 
 	public int deleteDept(String id) {
-		dao = new DeptDAO();
+		DeptDAO dao = new DeptDAO();
 		if(dao.searchId(Integer.parseInt(id)) == null) {
 			dao.rollback();
 			dao.close();
@@ -202,5 +200,19 @@ public class DeptService {
 		dao.rollback();
 		dao.close();
 		return 0;
+	}
+
+	public boolean existsManager(String value) {
+		DeptDAO dao = new DeptDAO();
+		boolean result = dao.selectManager(Integer.parseInt(value));
+		dao.close();
+		return result;
+	}
+
+	public boolean existsLocation(String value) {
+		DeptDAO dao = new DeptDAO();
+		boolean result = dao.selectLocation(Integer.parseInt(value));
+		dao.close();
+		return result;
 	}
 }

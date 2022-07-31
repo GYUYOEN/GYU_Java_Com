@@ -1,6 +1,7 @@
 package dept.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,29 +10,36 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dept.model.DeptDTO;
 import dept.service.DeptService;
+import login.model.PermDTO;
 
 @WebServlet("/depts/add") // form에 action에 해당
 public class DeptAddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DeptService service = new DeptService();
+
 	
 	// 사용자가 추가 버튼과 같은 기능을 클릭 했을 때 동작 할 메서드
 	// HTTP Request 가 GET 요청인 경우 처리하는 메서드
 	// 주로 사용자가 입력 양식을 요청하는 경우 사용됨
 	// 조회할 때 (양식 재공)
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			String view = "/WEB-INF/jsp/dept/add.jsp";
-			request.getRequestDispatcher(view).forward(request, response);
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		String view = "/WEB-INF/jsp/dept/add.jsp";
+		request.getRequestDispatcher(view).forward(request, response);
 	}
 	
 	// 사용자가 입력 양식에 입력한 데이터를 처리하기 위한 메서드
 	// HTTP Request 가 POST 요청인 경우 처리하는 메서드
 	// 주오 사용자가 입력한 양식 데이터를 처리하는 경우 사용됨
 	// 추가, 수정, 삭제 할때 (데이터 처리)
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String view = "/WEB-INF/jsp/dept/add.jsp";
+		
 		// jsp -> controller (메시지 안의 입력 정보를 추출) : getParameter()
 		// controller -> jsp : setAttribute()
 		String deptId = request.getParameter("deptId"); // input 태그의 name 속성값 작성
@@ -41,14 +49,13 @@ public class DeptAddController extends HttpServlet {
 		
 		// service에서 객체로 변환 (modController와 다른 방법)
 		DeptDTO data = service.addDept(deptId, deptName, mngId, locId); // 전달받은 데이터를 그대로 service 에 전달
-		
 		request.setAttribute("data", data);
 		
-		String view = "/WEB-INF/jsp/dept/add.jsp";
 		if(data != null) {
 			if(data.getDeptId() != -1 && data.getMngId() != -1 && data.getLocId() != -1) {
 				// 저장 성공 후 리다이렉트를 사용하여 페이지를 이동하게 함
 				response.sendRedirect(request.getContextPath() + "/depts?search=" + data.getDeptId());
+				return;
 			} else {
 				Map<String, String> error = new HashMap<String, String>();
 				
