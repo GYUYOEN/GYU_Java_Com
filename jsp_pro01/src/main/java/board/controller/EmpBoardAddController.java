@@ -33,8 +33,8 @@ public class EmpBoardAddController extends HttpServlet {
 		EmpBoardDTO data = new EmpBoardDTO();
 		data.setTitle(title);
 		data.setContent(content);
-		data.setEmpId(((EmpDTO)session.getAttribute("loginData")).getEmpId());
-		
+		data.setEmpId(((EmpDTO)session.getAttribute("loginData")).getEmpId()); // 로그인한 사원만 저장할 수 있게
+
 		int boardId = service.add(data);
 		
 		if(boardId > 0) {

@@ -76,22 +76,22 @@
 		 WHERE EMPLOYEE_ID = #{id}
 	</select>
 	<select id="selectAll" parameterType="empDto" resultMap="empDtoMap"> <!-- 결과가 다양함으로 resultMap 해줌 -->
-		SELECT EMPLOYEE_ID 
-	 		 , CONCAT(FIRST_NAME, ' ' || LAST_NAME) AS EMPLOYEE_NAME
-			 , CONCAT(EMAIL, '@emp.com') AS EMAIL
-			 , J.JOB_TITLE
-			 , E.JOB_ID
-			 , D.DEPARTMENT_NAME
-			 , E.DEPARTMENT_ID
-  		 FROM EMPLOYEES E
-  		 JOIN JOBS J
-  		   ON E.JOB_ID = J.JOB_ID
- 		 JOIN DEPARTMENTS D
-   		   ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
-   		<if test="deptId != 10">
-   	    WHERE E.DEPARTMENT_ID = #{deptId}
-   		</if>
-   		ORDER BY 1
+		SELECT E.EMPLOYEE_ID
+		     , CONCAT(E.FIRST_NAME, ' ' || E.LAST_NAME) AS EMPLOYEE_NAME
+		     , CONCAT(E.EMAIL, '@emp.com') AS EMAIL
+		     , J.JOB_TITLE
+		     , E.JOB_ID
+		     , D.DEPARTMENT_NAME
+		     , E.DEPARTMENT_ID
+		  FROM EMPLOYEES E
+		  JOIN JOBS J
+		    ON E.JOB_ID = J.JOB_ID
+		  JOIN DEPARTMENTS D
+		    ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+		<if test="deptId != 10">
+		 WHERE E.DEPARTMENT_ID = #{deptId}
+		</if>
+		 ORDER BY E.EMPLOYEE_ID
 	</select>
 	<select id="totalRow" parameterType="empDto" resultType="_int">
 		SELECT COUNT(*)

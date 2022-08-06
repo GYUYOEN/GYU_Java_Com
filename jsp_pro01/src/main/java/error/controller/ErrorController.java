@@ -16,8 +16,9 @@ public class ErrorController extends HttpServlet {
 	private String view = "/WEB-INF/error/error.jsp";
   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// request.getSession().getAttribute("error") : 기존의 어떤 에러가 발생했었는지 확안해줌
 		request.setAttribute("error", request.getSession().getAttribute("error"));
-		request.getSession().removeAttribute("error");
+		request.getSession().removeAttribute("error"); // 에러를 더이상 남겨줄 필요 없으므로 제거
 		
 		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);

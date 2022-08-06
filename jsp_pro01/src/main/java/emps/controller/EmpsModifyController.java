@@ -58,6 +58,8 @@ public class EmpsModifyController extends HttpServlet {
 		
 		EmpService empService = new EmpService();
 		
+		// 수정할 떄는 새로운 객체를 만드는 형식 말고(EmpDTO empData = new EmpDTO(); (x))
+		// 조회를 해서 조회를 한 데이터에 대해 수정작업 하는 걸로 하는게 나음
 		EmpDTO empData = empService.getId(empId);
 		if(empData == null) {
 			request.getSession().setAttribute("error", "해당 데이터는 존재하지 않습니다.");
@@ -71,6 +73,7 @@ public class EmpsModifyController extends HttpServlet {
 		
 		EmpDetailDTO empDetailData = empService.getDetail(empData.getEmpId());
 		if(empDetailData == null) {
+			// error controller 를 따로 만들고 session을 이용해 error 페이지를 처리함 (이전 에러페이지 활용)
 			request.getSession().setAttribute("error", "해당 데이터는 존재하지 않습니다.");
 			response.sendRedirect(request.getContextPath() + "/error");
 			return;

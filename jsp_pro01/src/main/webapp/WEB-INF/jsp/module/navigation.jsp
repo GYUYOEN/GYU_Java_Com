@@ -38,6 +38,12 @@
 			</li>
 			<c:if test="${not empty sessionScope.loginData}">
 				<c:if test="${sessionScope.permData.employees.pRead}">
+					<li class="nav-item ${fn:contains(url, '/board') ? ' active' : ''}">
+						<c:url var="m5" value="/board"/>
+						<a class="nav-link" href="${m5}">게시판</a>
+					</li>
+				</c:if>
+				<c:if test="${sessionScope.permData.employees.pRead}">
 					<li class="nav-item ${fn:contains(url, '/emps') ? ' active' : ''}">
 						<c:url var="m5" value="/emps"/>
 						<a class="nav-link" href="${m5}">직원</a>

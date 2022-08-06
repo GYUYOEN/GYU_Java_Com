@@ -139,20 +139,23 @@
 	</div>
 </body>
 <script type="text/javascript">
-	function empDelete(element, empId) {
+	function empDelete(empId) {
 		$.ajax ({
 			type: "post",
-			url: "/ajax/delet",
+			url: "/ajax/delete",
 			data: {
 				id: empId,
 				type: "emp"
 			},
 			dataType: "json",
-			complete: function(data){
+			success: function(data){
+				// 삭제를 눌렀을때 서버에서 응답이 오면 다시 모달이 나올 수있도록 하기 위한 작업
 				var myModal = new Bootstrap.Modal(document.getElementById("resultModal"), {
 					keyboard: false
 				});
-				myModal._element;
+				
+				// console.log(myModal);
+				
 				var title = myModal._element.querySelector(".modal-title");
 				var body = myModal._element.querySelector(".modal-body");
 				// title.innerText = "값 변경 확인";
@@ -160,6 +163,7 @@
 				title.innerText = data.title;
 				body.innerText = "<p>" + data.message + "/<p>"
 				
+				myModal.show();
 			}
 		})
 	}

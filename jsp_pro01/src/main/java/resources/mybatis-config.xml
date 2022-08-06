@@ -19,6 +19,7 @@
 		<typeAlias type="login.model.PermDTO" alias="permDto"/>
 		<typeAlias type="board.model.EmpBoardDTO" alias="empBoardDto"/>
 		<typeAlias type="board.model.EmpBoardStatisDTO" alias="empBoardStatisDto"/>
+		<typeAlias type="comment.model.CommentDTO" alias="commentDto"/>
 	</typeAliases>
  	<environments default="development"> <!-- MyBatis에서 연동할 DataBase 정보 등록 -->
     	<environment id="development">
@@ -51,6 +52,7 @@
 		<mapper resource="resources/mapper/emp_boards.xml"/>
 		<mapper resource="resources/mapper/employee.xml"/>
 		<mapper resource="resources/mapper/location.xml"/>
+		<mapper resource="resources/mapper/comment.xml"/>
 		<mapper resource="resources/mapper/login.xml"/>
 		<mapper resource="resources/mapper/job.xml"/>
 	</mappers>

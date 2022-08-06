@@ -3,6 +3,11 @@
   <!--web.xml : 웹 동작과 관련된 기본 구성, jsp.servlet과 관련된 구성 정보들이 등록되는 파일 -> 자신이 어떻게 동잘할지 참조하는 파일 -->
   <display-name>jsp_pro01</display-name>
   
+  <context-param>
+  	<param-name>view</param-name>
+  	<param-value>/WEB-INF/jsp/</param-value>
+  </context-param>
+  
   <!-- @WebServlet("") 사용 안하고 하는 방법 -> 둘 중 한가지 반법만 사용 -> 2가지 방법 같이 사용 가능하나 이름이 중복되면 충돌일어남으로 주의 -->
   <!-- 참조 순서 : servlet-mapping -> servlet -->
   <servlet>
@@ -35,7 +40,8 @@
   	<url-pattern>/emps/*</url-pattern>
   	<url-pattern>/depts</url-pattern>
   	<url-pattern>/depts/*</url-pattern>
-  	<url-pattern>/board/add</url-pattern>
+  	<url-pattern>/board</url-pattern>
+  	<url-pattern>/board/*</url-pattern>
   </filter-mapping>
   
   <filter>
@@ -48,6 +54,11 @@
   	<url-pattern>/emps/*</url-pattern>
   	<url-pattern>/depts</url-pattern>
   	<url-pattern>/depts/*</url-pattern>
+  </filter-mapping>
+  
+   <filter-mapping>
+  	<filter-name>NextURLFilter</filter-name>
+  	<url-pattern />
   </filter-mapping>
   
   <!-- 필터끝 -->

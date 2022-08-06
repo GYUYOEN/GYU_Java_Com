@@ -10,6 +10,7 @@
 	<title>게시판 등록</title>
 	<link rel="stylesheet" type="text/css" href="/static/bs5/css/bootstrap.min.css">
 	<script type="text/javascript" src="/static/bs5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/static/ckeditor/ckeditor.js"></script>
 </head>
 <script type="text/javascript">
 	function formCheck(form) {
@@ -30,11 +31,11 @@
 		<div class="mt-3">
 			<form action="/board/add" method="post">
 				<div class="mb-3">
-					<input class="form-control" id="id_title" name="title" placeholder="제목을 입력하세요." value="${param.title}">
+					<input class="form-control" id="id_title" name="title" placeholder="제목을 입력하세요." value="${param.title}"> <!-- value="${param.title}" : 작성한 내용이 오류로 인해 사라지지 않게 하기위한 작업 -->
 				</div>
 				<div class="mb-3">
 					<textarea class="form-control" id="id_content" name="content" 
-						rows="5" placeholder="내용을 입력하세요.">${param.content}</textarea>
+						rows="5" placeholder="내용을 입력하세요.">${param.content}</textarea> <!-- value="${param.content}" : 작성한 내용이 오류로 인해 사라지지 않게 하기위한 작업 -->
 				</div>
 				<div class="text-end">
 					<!-- this 는 button인데 this.form 하면 this에 소속된 form을 의미 -->
@@ -42,6 +43,7 @@
 				</div>
 			</form>
 		</div>
+		<!-- 경고 창 -->
 		<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -67,13 +69,18 @@
 		</div>
 	</section>
 	<footer></footer>
-<c:if test="${empty errorMsg}">
+	<c:if test="${not empty errorMsg}">
+		<script type="text/javascript">
+			var modal = new bootstrap.Modal(document.getElementById("errorModal"), {
+				keyboard: false
+			})
+			modal.show();
+		</script>
+	</c:if>
 	<script type="text/javascript">
-		var modal = new bootstrap.Modal(document.getElementById("errorModal"), {
-			keyboard: false
-		})
-		modal.show();
+		CKEDITOR.replace("content", {
+			filebrowserUploadUrl: "/image/upload?type=image"
+		});
 	</script>
-</c:if>
 </body>
 </html>

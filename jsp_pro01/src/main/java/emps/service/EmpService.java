@@ -106,7 +106,7 @@ public class EmpService {
 		if(file.exists()) {
 			return imagePath + data.getEmpId() + ".png"; // url로 찾기
 		} else {
-			return imagePath + "default.png";
+			return imagePath + "/default.png";
 		}
 	}
 
