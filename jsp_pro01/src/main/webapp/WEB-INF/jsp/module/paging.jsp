@@ -39,6 +39,7 @@
 		<% } %>
 		--%>
 	<%-- <c:forEach begin="${currentPage}" end="${currentPage + 4}" var="item"> <!-- item 은 배열(5, 6, 7, 8, 9)  --> --%>
+	<%-- currentPage도 메서드 인데 왜 ()를 안쓰냐? --%>
 	<c:forEach items="${datas.getPages(datas.currentPage - 2, datas.currentPage + 2)}" var="item">
 		<li class="page-item ${datas.currentPage == item ? ' active' : ''}">
 			<a class="page-link" href="${pageUrl}?page=${item}">${item}</a> <!-- (item - 1) : index 번호이므로 -1 해줌 -->
@@ -54,7 +55,7 @@
 	%>
 	--%>
 	<c:choose>
-		<c:when test="${datas.hasNextPage()}">
+		<c:when test="${datas.hasNextPage()}"> <%-- 메서드라 ()를 써줘야함 --%>
 			<li class="page-item">
 				<a class="page-link bi bi-caret-right-fill" href="${pageUrl}?page=${datas.nextPage}"></a>
 			</li>

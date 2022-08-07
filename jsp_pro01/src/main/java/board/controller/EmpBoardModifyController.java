@@ -47,13 +47,13 @@ private static final long serialVersionUID = 1L;
 		
 		EmpDTO empData = (EmpDTO)session.getAttribute("loginData");
 		
-		EmpBoardDTO data = service.getData(Integer.parseInt(id));
+		EmpBoardDTO data = service.getData(Integer.parseInt(id)); // 예전 데이터
 		
-		if(data.getEmpId() == empData.getEmpId()) {
-			data.setTitle(request.getParameter("title"));
-			data.setContent(request.getParameter("content"));
+		if(data.getEmpId() == empData.getEmpId()) { // GET 에서 확인 했어도 POST에서도 확인해야함
+			data.setTitle(request.getParameter("title")); // 데이터 수정
+			data.setContent(request.getParameter("content")); // 데이터 수정
 			
-			boolean result = service.modify(data);
+			boolean result = service.modify(data); // 최신 데이터
 			if(result) {
 				response.sendRedirect(request.getContextPath() + "/board/detail?id=" + data.getId());
 			} else {

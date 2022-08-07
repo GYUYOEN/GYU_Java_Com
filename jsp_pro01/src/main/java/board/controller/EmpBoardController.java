@@ -27,7 +27,7 @@ public class EmpBoardController extends HttpServlet {
 		String view = "/WEB-INF/jsp/board/list.jsp";
 		
 		String page = request.getParameter("page");
-		String limit = null;
+		String limit = null; // 보여질 데이터 수
 		
 		if(request.getParameter("pgc") != null) {
 			limit = request.getParameter("pgc");

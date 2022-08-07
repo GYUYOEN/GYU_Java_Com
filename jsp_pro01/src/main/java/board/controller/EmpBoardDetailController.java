@@ -72,7 +72,7 @@ public class EmpBoardDetailController extends HttpServlet {
 			page = page == null ? "1" : page;
 			Paging commentPage = commentService.getPage(page, limit, data.getId());
 			
-//			data.setContent(data.getContent().replace("\r\n", "<br>"));
+//			data.setContent(data.getContent().replace("\r\n", "<br>")); // 게시물 내용을 개행시켜주기 위한 로직
 			
 			request.setAttribute("data", data);
 			request.setAttribute("empData", empData);

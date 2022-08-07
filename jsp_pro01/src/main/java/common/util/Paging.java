@@ -6,11 +6,11 @@ import java.util.List;
 
 public class Paging {
 
-	private int offset;
-	private int limit;
-	private List<Integer> pages;
-	private List<Object> pageDatas;
-	private int currentPage;
+	private int offset; // 보여질 데이터 위치 
+	private int limit; // 보여질 데이터 갯수
+	private List<Integer> pages; // 페이지 번호 정보
+	private List<Object> pageDatas; // 해당 페이지에 있는 데이터
+	private int currentPage; // 현재 페이지
 	private int nextPage;
 	private int prevPage;
 	
@@ -39,7 +39,7 @@ public class Paging {
 		return pages;
 	}
 	
-	public List<Integer> getPages(int start, int end) { // 페이지 번호
+	public List<Integer> getPages(int start, int end) { // 보여자는 페이지 번호
 		start = start < 1 ? 1 : start; // start - 1 = -2 가 되는데 그렇게 되면 에러 남으로
 		end = end > pages.size() ? pages.size() : end;
 		return pages.subList(start - 1, end);
@@ -68,11 +68,13 @@ public class Paging {
 		return prevPage;
 	}
 	
-	public boolean hasNextPage() {
+	public boolean hasNextPage() { // 다음 페이지가 있는지
+//		return this.pages.contains(this.nextPage);
 		return this.nextPage > this.pages.size() ? false : true;
 	}
 	
-	public boolean hasPrevPage() {
+	public boolean hasPrevPage() { // 이전 페이지가 있는지
+//		return this.pages.contains(this.prevPage);
 		return this.prevPage <= 0 ? false : true;
 	}
 	

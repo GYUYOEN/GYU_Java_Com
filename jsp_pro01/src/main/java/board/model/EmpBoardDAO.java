@@ -86,7 +86,7 @@ private SqlSession session;
 	}
 	
 	public void selectPage(Paging paging, String search) {
-		RowBounds rb = new RowBounds(paging.getOffset(), paging.getLimit());
+		RowBounds rb = new RowBounds(paging.getOffset(), paging.getLimit()); // 시작(offset) ~ 제한(limit)
 		Cursor<Object> cursor = session.selectCursor("empBoardsMapper.selectPage", search, rb);
 		paging.setPageDatas(cursor.iterator());
 	}
@@ -98,7 +98,7 @@ private SqlSession session;
 	
 	public boolean deleteStatisData(EmpBoardDTO data) {
 		int result = session.delete("empBoardsMapper.deleteStatisData", data.getId());
-		return result >= 0 ? true : false;
+		return result >= 0 ? true : false; // 결과 값이 여러 개일 수도 있고 0일 수도있고
 	}
 	
 	public boolean updateData(EmpBoardDTO data) {

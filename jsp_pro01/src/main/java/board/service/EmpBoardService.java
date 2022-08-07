@@ -130,10 +130,10 @@ public class EmpBoardService {
 		return paging;
 	}
 	
-	public Paging getPage(String page, String limit, String search) {
+	public Paging getPage(String page, String limit, String search) { // page: 몇번쟤 페이지, limit: 한페이지에 보여줄 최대 데이터 수
 		EmpBoardDAO dao = new EmpBoardDAO();
 		
-		int totalRows = dao.getTotalRows(search);
+		int totalRows = dao.getTotalRows(search); // 전체 행수를 알아야 limit를 이용하여 총 페이지 수 를 알 수 있음
 		
 		Paging paging = new Paging(Integer.parseInt(page), Integer.parseInt(limit), totalRows);
 		dao.selectPage(paging, search);
@@ -145,7 +145,7 @@ public class EmpBoardService {
 	public boolean remove(EmpBoardDTO data) {
 		EmpBoardDAO dao = new EmpBoardDAO();
 		
-		dao.deleteStatisData(data);
+		dao.deleteStatisData(data); // 제약조건에 걸리기 때문에 먼저 지워야 함
 		boolean result = dao.deleteData(data);
 		
 		if(result) {
