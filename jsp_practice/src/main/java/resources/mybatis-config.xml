@@ -21,8 +21,8 @@
       		<dataSource type="POOLED">
         		<property name="driver" value="${driver}"/> <!-- 변수로 설정 -->
 		        <property name="url" value="${url}"/> <!-- ${url} : 메모장에 url을 지칭 -->
-		        <property name="username" value="puser1"/>
-		        <property name="password" value="puser1"/>
+		        <property name="username" value="puser2"/>
+		        <property name="password" value="puser2"/>
 		        <property name="poolMaximumIdleConnections" value="5"/> <!-- 사용하지 않는 connection 최대 5개까지만 남아있을 수 있게 해줌 : 유휴 상태 -->
 		        <property name="poolMaximumActiveConnections" value="10"/> <!-- 최대 10개의 connection 활성화 -->
      		 </dataSource>
