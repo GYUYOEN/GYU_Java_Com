@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- <properties url="file:///C:/Users/user1/oracle_db.conf"> -->
+	<properties resource="resources/oracle_db.conf">
+		<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+	</properties>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	<typeAliases>
+		<typeAlias type="dept.model.DeptDTO" alias="deptDto"/>
+		<typeAlias type="locs.model.LocsDTO" alias="locsDto"/>
+		<typeAlias type="emps.model.EmpDTO" alias="empDto"/>
+		<typeAlias type="emps.model.EmpDetailDTO" alias="empDetailDto"/>
+		<typeAlias type="job.model.JobDTO" alias="jobDto"/>
+		<typeAlias type="login.model.PermDTO" alias="permDto"/>
+		<typeAlias type="board.model.EmpBoardDTO" alias="empBoardDto"/>
+		<typeAlias type="board.model.EmpBoardStatisDTO" alias="empBoardStatisDto"/>
+		<typeAlias type="comment.model.CommentDTO" alias="commentDto"/>
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="puser2"/>
+				<property name="password" value="puser2"/>
+				<property name="poolMaximumIdleConnections" value="5"/>
+				<property name="poolMaximumActiveConnections" value="10"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="resources/mapper/department.xml" />
+		<mapper resource="resources/mapper/emp_boards.xml" />
+		<mapper resource="resources/mapper/employee.xml" />
+		<mapper resource="resources/mapper/location.xml" />
+		<mapper resource="resources/mapper/comment.xml" />
+		<mapper resource="resources/mapper/login.xml" />
+		<mapper resource="resources/mapper/job.xml" />
+	</mappers>
+</configuration>
