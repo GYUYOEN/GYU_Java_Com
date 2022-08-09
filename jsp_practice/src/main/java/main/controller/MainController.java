@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import dept.model.DeptDTO;
 import dept.service.DeptService;
 
-@WebServlet("/main")
+@WebServlet("")
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String view = "/WEB-INF/jsp/index.jsp";

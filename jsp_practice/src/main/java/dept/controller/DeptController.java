@@ -24,11 +24,12 @@ public class DeptController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(); // 세션 정보 가져오기
+		
 		String search = request.getParameter("search");
 		int page = param.defaultIntValue(request, "page", "1");
 		int pageCount = 0;
 		
-		HttpSession session = request.getSession(); // 세션 정보 가져오기
 		
 		boolean pageCountSessionExist = false;
 		// session.getAttribute("pageCount") : 세션에 저장된 정보 가져오기
