@@ -7,14 +7,14 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="com.myhome.web.dept.model.DeptDTO" alias="deptDto"/>
+		<typeAlias type="com.myhome.web.emp.model.EmpDTO" alias="empDto"/>
+		<typeAlias type="com.myhome.web.login.model.PermDTO" alias="permDto"/>
+		<typeAlias type="com.myhome.web.board.model.BoardDTO" alias="boardDto"/>
+		<typeAlias type="com.myhome.web.board.model.BoardStatisDTO" alias="boardStatisDto"/>
 		<!-- 
 		<typeAlias type="locs.model.LocsDTO" alias="locsDto"/>
-		<typeAlias type="emps.model.EmpDTO" alias="empDto"/>
 		<typeAlias type="emps.model.EmpDetailDTO" alias="empDetailDto"/>
 		<typeAlias type="job.model.JobDTO" alias="jobDto"/>
-		<typeAlias type="login.model.PermDTO" alias="permDto"/>
-		<typeAlias type="board.model.EmpBoardDTO" alias="empBoardDto"/>
-		<typeAlias type="board.model.EmpBoardStatisDTO" alias="empBoardStatisDto"/>
 		<typeAlias type="comment.model.CommentDTO" alias="commentDto"/>
 		 -->
 	</typeAliases>

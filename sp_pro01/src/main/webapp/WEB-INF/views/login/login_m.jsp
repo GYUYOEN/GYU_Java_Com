@@ -5,17 +5,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:url var="loginUrl" value="/login" />
-<form class="small-form" action="${loginUrl}" method="post">
-	<div class="input-form wide">
-		<label class="input-label">직원ID</label>
-		<input type="text" class="input-text" name="empId" value="" data-required="직원ID를 입력하세요.">
-		<c:if test="${not empty error}">
-			<label class="input-label-error">${error}</label>
-		</c:if>
+<form action="${loginUrl}" method="post">
+	<div class="form-floating mb-2">
+		<input type="text" class="form-control" id="id-empId" name="empId" value="" placeholder="직원ID">
+		<label for="id_empId">직원ID</label>
 	</div>
-	<div class="input-form wide">
-		<label class="input-label">부서명</label>
-		<select class="select-form" name="deptId" data-required="부서명을 선택하세요.">
+	<div class="form-floating mb-2">
+		<select class="form-select" id="id_deptId" name="deptId">
+			<option>부서 선택</option>
 			<c:forEach items="${deptDatas}" var="deptDto">
 				<c:choose>
 					<c:when test="${empty error and cookie.deptRe.value == deptDto.deptId}">
@@ -36,13 +33,18 @@
 				</c:choose>
 			</c:forEach>
 		</select>
+		<label for="id_deptId">부서 선택</label>
 	</div>
-	<div class="input-form wide">
-		<label class="input-label">이름</label>
-		<input type="text" class="input-text" name="empName" value="${param.empName}" data-required="이름을 입력하세요.">
+	<div class="form-floating mb-2">
+		<input type="text" class="form-control" id="id_empName" name="empName" value="${param.empName}" placeholder="이름">
+		<label for="id_empName">이름</label>
 	</div>
-	<div class="input-form wide form-right">
-		부서기억하기<input type="checkbox" name="deptRe" ${not empty cookie.deptRe.value ? 'checked' : ''}>
-		<button class="btn btn-outline btn-ok" type="submit">로그인</button>
+	<div class="mb-2 text-end">
+		<div class="form-check from-check-inline form-switch">
+			<input class="form-check-input" role="switch" type="checkbox" id="id_deptRe" 
+				name="deptRe" ${not empty cookie.deptRe.value ? 'checked' : ''}>
+			<label class="form-check-label" for="id_deptRe">부서기억하기</label>
+		</div>
+		<button class="btn btn-outline-primary" type="submit">로그인</button>
 	</div>
 </form>

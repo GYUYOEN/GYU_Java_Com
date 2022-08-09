@@ -36,7 +36,7 @@
 	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource"></beans:property>
 		<beans:property name="configLocation" value="classpath:/mybatis/mybatis-config.xml"></beans:property>
-		<beans:property name="mapperLocations" value="classpath:/mybatis/mapper/department.xml"></beans:property>
+		<beans:property name="mapperLocations" value="classpath:/mybatis/mapper/*.xml"></beans:property> <!-- 여기에 mapper 등록해야하 함 -->
 	</beans:bean>
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
