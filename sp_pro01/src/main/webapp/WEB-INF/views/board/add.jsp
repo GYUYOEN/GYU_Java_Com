@@ -8,9 +8,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>게시판 등록</title>
-	<link rel="stylesheet" type="text/css" href="/static/bs5/css/bootstrap.min.css">
-	<script type="text/javascript" src="/static/bs5/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/static/ckeditor/ckeditor.js"></script>
+	<jsp:include page="../module/head.jsp" />
+	<%-- <c:url value="/static/ckeditor" var="ckedit" /> 
+	<script type="text/javascript" src="${ckedit}/ckeditor.js"></script>--%>
 </head>
 <script type="text/javascript">
 	function formCheck(form) {
@@ -24,14 +24,19 @@
 		}
 		form.submit();
 	}
+	
 </script>
 <body>
 	<header></header>
 	<section class="container">
 		<div class="mt-3">
-			<form action="/board/add" method="post">
+			<c:url value="/board/add" var="boardAddUrl" />
+			<form action="${boardAddUrl}" method="post" enctype="multipart/form-data">
 				<div class="mb-3">
 					<input class="form-control" id="id_title" name="title" placeholder="제목을 입력하세요." value="${param.title}">
+				</div>
+				<div>
+					<input type="file" name="uploadFile" multiple ></input>
 				</div>
 				<div class="mb-3">
 					<textarea class="form-control" id="id_content" name="content"
@@ -75,10 +80,13 @@
 			modal.show();
 		</script>
 	</c:if>
+	<c:url var="imageUrl" value="/upload/image" />
+	<%-- 
 	<script type="text/javascript">
 		CKEDITOR.replace("content", {
-			filebrowserUploadUrl: "/image/upload?type=image"
+			filebrowserUploadUrl: "${imageUrl}?type=image"
 		});
 	</script>
+	--%>
 </body>
 </html>

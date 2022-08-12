@@ -12,6 +12,41 @@
 		var form = document.forms[0];
 		form.email.addEventListener("input", enableSaveButton);
 		form.phone.addEventListener("input", enableSaveButton);
+		
+		// 선택한 이미지에 대해서 뜨게 화면상에 뜨게하기 위해서 사용
+		prevImage.addEventListener("click", function(e) {
+			// input을 숨김처리하고 대신에 이미지를 클릭했을 뗴 input 파일 선택과 같은 동작이 이루어지게 함
+			btnImage.click();
+		});
+		
+		btnImage.addEventListener("change" , ajaxUploadImage);
+	}
+	
+	function ajaxUploadImage(e) {
+		var file = e.target.files[0];
+		var fData = new FormData();
+		fData.append("uploadImage", file, file.name);
+		
+		$.ajax({
+			type: "post",
+			url: "/ajax/imageUpload",
+			enctype: "multipart/form-data",
+			data: fData,
+			processData: false, // 문자열 제외 데이터 전송할 때
+			contentType: false, // 서버에 데이터 보낼 떄
+			success: function(data, status) {
+				prevImage.src = data.loc;
+			},
+			error: function(data, status) {
+				prevImage.src = data.loc;
+			}
+		});
+	}
+	
+	function showPreview(e) {
+		var file = e.target.files[0]; // 선택한 이미지의 파일 객체 정보(여러이미지를 선택할 수 있으므로 배열로 되어있음 -> multiple)
+		var imgUrl = URL.createObjectURL(file); // file에 대한 url 정보를 가져옴
+		prevImage.src = imgUrl; // src에는 원래 서버에 저장되어 있는 이미지 정보
 	}
 	
 	function enableSaveButton(e) {
@@ -24,8 +59,16 @@
 	<%@ include file="../module/navigation.jsp" %>
 	<section class="container">
 		<c:url var="updateUrl" value="/myinfo" />
-		<form class="large-form" action="${updateUrl}" method="post">
+		<form class="large-form" action="${updateUrl}" method="post" enctype="multipart/form-data">
 			<div class="img-form left">
+				 <!-- 
+				 	원래는 이미지는 데이터베이스에 이미지의 저장 위치 / 이미지 파일명을 기록하여 관리하게 된다. 
+				 	근데 여기서는 EMPLOYESS 테이블에 이미지 관력 컬럼이 없으므로
+				 	모든 사원의 이미지는 사원ID.png 형식으로 /static/img/emp/ 경로 란에 저장을 한다.
+				 	
+					empId		imagePath
+					 100		/static/img/emp/servertyv.png
+				 -->
 				<c:url var="imgUrl" value="${imagePath}" />
 				<img id="prevImage" class="img-360" alt="여기에는 증명 사진이 배치됩니다." src="${imgUrl}">
 				<br>

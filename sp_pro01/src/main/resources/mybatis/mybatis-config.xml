@@ -11,11 +11,12 @@
 		<typeAlias type="com.myhome.web.login.model.PermDTO" alias="permDto"/>
 		<typeAlias type="com.myhome.web.board.model.BoardDTO" alias="boardDto"/>
 		<typeAlias type="com.myhome.web.board.model.BoardStatisDTO" alias="boardStatisDto"/>
+		<typeAlias type="com.myhome.web.comment.model.CommentDTO" alias="commentDto"/>
+		<typeAlias type="com.myhome.web.emp.model.EmpDetailDTO" alias="empDetailDto"/>
+		<typeAlias type="com.myhome.web.upload.model.UploadFilesDTO" alias="uploadFilesDto"/>
 		<!-- 
 		<typeAlias type="locs.model.LocsDTO" alias="locsDto"/>
-		<typeAlias type="emps.model.EmpDetailDTO" alias="empDetailDto"/>
 		<typeAlias type="job.model.JobDTO" alias="jobDto"/>
-		<typeAlias type="comment.model.CommentDTO" alias="commentDto"/>
 		 -->
 	</typeAliases>
 </configuration>

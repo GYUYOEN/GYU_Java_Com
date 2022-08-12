@@ -8,13 +8,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>${data.title}</title>
-	<link rel="stylesheet" type="text/css" href="/static/bs5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-	<script type="text/javascript" src="/static/bs5/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/static/js/jquery-3.6.0.min.js"></script>
+	<jsp:include page="../module/head.jsp" />
 </head>
 <body>
-	<header></header>
+	<header>
+		<jsp:include page="../module/navigation.jsp" />
+	</header>
 	<section class="container">
 		<div class="mt-3">
 			<div class="mb-1 border-bottom border-2 border-secondary">
@@ -106,7 +105,7 @@
 				</div>
 			</c:forEach>
 			<div class="mb-1">
-				<c:url var="commentUrl" value="/comment" />
+				<c:url var="commentUrl" value="/board/comment" />
 				<form action="${commentUrl}/add" method="post">
 					<input type="hidden" name="bid" value="${data.id}">
 					<div class="input-group">
@@ -192,7 +191,7 @@
 			var value = e.target.parentElement.previousElementSibling.children[0].value;
 			
 			$.ajax({
-				url: "/comment/modify",
+				url: "${commentUrl}/modify",
 				type: "post",
 				data: {
 					id: cid,
@@ -211,7 +210,7 @@
 			var card = element.parentElement.parentElement.parentElement.parentElement;
 			
 			$.ajax({
-				url: "/comment/delete",
+				url: "${commentUrl}/delete",
 				type: "post",
 				data: {
 					id: cid
@@ -226,7 +225,7 @@
 		}
 		function incLike(element, id) {
 			$.ajax({
-				url: "/board/detail",
+				url: "${boardUrl}/like",
 				type: "post",
 				data: {
 					id: id
@@ -241,7 +240,7 @@
 		function boardDelete(boardId) {
 			$.ajax({
 				type: "post",
-				url: "/board/delete",
+				url: "${boardUrl}/delete",
 				data: {
 					id: boardId
 				},
@@ -261,6 +260,22 @@
 			})
 		}
 	</script>
+	<%-- 댓글 작성시 오류가 났을 경우 --%>
+	<c:if test="${not empty sessionScope.commentError}">
+		<script type="text/javascript">
+			var myModal = new bootstrap.Modal(document.getElementById("resultModal"), {
+				keyboard: false
+			});
+			
+			var title = myModal._element.querySelector(".modal-title");
+			var body = myModal._element.querySelector(".modal-body");
+			title.innerText = "오류";
+			body.innerHTML = "<p>" + "${sessionScope.commentError}" + "</p>"
+				
+			myModal.show();
+		</script>
+		<c:remove var="commentError" scope="session" />
+	</c:if>
 	<c:if test="${sessionScope.error}">
 		<script type="text/javascript">
 			alert("${sessionScope.error}");

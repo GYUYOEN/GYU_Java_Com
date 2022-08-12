@@ -44,7 +44,7 @@
 				</c:if>
 			</div>
 		</div>
-		
+		<%--
 		<div class="mb-3">
 			<c:url var="pageUrl" value="/board/detail">
 				<c:param name="id">${data.id}</c:param>
@@ -81,7 +81,7 @@
 				</c:choose>
 			</ul>
 		</div>
-		
+		--%>
 		<div class="mb-3">
 			<c:forEach items="${commentPage.pageDatas}" var="comment">
 				<div class="mb-1">
