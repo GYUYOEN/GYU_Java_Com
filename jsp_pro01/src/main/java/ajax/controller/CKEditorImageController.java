@@ -33,16 +33,16 @@ public class CKEditorImageController extends HttpServlet {
 		sb.append("{");
 		if(!part.getSubmittedFileName().isEmpty()) { // 실제 업로드된 이미지가 있는지 확인
 			String realPath = request.getServletContext().getRealPath("/static/img/board/"); // 실제 경로에서 찾기
-			part.write(realPath + part.getSubmittedFileName()); // 저장 경로 - 파일이 실제로 저장될 경로
+			part.write(realPath + part.getSubmittedFileName()); // 저장 경로 - 파일이 실제로 저장될 경로. part.getSubmittedFileName() : 이미지 이름이 저절로 나옴
 
-			// CKEditor 형식에 맞춰줘야함
-			sb.append(String.format("\"%s\": %d, ",	"uploaded", 1)); 
-			sb.append(String.format("\"%s\": \"%s\", ",	"fileName", part.getSubmittedFileName()));
-			sb.append(String.format("\"%s\": \"%s\"  ",	"url", "/static/img/board/" + part.getSubmittedFileName()));
+			// CKEditor 응답, 요청 형식에 맞춰줘야함
+			sb.append(String.format("\"%s\": %d, ", "uploaded", 1));
+			sb.append(String.format("\"%s\": \"%s\", ", "fileName", part.getSubmittedFileName())); // 같은 사진을 업로드해도 알아서 이름을 자동으로 바꿔주기 때문에 중복을 피해줌
+			sb.append(String.format("\"%s\": \"%s\"  ", "url", "/static/img/board/" + part.getSubmittedFileName()));
 		}
 		sb.append("}");
 		
-		sb.append(out.toString());
+		out.append(sb.toString());
 		out.flush();
 	}
 

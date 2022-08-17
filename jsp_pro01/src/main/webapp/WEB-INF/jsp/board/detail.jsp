@@ -52,6 +52,13 @@
 			</div>
 		--%>
 		
+		<%-- 
+			댓글 페이징
+				페이지 전환으로 댓글 페이징을 했는데 ajax를 시용헤사 할 수 있다.
+				-> javascript를 사용해서 해당 페이지 댓글을 삭제하고 선택한 페이지에 대해 다시 요소 생성한다.
+				iframe 을 이용하는 방법도 있음(추천하지는 않지만...)
+				-> iframe 영역만 리로드 됨
+		--%>
 		<div class="mb-3">
 			<c:url var="pageUrl" value="/board/detail">
 				<c:param name="id">${data.id}</c:param>
@@ -89,6 +96,7 @@
 			</ul>
 		</div>
 		
+		<%-- 댓글 --%>
 		<div class="mb-3">
 			<c:forEach items="${commentPage.pageDatas}" var="comment">
 				<div class="mb-1">
@@ -112,6 +120,10 @@
 					</div>
 				</div>
 			</c:forEach>
+			<%--
+				댓글등록
+					댓글동록은 ajax를 이용하지 않고 페이지 전환 방식을 이용함
+			 --%>
 			<div class="mb-1">
 				<c:url var="commentUrl" value="/comment" />
 				<form action="${commentUrl}/add" method="post">
@@ -161,52 +173,60 @@
 	</section>
 	<footer></footer>
 	<script type="text/javascript">
+		// 댓글 등록
 		function formCheck(form) {
-			if(form.content.value.trim() === "") {
+			if(form.content.value.trim() === "") { // 댓글이 비워져 있으면
 				alert("댓글을 입력하세요.");
 			} else {
 				form.submit();
 			}
 		}
+		// 댓글에 수정버튼 누르면 삭제 버튼은 사라지고 확인 버튼만 나오도록 구현
 		function changeModify(element) {
 			element.innerText = "확인";
-			element.nextElementSibling.remove();
+			element.nextElementSibling.remove(); // 삭제 버튼 제거
 			
 			var content = element.parentElement.previousElementSibling.innerText;
 			var textarea = document.createElement("textarea");
-			textarea.value = content;
-			textarea.setAttribute("class", "form-control");
-			element.parentElement.previousElementSibling.innerText = "";
+			textarea.value = content; // 작성된 내용이 textarea의 value 값으로 사용할 수 있게
+			textarea.setAttribute("class", "form-control"); // css 적용
+			element.parentElement.previousElementSibling.innerText = ""; // 기존에 있던 내용 삭제
 			element.parentElement.previousElementSibling.append(textarea);
 			
+			// 바뀐 확인 버튼에 이벤트 적용(수정한 것을 저장될 수 있도록)
 			element.addEventListener("click", commentUpdate);
 		}
+		// 확인 버튼 누르면 버튼이 다시 수정,삭제 버튼으로 나오게 함 
+		// 댓글이 textarea -> <p> 로 바뀌어야 함
 		function changeText(element, value) {
 			element.innerText = "수정";
 			
 			var btnDelete = document.createElement("button");
 			btnDelete.innerText = "삭제";
-			btnDelete.setAttribute("type", "button");
-			btnDelete.setAttribute("class", "btn btn-sm btn-outline-dark");
-			btnDelete.setAttribute("onclick", "commentDelete(this);");
+			btnDelete.setAttribute("type", "button"); // 삭제 버튼 등록
+			btnDelete.setAttribute("class", "btn btn-sm btn-outline-dark"); // css 적용
+			btnDelete.setAttribute("onclick", "commentDelete(this);"); // 삭제가 동작 할 수 있도록 해줌
 			
 			element.parentElement.append(btnDelete);
 			
 			element.parentElement.previousElementSibling.children[0].remove();
 			element.parentElement.previousElementSibling.innerText = value;
 		}
+		// ajax를 이용해서 수정이 이루어 지도록 함
 		function commentUpdate(e) {
-			var cid = e.target.parentElement.parentElement.firstElementChild.value;
-			var value = e.target.parentElement.previousElementSibling.children[0].value;
+			var cid = e.target.parentElement.parentElement.firstElementChild.value; // 해당 뎃글 id 추출을 위해
+			var value = e.target.parentElement.previousElementSibling.children[0].value; // 수정한 데이터 추출(textarea에 작성한 글)
 			console.log(cid);
 			$.ajax({
 				url: "/comment/modify",
 				type: "post",
 				data: {
-					id: cid,
+					id: cid, // 해당 뎃글 id
 					content: value
 				},
 				success: function(data) {
+					// 확인 버튼 누르면 버튼이 다시 수정,삭제 버튼으로 나오게 함 
+					// 댓글이 textarea -> <p> 로 바뀌어야 함
 					changeText(e.target, data.value);
 					
 				},
@@ -216,8 +236,8 @@
 			});
 		}
 		function commentDelete(element) {
-			var cid = element.parentElement.parentElement.firstElementChild.value;
-			var card = element.parentElement.parentElement.parentElement.parentElement;
+			var cid = element.parentElement.parentElement.firstElementChild.value; // 삭제 버튼의 부모의 첫번째 자식을 찾음
+			var card = element.parentElement.parentElement.parentElement.parentElement; // 삭제 버튼의 부모를 찾음
 			
 			$.ajax({
 				url: "/comment/delete",

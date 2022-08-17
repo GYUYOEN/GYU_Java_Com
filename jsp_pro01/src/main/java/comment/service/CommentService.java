@@ -61,10 +61,10 @@ public class CommentService {
 		return result;
 	}
 
-	public Paging getPage(String page, String limit, int bid) {
+	public Paging getPage(String page, String limit, int bid) { // 어떤 게시물의 페이징인지 알기 위해 int bid 작성
 		CommentDAO dao = new CommentDAO();
 		
-		int totalRows = dao.getTotalRows(bid);
+		int totalRows = dao.getTotalRows(bid); // 특정 게시물의 댓글
 		
 		Paging paging = new Paging(Integer.parseInt(page), Integer.parseInt(limit), totalRows);
 		dao.selectPage(paging, bid);

@@ -21,8 +21,8 @@ public class CommentAddController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-		String bid = request.getParameter("bid");
-		String content = request.getParameter("content");
+		String bid = request.getParameter("bid"); // 어떤 게시글에 대한 댓글인지 구분 가능하게 하기 위해
+		String content = request.getParameter("content"); // 입력한 댓글 가져오기
 		
 		EmpDTO empData = (EmpDTO)session.getAttribute("loginData");
 		
