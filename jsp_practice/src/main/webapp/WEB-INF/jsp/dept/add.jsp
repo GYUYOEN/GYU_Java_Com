@@ -14,47 +14,6 @@
 <%-- 아래 테그를 이용하면 contextPath가 바뀌어도 에러가 안남 --%>
 <c:url var="ajaxDuplicateUrl" value="/ajax/duplicate" />
 <c:url var="ajaxExistsUrl" value="/ajax/exists" />
-<script type="text/javascript">
-function duplicateCheck(element) {
-	$.ajax({
-		type: "get",
-		url: "${ajaxDuplicateUrl}"
-		data: {
-			name: element.name,
-			value : element.value
-		},
-		success: function(data, status) {
-			setLabelState(element.nextElementSibling, data.code, data.message)
-		}
-	});
-}
-
-function existsCheck(element) {
-	$.ajax({
-		type: "get",
-		url: "${ajaxExistsUrl}"
-		data: {
-			name: element.name,
-			value : element.value
-		},
-		success: function(data, status) {
-			setLabelState(element.nextElementSibling, data.code, data.message)
-		}
-	});
-}
-
-function setLabelState(element, code, message) {
-	if(data.code === "success") {
-		// 정상 처리
-		element.innerText = message;
-		element.setAttribute("class", "input-label-ok");
-	} else if(data.code === "error") {
-		// 오류 메시지
-		element.innerText = message;
-		element.setAttribute("class", "input-label-error");
-	}
-}
-</script>
 <body>
 	<%@ include file="../module/navigation.jsp" %>
 	<!-- 
@@ -67,7 +26,8 @@ function setLabelState(element, code, message) {
 			<form class="small-form" action="./add" method="post"> 
 				<div class="input-form wide">
 					<label class="input-label">부서ID</label>
-					<input class="input-text" type="text" name="deptId" onclick="duplicateCheck(this)"
+					<!-- onblur : 한번에 인식, oninput : 글자 하나하나 인식(특별한 경우 아니면 가급적 쓰지 않기) -->
+					<input class="input-text" type="text" name="deptId" onblur="duplicateCheck(this, '${ajaxDuplicateUrl}')"
 						value="${data.deptId == -1 ? '' : data.deptId}" data-required="부서 ID를 입력하세요.">
 					<label class="input-label-error"></label>
 				</div>
@@ -79,13 +39,13 @@ function setLabelState(element, code, message) {
 				</div>
 				<div class="input-form wide">
 					<label class="input-label">관리자ID</label>
-					<input class="input-text" type="text" name="mngId" onclick="existsCheck(this);"
+					<input class="input-text" type="text" name="mngId" onblur="existsCheck(this, '${ajaxExistsUrl}');"
 						value="${data.mngId == -1 ? '' : data.mngId}" data-required="관리자 ID를 입력하세요.">
 					<label class="input-label-error"></label>
 				</div>
 				<div class="input-form wide">
 					<label class="input-label">지역ID</label>
-					<input class="input-text" type="text" name="locId" onclick="existsCheck(this);"
+					<input class="input-text" type="text" name="locId" onblur="existsCheck(this, '${ajaxExistsUrl}');"
 						value="${data.locId == -1 ? '' : data.locId}" data-required="지역 ID를 입력하세요.">
 					<label class="input-label-error"></label>
 				</div>

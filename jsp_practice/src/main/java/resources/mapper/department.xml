@@ -49,4 +49,12 @@
 		DELETE FROM DEPARTMENTS
 		 WHERE DEPARTMENT_ID = #{id}
 	</delete>
+	<select id="existsManager" resultType="_int">
+		SELECT COUNT(*) FROM EMPLOYEES
+		 WHERE EMPLOYEE_ID = #{id}
+	</select>
+	<select id="existsLocation" resultType="_int">
+		SELECT COUNT(*) FROM LOCATIONS
+		 WHERE LOCATION_ID = #{id}
+	</select>
 </mapper>

@@ -11,5 +11,6 @@
 <link rel="stylesheet" type="text/css" href="${cssUrl}/navigation.css">
 <link rel="stylesheet" type="text/css" href="${cssUrl}/paging.css">
 <link rel="stylesheet" type="text/css" href="${cssUrl}/table.css">
+<script type="text/javascript" src="${jsUrl}/default.js"></script>
 <script type="text/javascript" src="${jsUrl}/required.js"></script>
 <script type="text/javascript" src="${jsUrl}/jquery-3.6.0.min.js"></script>

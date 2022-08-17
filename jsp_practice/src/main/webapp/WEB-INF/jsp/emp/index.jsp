@@ -16,7 +16,7 @@
 		<div>
 			<form action="./emps" method="get">
 				<div class="input-form form-left">
-					<button class="btn btn-outline" type="button" onclick="location.href='/emps/add'">추가</button>
+					<button class="btn btn-outline" type="button" onclick="location.href='./emps/add'">추가</button>
 				</div>
 				<div class="input-form form-right">
 					<input class="input-text" type="text" name="search" data-required="직원 이름을 입력하세요.">
@@ -37,7 +37,6 @@
 				<col class="col-240">
 				<col class="col-240">
 				<col class="col-240">
-				<col class="col-120">
 			</colgroup>
 			<thead>
 				<tr>
@@ -52,26 +51,15 @@
 			<tbody>
 				<c:if test="${not empty datas}">
 					<c:forEach items="${datas}" var="data">
-						<tr>
+						<c:url var="detailUrl" value="/emps/detail">
+							<c:param name="id" value="${data.empId}"/>
+						</c:url>
+						<tr onclick="location.href='${detailUrl}'">
 							<td>${data.empId}</td>
 							<td>${data.empName}</td>
 							<td>${data.email}</td>
 							<td>${data.jobName}</td>
 							<td>${data.deptName}</td>
-							<td class="border-hidden-right">
-								<c:url var="modUrl" value="./emps/mod">
-									<c:param name="id" value="${data.empId}"/>
-								</c:url>
-								<button class="btn btn-icon" type="button" onclick="location.href='${modUrl}'">
-									<span class="material-symbols-outlined">edit</span>
-								</button>
-								<c:url var="delUrl" value="./emps/del">
-									<c:param name="id" value="${data.empId}"/>
-								</c:url>
-								<button class="btn btn-icon" type="button" onclick="location.href='${delUrl}'">
-									<span class="material-symbols-outlined">delete</span>
-								</button>
-							</td>
 						</tr>
 					</c:forEach>
 				</c:if>

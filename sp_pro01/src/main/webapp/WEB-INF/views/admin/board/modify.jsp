@@ -7,7 +7,7 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
-	<title>게시판 등록</title>
+	<title>수정 - ${data.title}</title>
 	<jsp:include page="../module/head.jsp" />
 	<%-- <c:url value="/static/ckeditor" var="ckedit" /> 
 	<script type="text/javascript" src="${ckedit}/ckeditor.js"></script>--%>
@@ -24,23 +24,20 @@
 		}
 		form.submit();
 	}
-	
 </script>
 <body>
 	<header></header>
 	<section class="container">
 		<div class="mt-3">
-			<c:url value="/board/add" var="boardAddUrl" />
-			<form action="${boardAddUrl}" method="post" enctype="multipart/form-data">
+			<c:url var="boardModifyUrl" value="/board/modify" />
+			<form action="${boardModifyUrl}" method="post">
+				<input type="hidden" name="id" value="${data.id}">
 				<div class="mb-3">
-					<input class="form-control" id="id_title" name="title" placeholder="제목을 입력하세요." value="${param.title}">
+					<input class="form-control" id="id_title" name="title" placeholder="제목을 입력하세요." value="${data.title}">
 				</div>
 				<div class="mb-3">
 					<textarea class="form-control" id="id_content" name="content"
-						rows="5" placeholder="내용을 입력하세요.">${param.content}</textarea>
-				</div>
-				<div class="mb-3">
-					<input class="form-control" type="file" name="uploadFile" multiple></input>
+						rows="5" placeholder="내용을 입력하세요.">${data.content}</textarea>
 				</div>
 				<div class="text-end">
 					<button class="btn btn-primary" type="button" onclick="formCheck(this.form);">저장</button>
@@ -81,12 +78,10 @@
 		</script>
 	</c:if>
 	<c:url var="imageUrl" value="/upload/image" />
-	<%-- 
 	<script type="text/javascript">
 		CKEDITOR.replace("content", {
 			filebrowserUploadUrl: "${imageUrl}?type=image"
 		});
 	</script>
-	--%>
 </body>
 </html>
