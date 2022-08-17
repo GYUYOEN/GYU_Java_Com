@@ -17,8 +17,8 @@ public class LogoutController extends HttpServlet {
 		
 		if(session.getAttribute("loginData") != null) {
 			session.invalidate();
-			response.sendRedirect(request.getContextPath() + "/jpr");
 		}
+		response.sendRedirect(request.getContextPath() + "/");
 	}
 
 }

@@ -70,7 +70,16 @@
 				<select class="select-form" name="deptId" data-required="부서명을 선택하세요.">
 					<c:forEach items="${deptList}" var="deptDto">
 						<c:choose>
-							<c:when test="${deptDto.deptId == param.deptId}">
+							<%-- 
+								에러가 있고 없고 차이, 여기서 에러는 잘못 입력했을 때 나오는 문구를 의미 
+								세션을 이용해 자동 로그인 가능
+							--%>
+							<c:when test="${empty error and cookie.deptRe.value == deptDto.deptId}"> <!-- deptRe 라는 쿠키의 값을 가져옴 -->
+								<option value="${deptDto.deptId}" selected>
+									[${deptDto.deptId}] ${deptDto.deptName}
+								</option>
+							</c:when>
+							<c:when test="${not empty error and param.deptId == deptDto.deptId}">
 								<option value="${deptDto.deptId}" selected>
 									[${deptDto.deptId}] ${deptDto.deptName}
 								</option>
@@ -89,6 +98,7 @@
 				<input class="input-text" type="text" name="empName" value="${param.empName}" data-required="부서 ID를 입력하세요.">
 			</div>
 			<div class="input-form wide form-rignt">
+				부서기억하기<input type="checkbox" name="deptRe">
 				<button class="btn btn-outline btn-ok" type="submit">로그인</button>
 			</div>
 			<div></div>

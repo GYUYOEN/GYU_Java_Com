@@ -30,7 +30,7 @@
 		    ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
 		 WHERE E.EMPLOYEE_ID = #{empId}
 		   AND E.DEPARTMENT_ID = #{deptId}
-		   AND E.FIRST_NAME = #{firstName}
-		   AND E.LAST_NAME = #{lastName}
+		   AND E.FIRST_NAME = #{empFirstName}
+		   AND E.LAST_NAME = #{empLastName}
 	</select>
 </mapper>

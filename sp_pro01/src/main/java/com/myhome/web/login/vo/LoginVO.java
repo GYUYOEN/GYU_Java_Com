@@ -4,6 +4,7 @@ public class LoginVO {
 	private int empId;
 	private int deptId;
 	private String empName;
+	
 	public int getEmpId() {
 		return empId;
 	}
