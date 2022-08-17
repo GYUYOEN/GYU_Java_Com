@@ -62,4 +62,15 @@
 	
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</beans:bean>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/**"/> <!-- 모든 url 주소에 대해해서 아래가 동작이 되게 함, *을 두개 써야함 -->
+			<beans:bean class="com.myhome.web.interceptor.LoggingInterceptor"></beans:bean>
+		</interceptor>
+		<interceptor>
+			<mapping path="/**" />
+			<beans:bean class="com.myhome.web.interceptor.AdminInterceptor"></beans:bean>
+		</interceptor>
+	</interceptors>
 </beans:beans>

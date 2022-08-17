@@ -58,12 +58,15 @@ public class MyinfoController extends HttpServlet {
 			// 파일 입출력
 			File file = new File(realPath + empData.getEmpId() + ".png");
 			
-			if(file.exists()) { // 파일이 존재할 경우
-				request.setAttribute("imagePath", "/static/img/emp/" + empData.getEmpId() + ".png"); // url 경로
-			} else { // 파일이 존재하지 않을 경우
-				// /static/img/emp/default.png 은 실제 경로가 아님
-				request.setAttribute("imagePath", "/static/img/emp/default.png");
-			}
+//			if(file.exists()) { // 파일이 존재할 경우
+//				request.setAttribute("imagePath", "/static/img/emp/" + empData.getEmpId() + ".png"); // url 경로
+//			} else { // 파일이 존재하지 않을 경우
+//				// /static/img/emp/default.png 은 실제 경로가 아님
+//				request.setAttribute("imagePath", "/static/img/emp/default.png");
+//			}
+			
+			String imagePath = empService.getProfileImage(request, "/static/img/emp/", empData);		
+			request.setAttribute("imagePath", imagePath);
 			
 			RequestDispatcher rd = request.getRequestDispatcher(view);
 			rd.forward(request, response);

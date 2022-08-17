@@ -64,7 +64,7 @@ public class LoginController {
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	// 메서드에 필요하면 계속 넣을 수 있음 -> 다 전달해줌 (순서 상관 없음)
-	public String login(Model model, LoginVO loginVo, String deptRe, HttpSession session, HttpServletResponse response) { // 알아서 LoginVO에 넣어줌. parameter 명과 일치해야함
+	public String login(Model model, LoginVO loginVo, String deptRe, String url, HttpServletRequest request, HttpSession session, HttpServletResponse response) { // 알아서 LoginVO에 넣어줌. parameter 명과 일치해야함
 		
 //		logger.info("empId: {}", loginVo.getEmpId());
 //		logger.info("deptId: {}", loginVo.getDeptId());
@@ -85,7 +85,7 @@ public class LoginController {
 				cookie.setMaxAge(0);
 			}
 			response.addCookie(cookie);
-			return "redirect:/index";
+			return "redirect:" + url.replaceFirst(request.getContextPath() + "/", "/"); // replaceFirst() : 하나만 바뀔수 있도록 해줌
 		} else {
 			// 로그인 실패
 			List<DeptDTO> deptDatas = deptService.getAll(); // dept 목록 나오개 하기

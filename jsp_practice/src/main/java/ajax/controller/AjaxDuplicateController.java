@@ -11,12 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import dept.model.DeptDTO;
 import dept.service.DeptService;
+import emps.model.EmpDTO;
+import emps.service.EmpService;
 
 @WebServlet("/ajax/duplicate")
 public class AjaxDuplicateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DeptService deptService = new DeptService();
-
+	private EmpService empService = new EmpService();
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json; charset=utf-8");
 		
@@ -25,7 +28,7 @@ public class AjaxDuplicateController extends HttpServlet {
 		
 		String errCode = "\"code\": \"%s\"";
 		String errMsg = "\"message\": \"%s\"";
-		if(name.equals("deptId")) {
+		if(name.equals("deptId") && !value.isEmpty()) {
 			DeptDTO data = deptService.getId(value);
 			if(data != null) { // 중복 에러
 				errCode = String.format(errCode, "error");
@@ -34,12 +37,22 @@ public class AjaxDuplicateController extends HttpServlet {
 				errCode = String.format(errCode, "success");
 				errMsg = String.format(errMsg, "사용 가능한 부서ID 입니다.");
 			}
-			PrintWriter out = response.getWriter();
-			out.println("{");
-			out.println(errCode + ",");
-			out.println(errMsg);
-			out.println("}");
+		} else if(name.equals("empId") && !value.isEmpty()) {
+			EmpDTO data = empService.getId(value);
+			if(data != null) {
+				errCode = String.format(errCode, "error");
+				errMsg = String.format(errMsg, "직원 ID가 중복되었습니다.");
+			} else {
+				errCode = String.format(errCode, "success");
+				errMsg = String.format(errMsg, "사용 가능한 직원 ID 입니다.");
+			}
 		}
+		PrintWriter out = response.getWriter();
+		out.println("{");
+		out.println(errCode + ",");
+		out.println(errMsg);
+		out.println("}");
+		out.flush();
 	}
 
 }
