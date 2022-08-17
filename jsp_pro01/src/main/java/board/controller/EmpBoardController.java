@@ -28,26 +28,28 @@ public class EmpBoardController extends HttpServlet {
 		
 		String page = request.getParameter("page");
 		String limit = null; // 보여질 데이터 수
-		
 		if(request.getParameter("pgc") != null) {
 			limit = request.getParameter("pgc");
 			session.setAttribute("pageCount", limit);
 		} else {
 			limit = (String)session.getAttribute("pageCount");
-			if(session.getAttribute("pageCount") == null) {
+			if(session.getAttribute("pageCount") == null) { // 세션에 저장된 것이 없을 경우
 				limit = "5";
 			}
 		}
 		
 		if(page == null) page = "1";
 		
+		
+		// 작성자 검색, 내용+제목 검색, 내용 검색 할 수 있게 만들어 보기 (xml에 WHERE절을 사용하여 가능, 내용+제목는 WHERE절에 OR 사용)
 		Paging pageData = null;
-		if(request.getParameter("search") == null) {
+		// 조회
+		if(request.getParameter("search") == null) { // 파라미터가 없을 때
 			pageData = service.getPage(page, limit);
 		} else {
-			if(request.getParameter("search").isEmpty()) {
+			if(request.getParameter("search").isEmpty()) { // 파라미터가 공백일 경우	
 				pageData = service.getPage(page, limit);
-			} else {
+			} else { // 조회한 파라미터가 있을 때
 				pageData = service.getPage(page, limit, request.getParameter("search"));
 			}
 		}

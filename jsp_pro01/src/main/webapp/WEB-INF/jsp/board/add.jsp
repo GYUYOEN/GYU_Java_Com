@@ -78,8 +78,9 @@
 		</script>
 	</c:if>
 	<script type="text/javascript">
+		// CKeditor 사용하기 위한 과정 -> 태그가 자동으로 들어감
 		CKEDITOR.replace("content", {
-			filebrowserUploadUrl: "/image/upload?type=image"
+			filebrowserUploadUrl: "/image/upload?type=image" // 이미지 처리하는 url 주소 -> 지정한 url로  이미지 업로드
 		});
 	</script>
 </body>

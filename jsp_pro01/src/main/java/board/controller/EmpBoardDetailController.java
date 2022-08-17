@@ -65,17 +65,18 @@ public class EmpBoardDetailController extends HttpServlet {
 			CommentService commentService = new CommentService();
 			
 			EmpDTO empData = empService.getId("" + data.getEmpId()); // 작성자 : 100 -> Steven King
-//			List<CommentDTO> commentDatas = commentService.getDatas(data.getId());
+//			List<CommentDTO> commentDatas = commentService.getDatas(data.getId()); // 댓글 조회
 			
 			String page = request.getParameter("page");
 			String limit = "5";
 			page = page == null ? "1" : page;
 			Paging commentPage = commentService.getPage(page, limit, data.getId());
 			
-//			data.setContent(data.getContent().replace("\r\n", "<br>")); // 게시물 내용을 개행시켜주기 위한 로직
+//			data.setContent(data.getContent().replace("\r\n", "<br>")); // 게시물 내용을 개행시켜주기 위한 로직(CKeditor 사용하면 필요없음)
 			
 			request.setAttribute("data", data);
 			request.setAttribute("empData", empData);
+//			request.setAttribute("commentDatas", commentDatas);
 			request.setAttribute("commentPage", commentPage);
 			
 			RequestDispatcher rd = request.getRequestDispatcher(view);

@@ -29,7 +29,7 @@ public class CommentDAO {
 	}
 	
 	public boolean deleteData(CommentDTO data) {
-		int res = session.update("commentMapper.deleteData",data);
+		int res = session.update("commentMapper.deleteData",data); // 실제로 안지우고 update 해줌 (deleted)
 		return res == 1 ? true : false;
 	}
 	
