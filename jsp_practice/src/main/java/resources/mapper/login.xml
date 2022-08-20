@@ -12,6 +12,10 @@
 		<result property="deptName" column="DEPARTMENT_NAME"/>
 		<result property="deptId" column="DEPARTMENT_ID"/>
 	</resultMap>
+	<select id="selectPermission" resultType="permDto">
+		SELECT * FROM PERMISSIONS
+		 WHERE EMPID = #{id}
+	</select>
 	<select id="selectEmployee" parameterType="map" resultMap="empDtoMap">
 		SELECT EMPLOYEE_ID 
 	 		 , CONCAT(FIRST_NAME, ' ' || LAST_NAME) AS EMPLOYEE_NAME

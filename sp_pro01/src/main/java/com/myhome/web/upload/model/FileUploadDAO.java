@@ -1,4 +1,4 @@
-package com.myhome.web.upload.controller;
+package com.myhome.web.upload.model;
 
 import java.util.List;
 
@@ -8,27 +8,23 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.myhome.web.upload.model.UploadFilesDTO;
-
 @Repository
-public class UploadFilesDAO {
+public class FileUploadDAO {
 
-	private static final Logger logger = LoggerFactory.getLogger(UploadFilesDTO.class);
+//	private static final Logger logger = LoggerFactory.getLogger(FileUploadDTO.class);
 	
 	@Autowired
 	private SqlSession session;
 			
-	public boolean insertData(UploadFilesDTO data) {
-		logger.info("insertData(UploadFilesDTO={})", data);
+	public boolean insertData(FileUploadDTO data) {
+		int res = session.insert("fileUploadMapper.insertData", data);
 		
-		int result = session.insert("fileMapper.insertData", data);
-		
-		return result == 1 ? true : false;
+		return res == 1 ? true : false;
 	}
-
-	public List<UploadFilesDTO> selectDatas(int bid) {
-		List<UploadFilesDTO> datas =  session.selectList("fileMapper.selectDatas", bid);
-		return datas;
+	
+	public List<FileUploadDTO> selectDatas(int bid) {
+		List<FileUploadDTO> res = session.selectList("fileUploadMapper.selectDatas", bid);
+		return res;
 	}
-
+	
 }

@@ -32,13 +32,13 @@ public class AjaxDeleteController extends HttpServlet {
 		sb.append("{");
 		PrintWriter out = response.getWriter();
 		if(res) {
-			sb.append(String.format("\"%s\": \"$s\",", "type", "success"));
-			sb.append(String.format("\"%s\": \"$s\",", "title", "삭제 성공"));
-			sb.append(String.format("\"%s\": \"$s\"", "message", "요청한 직원의 정보가 삭제되었습니다."));
+			sb.append(String.format("\"%s\": \"%s\",", "type", "success"));
+			sb.append(String.format("\"%s\": \"%s\",", "title", "삭제 성공"));
+			sb.append(String.format("\"%s\": \"%s\"", "message", "요청한 직원의 정보가 삭제되었습니다."));
 		} else {
-			sb.append(String.format("\"%s\": \"$s\",", "type", "fail"));
-			sb.append(String.format("\"%s\": \"$s\",", "title", "삭제 오류"));
-			sb.append(String.format("\"%s\": \"$s\"", "message", "요청한 직원의 정보를 삭제하는 중 문제가 발생하였습니다."));
+			sb.append(String.format("\"%s\": \"%s\",", "type", "fail"));
+			sb.append(String.format("\"%s\": \"%s\",", "title", "삭제 오류"));
+			sb.append(String.format("\"%s\": \"%s\"", "message", "요청한 직원의 정보를 삭제하는 중 문제가 발생하였습니다."));
 		}
 		sb.append("}");
 		out.print(sb.toString());

@@ -1,4 +1,4 @@
-package com.myhome.web.boar.service;
+package com.myhome.web.board.service;
 
 import java.sql.SQLDataException;
 import java.util.*;
@@ -23,12 +23,12 @@ import com.myhome.web.emp.model.EmpDTO;
 @Service
 public class BoardService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(BoardService.class);
+//	private static final Logger logger = LoggerFactory.getLogger(BoardService.class);
 
 	@Autowired
 	private BoardDAO dao;
 	
-	public List<BoardDTO> getAll() {
+	public List<BoardDTO> getAll(HttpSession session) {
 		List<BoardDTO> datas = dao.selectAll();
 		return datas;
 	}
@@ -36,8 +36,8 @@ public class BoardService {
 	// @Transactional 선언한 메서드는 메서드가 끝날때까지는 세션을 유지 시켜줌 -> 끝나면 close 시켜줌
 	// @Transactional 은 따로 xml에 설정을 해주어야 사용 가능
 	@Transactional
-	public Paging getPage(int page, int limit) {
-		logger.info("getPage(page={}, limit={})", page, limit); 
+	public Paging getPage(HttpSession session, int page, int limit) {
+//		logger.info("getPage(page={}, limit={})", page, limit); 
 		int totalRows = dao.getTotalRows();
 		
 		Paging paging = new Paging(page, limit, totalRows);
@@ -46,15 +46,15 @@ public class BoardService {
 		return paging;
 	}
 	
-	public BoardDTO getData(int id) {
-		logger.info("getData(id={})", id);
+	public BoardDTO getData(HttpSession session, int id) {
+//		logger.info("getData(id={})", id);
 		BoardDTO data = dao.selectData(id);
 		
 		return data;
 	}
 	
-	public int add(EmpDTO empDto, BoardVO data) {
-		logger.info("add(EmpDto={}, data={})", empDto, data);
+	public int add(HttpSession session, EmpDTO empDto, BoardVO data) {
+//		logger.info("add(EmpDto={}, data={})", empDto, data);
 		BoardDTO boardDto = new BoardDTO();
 		boardDto.setTitle(data.getTitle());
 		boardDto.setContent(data.getContent());
@@ -69,15 +69,15 @@ public class BoardService {
 		return 0;
 	}
 	
-	public boolean modify(BoardDTO data) {
-		logger.info("modify(data={})", data);
+	public boolean modify(HttpSession session, BoardDTO data) {
+//		logger.info("modify(data={})", data);
 		boolean result = dao.updateData(data);
 		return result;
 	}
 	
 	@Transactional // 아래 과정이 한 개의 트랜섹션 -> deleteStatisData() 지우고 deleteData() 지움
-	public boolean remove(BoardDTO data) {
-		logger.info("remove(data={})", data);
+	public boolean remove(HttpSession session, BoardDTO data) {
+//		logger.info("remove(data={})", data);
 		dao.deleteStatisData(data); // 통계 정보 (추천, 조회수) : 제약조건 때문에 먼저 지움
 		boolean result = dao.deleteData(data);
 		
@@ -96,7 +96,7 @@ public class BoardService {
 		//     2-2. 찾은 기록에서 ISLIKE 컬럼의 값이 Y 이면 N으로 변경 후
 		//          EMP_BOARDS 에서 추천수 - 1 을 한다.
 		
-		logger.info("incLike(empDto={}, data={})", empDto, data);
+//		logger.info("incLike(empDto={}, data={})", empDto, data);
 		
 		boolean result = false;
 		BoardStatisDTO statisData = new BoardStatisDTO();
@@ -127,7 +127,7 @@ public class BoardService {
 	
 	@Transactional
 	public void incViewCnt(EmpDTO empDto, BoardDTO data) {
-		logger.info("incViewCnt(empDto={}, data={})", empDto, data);
+//		logger.info("incViewCnt(empDto={}, data={})", empDto, data);
 		
 		boolean result = false;
 		BoardStatisDTO statisData = new BoardStatisDTO();
@@ -172,11 +172,12 @@ public class BoardService {
 //		throw new RuntimeException("RuntimeException을 발생 시키면 롤백");
 	}
 	
+	public void addLike(HttpSession session, EmpDTO empDto, BoardDTO data) throws SQLDataException {
+		this.incLike(empDto, data);
+	}
+	
 	
 	/*
-
-	
-
 	public Paging getPage(String page, String limit, String search) {
 		int totalRows = dao.getTotalRows(search);
 		

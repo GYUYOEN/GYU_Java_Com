@@ -15,23 +15,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.myhome.web.upload.model.UploadFilesDTO;
-import com.myhome.web.upload.service.UploadFilesService;
+import com.myhome.web.upload.model.FileUploadDTO;
+import com.myhome.web.upload.service.FileUploadService;
 
 @Controller
 @RequestMapping(value="/upload")
 public class FileUploadController {
-	private static final Logger logger = LoggerFactory.getLogger(FileUploadController.class);
+//	private static final Logger logger = LoggerFactory.getLogger(FileUploadController.class);
 	
 	@Autowired
-	private UploadFilesService fileService = new UploadFilesService();
+	private FileUploadService fileService = new FileUploadService();
 	
 	@PostMapping(value="/image", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public String image(HttpServletRequest request
 			, @RequestParam("upload") MultipartFile[] files // MultipartFile[] = getPart : 파일 업로드 할 떄 사용 -> 배열
 			, @RequestParam("type") String type ) throws Exception {
-		logger.info("image(files={}, type={}", files, type);
+//		logger.info("image(files={}, type={}", files, type);
 		
 		JSONObject json = new JSONObject();
 		

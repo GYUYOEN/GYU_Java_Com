@@ -31,10 +31,9 @@ function requiredBox(element, message) {
 	box.style.top = element.offsetHeight + element.offsetTop + "px";
 	box.setAttribute("class", "required-box show");
 	
-	// 일정시간 이후에 메세드가 동작되개 함
 	setTimeout(function() {
 		box.remove();
-	}, 1500); // box(말풍선) 를 1.5 초 뒤에 제거해라
+	}, 1500);
 }
 
 function errorFocusing() {

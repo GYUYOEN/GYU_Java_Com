@@ -25,7 +25,7 @@ import com.myhome.web.login.vo.LoginVO;
 
 @Controller
 public class LoginController {
-	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+//	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	@Autowired
 	private LoginService service;
@@ -70,7 +70,7 @@ public class LoginController {
 //		logger.info("deptId: {}", loginVo.getDeptId());
 //		logger.info("empName: {}", loginVo.getEmpName());
 		
-		logger.info("login({}, {}, {}, {})", loginVo.getEmpId(), loginVo.getDeptId(), loginVo.getEmpName(), deptRe);
+//		logger.info("login({}, {}, {}, {})", loginVo.getEmpId(), loginVo.getDeptId(), loginVo.getEmpName(), deptRe);
 		
 		boolean result = service.login(session, loginVo);
 		
