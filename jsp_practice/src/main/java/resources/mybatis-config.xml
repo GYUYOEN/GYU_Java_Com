@@ -15,6 +15,8 @@
 		<typeAlias type="emps.model.EmpDetailDTO" alias="empDetailDto"/>
 		<typeAlias type="job.model.JobDTO" alias="jobDto"/>
 		<typeAlias type="login.model.PermDTO" alias="permDto"/>
+		<typeAlias type="board.model.EmpBoardDTO" alias="empBoardDto"/>
+		<typeAlias type="board.model.EmpBoardStatisDTO" alias="empBoardStatisDto"/>
 	</typeAliases>
  	<environments default="development"> <!-- MyBatis에서 연동할 DataBase 정보 등록 -->
     	<environment id="development">
@@ -31,8 +33,9 @@
 	</environments>
 	<mappers> <!-- mapper 파일 등록 -->
 	    <mapper resource="resources/mapper/department.xml"/> 
-	    <mapper resource="resources/mapper/location.xml"/> 
+	    <mapper resource="resources/mapper/emp_boards.xml"/> 
 	    <mapper resource="resources/mapper/employee.xml"/> 
+	    <mapper resource="resources/mapper/location.xml"/> 
 	    <mapper resource="resources/mapper/login.xml"/> 
 	    <mapper resource="resources/mapper/job.xml"/> 
 	</mappers>
