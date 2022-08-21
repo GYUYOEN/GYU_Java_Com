@@ -4,6 +4,7 @@ import java.sql.SQLDataException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -23,22 +24,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.myhome.web.boar.service.BoardService;
 import com.myhome.web.board.model.BoardDTO;
+import com.myhome.web.board.service.BoardService;
 import com.myhome.web.board.vo.BoardVO;
 import com.myhome.web.comment.model.CommentDTO;
 import com.myhome.web.comment.service.CommentService;
 import com.myhome.web.common.util.Paging;
 import com.myhome.web.emp.model.EmpDTO;
 import com.myhome.web.emp.service.EmpService;
-import com.myhome.web.upload.model.UploadFilesDTO;
-import com.myhome.web.upload.service.UploadFilesService;
+import com.myhome.web.upload.model.FileUploadDTO;
+import com.myhome.web.upload.service.FileUploadService;
 
 @Controller
 @RequestMapping(value="/board")
 public class BoardController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+//	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	@Autowired
 	private BoardService service;
@@ -47,20 +48,17 @@ public class BoardController {
 	private CommentService commentService;
 	
 	@Autowired
-	private EmpService empService;
-	
-	@Autowired
-	private UploadFilesService fileService = new UploadFilesService();
+	private FileUploadService fileUploadService;
 	
 	// 조회 목록
 	@RequestMapping(value="", method=RequestMethod.GET)
-	public String getData(Model model, HttpSession session
+	public String getData(Model model, HttpSession session, HttpServletResponse response
 			, @RequestParam(defaultValue="1", required=false) int page
 			, @RequestParam(defaultValue="0", required=false) int pageCount) { // pageCount : 페이지 목록
 		// page 라는 파라미터 필수(required=false)는 아니며 기본값은 1(defaultValue="1")이다.(반드시 값을 지정해주어야지 함)
 		// 파라미터가 없더도 page=1로 인식 됨, required는 기본값이 true이고 기본값 설정하면 false로 자동으로 들어간다.
 		// spring을 사용하여 복잡한 로직이 없어짐( if(page == null) page = "1"; )
-		logger.info("getData(page={}, pageCount={})", page, pageCount);
+//		logger.info("getData(page={}, pageCount={})", page, pageCount);
 		
 		if(session.getAttribute("pageCount") == null) {
 			session.setAttribute("pageCount", 5); // 세션 값이 없을 경우
@@ -70,12 +68,16 @@ public class BoardController {
 		}
 		
 //		List<BoardDTO> datas = service.getAll();
-		Paging pageData = service.getPage(page, Integer.parseInt(session.getAttribute("pageCount").toString())); // 형변환 : String -> int
-		
-		model.addAttribute("pageData", pageData);
-		model.addAttribute("datas", pageData.getPageDatas());
-		
-		return "board/list";
+		Paging pageData = null;
+		// try {
+			pageData = service.getPage(session, page, Integer.parseInt(session.getAttribute("pageCount").toString()));
+			model.addAttribute("pageData", pageData);
+			model.addAttribute("datas", pageData.getPageDatas());
+			return "board/list";
+		// } catch (Exception e) {
+		// 	response.sendError(403, "권한이 없습니다.");
+		// 	return null;
+		// }
 	}
 	
 	// 조회 상세
@@ -85,28 +87,27 @@ public class BoardController {
 	// public String getDetail(Model model
 	// 		, @PathVariable int id) {
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
-	public String getDetail(Model model
+	public String getDetail(Model model, HttpSession session
 			, @RequestParam int id
-			, @RequestParam(defaultValue="1", required=false) int page
-			, @SessionAttribute(name="loginData", required=false) EmpDTO empDto) {
-		logger.info("getDetail(empDto={}, id={})", empDto, id);
+			, @SessionAttribute(name="loginData", required=false) EmpDTO empDto) throws RuntimeException {
+//		logger.info("getDetail(empDto={}, id={})", empDto, id);
 		
-		BoardDTO data = service.getData(id);
+		BoardDTO data = service.getData(session,id);
+		List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
 		
 		if(data == null) {
 			model.addAttribute("error", "해당 데이터는 존재하지 않습니다.");
 			return "error/noExists";
 		} else {
 //			List<CommentDTO> commentDatas = commentService.getDatas(data.getId());
-			int limit = 5;
-			Paging commentPage = commentService.getPage(page, limit, data.getId());
-			UploadFilesDTO fileData = new UploadFilesDTO();
-			List<UploadFilesDTO> datas = fileService.selectDatas(fileData.getBId());
+//			int limit = 5;
+//			Paging commentPage = commentService.getPage(page, limit, data.getId());
+
 			service.incViewCnt(empDto, data);
 			model.addAttribute("data", data);
 //			model.addAttribute("commentDatas", commentDatas);
-			model.addAttribute("commentPage", commentPage);
-			
+//			model.addAttribute("commentPage", commentPage);
+			model.addAttribute("fileDatas", fileDatas);
 			return "board/detail";
 		}
 	}
@@ -115,32 +116,31 @@ public class BoardController {
 	// 추가 폼 요청
 	@GetMapping(value="/add")
 	public String add(@SessionAttribute(name="loginData", required=true) EmpDTO empDto) {
-		logger.info("add(empDto={})", empDto);
+//		logger.info("add(empDto={})", empDto);
 		return "board/add";
 	}
 	
 	// 추가 저장 요청
 	// 메서드를 다르게 해서 Override 해줌
 	@PostMapping(value="/add")
-	public String add(@ModelAttribute BoardVO boardVo
-			, @RequestParam("uploadFile") MultipartFile[] files
-			, HttpServletRequest request
-			, @SessionAttribute(name="loginData", required=true) EmpDTO empDto) {
+	public String add(HttpServletRequest request, HttpSession session
+			, @ModelAttribute BoardVO boardVo
+			, @RequestParam("upload") MultipartFile[] files
+			, @SessionAttribute(name="loginData", required=true) EmpDTO empDto) throws Exception {
 			// EmpDTO empDto = (EmpDTO)session.getAttribute("loginData"); -> @SessionAttribute("loginData") EmpDTO empDto : 필요한 세션을 가져옴	
-		logger.info("add(boardVo={}, empDto={})", boardVo, empDto);
+//		logger.info("add(boardVo={}, empDto={}, files={})", boardVo, empDto, files);
 		
-		int id = service.add(empDto, boardVo);
+		int id = service.add(session, empDto, boardVo);
 		
-		UploadFilesDTO data = new UploadFilesDTO();
-		
-		String realPath = request.getServletContext().getRealPath("/resources");
-		boolean result = false;
-		for(MultipartFile file: files) {
-			result = fileService.insertData(data, file, realPath, id);
-		}
-//		List<UploadFilesDTO> datas = fileService.selectDatas(data.getBId());
-		
-		if(id > 0 && result) {
+		FileUploadDTO data = new FileUploadDTO();
+			
+		if(id > 0) {
+			if(!files[0].getOriginalFilename().isEmpty()) { // 파일 이름이 비어있지 않을 때
+				String location = request.getServletContext().getRealPath("/resources/upload/board");
+				String url = "/static/upload/board";
+				FileUploadDTO fileUploadDto = new FileUploadDTO(id, location, url);
+				int result = fileUploadService.upload(files, fileUploadDto);
+			}
 			return "redirect:/board/detail?id=" + id;
 		} else {
 			return "board/add";
@@ -149,13 +149,16 @@ public class BoardController {
 	
 	// 수정 폼 요청
 	@GetMapping(value="/modify")
-	public String modify(Model model
+	public String modify(Model model, HttpSession session
 			, @SessionAttribute(name="loginData", required=true) EmpDTO empDto
 			, @RequestParam int id) {
 		
-		BoardDTO data = service.getData(id);
+		BoardDTO data = service.getData(session, id);
+		List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
+		
 		if(empDto.getEmpId() == data.getEmpId()) {
 			model.addAttribute("data", data);
+			model.addAttribute("fileDatas", fileDatas);
 			return "board/modify";
 		} else {
 			model.addAttribute("error", "해당 작업을 수행 할 권한이 없습니다.");
@@ -166,15 +169,15 @@ public class BoardController {
 	
 	// 수정 저장 요청
 	@PostMapping(value="/modify")
-	public String modify(Model model
+	public String modify(Model model, HttpSession session
 			, @SessionAttribute(name="loginData", required=true) EmpDTO empDto
 			, @ModelAttribute BoardVO boardVo) {
-		BoardDTO data = service.getData(boardVo.getId());
+		BoardDTO data = service.getData(session, boardVo.getId());
 		
 		if(empDto.getEmpId() == data.getEmpId()) {
 			data.setTitle(boardVo.getTitle());
 			data.setContent(boardVo.getContent());
-			boolean result = service.modify(data);
+			boolean result = service.modify(session, data);
 			
 			if(result) {
 				return "redirect:/board/detail?id=" + data.getId();
@@ -192,10 +195,11 @@ public class BoardController {
 //	@SuppressWarnings("unchecked") // json의 주의 표시가 거슬리면 해당 어노테이션 작성
 	@PostMapping(value="/delete", produces="application/json; charset=utf-8") // produces = response.setContentType
 	@ResponseBody // return 값의 응답 데이터, ajax를 이용할 때는 반드시 해당 어노테이션을 작성해야함
-	public String delete(@SessionAttribute(name="loginData", required=true) EmpDTO empDto
+	public String delete(HttpSession session
+			, @SessionAttribute(name="loginData", required=true) EmpDTO empDto
 			, @RequestParam int id) {
 		
-		BoardDTO data = service.getData(id);
+		BoardDTO data = service.getData(session, id);
 		
 		JSONObject json = new JSONObject();
 		
@@ -207,7 +211,7 @@ public class BoardController {
 		} else {
 			if(data.getEmpId() == empDto.getEmpId()) {
 				// 삭제 가능
-				boolean result = service.remove(data);
+				boolean result = service.remove(session, data);
 				if(result) {
 					// 삭제 성공
 					json.put("title", "삭제 완료");
@@ -228,12 +232,13 @@ public class BoardController {
 		}
 	}
 	
-	// 좋아요
+	// 추천
 	@PostMapping(value="/like", produces="application/json; charset=utf-8")
 	@ResponseBody
-	public String like(@SessionAttribute("loginData") EmpDTO empDto
+	public String like(HttpSession session
+			, @SessionAttribute("loginData") EmpDTO empDto
 			, @RequestParam int id) {
-		BoardDTO data = service.getData(id);
+		BoardDTO data = service.getData(session, id);
 		
 		JSONObject json = new JSONObject();
 		
@@ -242,7 +247,7 @@ public class BoardController {
 			json.put("message", "데이터가 존재하지 않습니다.");
 		} else {
 			try {
-				service.incLike(empDto, data);
+				service.addLike(session, empDto, data);
 				json.put("code", "success");
 				json.put("message", "데이터 처리가 완료되었습니다.");
 				json.put("likeCnt", data.getLike()); // 현재 추천 수가 얼마인지 알려줌
@@ -320,4 +325,5 @@ public class BoardController {
 		
 		return json.toJSONString();
 	}
+	
 }

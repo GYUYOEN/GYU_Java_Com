@@ -36,7 +36,7 @@ public class EmpsController extends HttpServlet {
 		int pageCount = param.defaultSessionValue(request, "pageCount", "10"); // session을 이용해 초기값 설정
 		
 //		List<EmpDTO> datas = service.getEmpAll();
-		List<EmpDTO> datas = service.getEmpPage(session, page, pageCount);
+		List<EmpDTO> datas = service.getEmpPage(session, page, pageCount); // 사용자 정보를 전달하기 위해서 session 사용
 		List<Integer> pageList = service.getPageList(session, pageCount);
 		
 		request.setAttribute("datas", datas);

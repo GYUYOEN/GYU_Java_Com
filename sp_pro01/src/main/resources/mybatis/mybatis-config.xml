@@ -13,7 +13,7 @@
 		<typeAlias type="com.myhome.web.board.model.BoardStatisDTO" alias="boardStatisDto"/>
 		<typeAlias type="com.myhome.web.comment.model.CommentDTO" alias="commentDto"/>
 		<typeAlias type="com.myhome.web.emp.model.EmpDetailDTO" alias="empDetailDto"/>
-		<typeAlias type="com.myhome.web.upload.model.UploadFilesDTO" alias="uploadFilesDto"/>
+		<typeAlias type="com.myhome.web.upload.model.FileUploadDTO" alias="fileUploadDto"/>
 		<!-- 
 		<typeAlias type="locs.model.LocsDTO" alias="locsDto"/>
 		<typeAlias type="job.model.JobDTO" alias="jobDto"/>

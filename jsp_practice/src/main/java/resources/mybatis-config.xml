@@ -14,6 +14,9 @@
 		<typeAlias type="emps.model.EmpDTO" alias="empDto"/>
 		<typeAlias type="emps.model.EmpDetailDTO" alias="empDetailDto"/>
 		<typeAlias type="job.model.JobDTO" alias="jobDto"/>
+		<typeAlias type="login.model.PermDTO" alias="permDto"/>
+		<typeAlias type="board.model.EmpBoardDTO" alias="empBoardDto"/>
+		<typeAlias type="board.model.EmpBoardStatisDTO" alias="empBoardStatisDto"/>
 	</typeAliases>
  	<environments default="development"> <!-- MyBatis에서 연동할 DataBase 정보 등록 -->
     	<environment id="development">
@@ -21,8 +24,8 @@
       		<dataSource type="POOLED">
         		<property name="driver" value="${driver}"/> <!-- 변수로 설정 -->
 		        <property name="url" value="${url}"/> <!-- ${url} : 메모장에 url을 지칭 -->
-		        <property name="username" value="puser2"/>
-		        <property name="password" value="puser2"/>
+		        <property name="username" value="puser1"/>
+		        <property name="password" value="puser1"/>
 		        <property name="poolMaximumIdleConnections" value="5"/> <!-- 사용하지 않는 connection 최대 5개까지만 남아있을 수 있게 해줌 : 유휴 상태 -->
 		        <property name="poolMaximumActiveConnections" value="10"/> <!-- 최대 10개의 connection 활성화 -->
      		 </dataSource>
@@ -30,8 +33,9 @@
 	</environments>
 	<mappers> <!-- mapper 파일 등록 -->
 	    <mapper resource="resources/mapper/department.xml"/> 
-	    <mapper resource="resources/mapper/location.xml"/> 
+	    <mapper resource="resources/mapper/emp_boards.xml"/> 
 	    <mapper resource="resources/mapper/employee.xml"/> 
+	    <mapper resource="resources/mapper/location.xml"/> 
 	    <mapper resource="resources/mapper/login.xml"/> 
 	    <mapper resource="resources/mapper/job.xml"/> 
 	</mappers>

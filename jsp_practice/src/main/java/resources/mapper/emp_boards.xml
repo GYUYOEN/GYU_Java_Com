@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="empBoardsMapper">
+	<select id="getNextSeq" resultType="_int">
+		SELECT EMP_BOARDS_SEQ FROM DUAL
+	</select>
+	<insert id="insertDataAutoSeq" parameterType="empBoardDto" useGeneratedKeys="true"
+		keyProperty="id" keyColumn="ID">
+		INSERT INTO EMP_BOARDS(ID, TITLE, CONTENT, EMPID, CREATEDATE)
+			VALUES(EMP_BOARDS_SEQ.NEXTVAL, #{title}, #{content}, #{empId}, SYSDATE)
+	</insert>
+	<insert id="insertData" parameterType="empBoardDto">
+		INSERT INTO EMP_BOARDS(ID, TITLE, CONTENT, EMPID, CREATEDATE)
+			VALUES(#{id}, #{title}, #{content}, #{empId}, SYSDATE)
+	</insert>
+	<select id="selectData" resultType="empBoardDto">
+		SELECT ID, TITLE, CONTENT
+			 , EMPID, CREATEDATE
+			 , VIEW_CNT AS viewCnt, "LIKE"
+		  FROM EMP_BOARDS
+		 WHERE ID = #{id}
+	</select>
+	<update id="updateViewCnt" parameterType="empBoardDto">
+		UPDATE EMP_BOARDS
+		   SET VIEW_CNT = #{viewCnt} + 1
+		 WHERE ID = #{id}
+	</update>
+	<update id="updateLike" parameterType="empBoardDto">
+		UPDATE EMP_BOARDS
+		   SET "LIKE" = #{like}
+		 WHERE ID = #{id}
+	</update>
+	<select id="selectStatis" resultType="empBoardStatisDto" parameterType="empBoardDto">
+		SELECT ID, EMPID, BID
+			 , ISVIEW AS "view"
+			 , LATEST_DATE1 AS latestView
+			 , ISLIKE AS "like"
+			 , LATEST_DATE2 AS latestLike
+		 FROM EMP_BOARDS_STATISTICS
+		WHERE EMPID = #{empId}
+		  AND BID = #{bId}
+	</select>
+	<insert id="insertStatis" parameterType="empBoardStatisDto">
+		INSERT INTO EMP_BOARDS_STATISTICS
+			VALUES(EMP_BOARDS_STATISTICS_SEQ.NEXTVAL
+				, #{empId}, #{bId}, 'Y', SYSDATE, 'N', NULL)
+	</insert>
+	<update id="updateStatis" parameterType="empBoardStatisDto">
+		UPDATE EMP_BOARDS_STATISTICS
+		   SET LATEST_DATE1 = SYSDATE
+		 WHERE EMPID = #{empId}
+		   AND BID = #{bId}
+	</update>
+	<update id="updateLikeStatis" parameterType="empBoardStatisDto">
+		UPDATE EMP_BOARDS_STATISTICS
+		   SET LATEST_DATE2 = SYSDATE
+		   <choose>
+			   <when test="like">
+			     , ISLIKE = 'Y'
+			   </when>
+			   <otherwise>
+			   	 , ISLIKE = 'N'
+			   </otherwise>
+		   </choose>
+		 WHERE EMPID = #{empId}
+		   AND BID = #{bId}
+	</update>
+	<select id="getTotalRows" resultType="_int" parameterType="String">
+		SELECT COUNT(*)
+		  FROM EMP_BOARDS
+		<if test="search != null">
+			WHERE TITLE LIKE '%' || #{search} || '%'
+		</if>
+	</select>
+</mapper>

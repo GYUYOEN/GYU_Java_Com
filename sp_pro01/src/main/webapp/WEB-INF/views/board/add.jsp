@@ -9,29 +9,58 @@
 	<meta charset="UTF-8">
 	<title>게시판 등록</title>
 	<jsp:include page="../module/head.jsp" />
-	<%-- <c:url value="/static/ckeditor" var="ckedit" /> 
-	<script type="text/javascript" src="${ckedit}/ckeditor.js"></script>--%>
+	<c:url value="/static/ckeditor" var="ckedit" />
+	<script type="text/javascript" src="${ckedit}/ckeditor.js"></script>
 </head>
 <script type="text/javascript">
 	function formCheck(form) {
+		var modal = new bootstrap.Modal(document.getElementById("errorModal"), {
+			keyboard: false
+		});
+		var title = modal._element.querySelector(".modal-title");
+		var body = modal._element.querySelector(".modal-body");
 		if(form.title.value === undefined || form.title.value.trim() === "") {
-			// 모달 활성
-			var modal = new bootstrap.Modal(document.getElementById("errorModal"), {
-				keyboard: false
-			})
+			title.innerText = "필수 입력";
+			body.innerText = "제목은 공란이 올 수 없습니다. 반드시 제목을 입력하세요.";
 			modal.show();
 			return;
 		}
+		
 		form.submit();
 	}
 	
+	function uploadCheck(element) {
+		var modal = new bootstrap.Modal(document.getElementById("errorModal"), {
+			keyboard: false
+		});
+		var title = modal._element.querySelector(".modal-title");
+		var body = modal._element.querySelector(".modal-body");
+		
+		if(element.files.length > 3) {
+			title.innerText = "파일 업로드 제한";
+			body.innerText = "파일 업로드는 최대 3개 까지만 할 수 있습니다.";
+			element.value = "";
+			modal.show();
+			return;
+		}
+		
+		for(file of element.files) {
+			if(file.size / 1000 / 1000 > 5.0) {
+				title.innerText = "파일 크기 제한";
+				body.innerText = "파일은 최대 5MB 까지만 할 수 있습니다.";
+				element.value = "";
+				modal.show();
+				return;
+			}
+		}
+	}
 </script>
 <body>
 	<header></header>
 	<section class="container">
 		<div class="mt-3">
 			<c:url value="/board/add" var="boardAddUrl" />
-			<form action="${boardAddUrl}" method="post" enctype="multipart/form-data">
+			<form action="${boardAddUrl}" method="post" enctype="multipart/form-data"> <!-- 파일업로드를 위해서 enctype="multipart/form-data" 를 작성해주어야 함 -->
 				<div class="mb-3">
 					<input class="form-control" id="id_title" name="title" placeholder="제목을 입력하세요." value="${param.title}">
 				</div>
@@ -40,7 +69,7 @@
 						rows="5" placeholder="내용을 입력하세요.">${param.content}</textarea>
 				</div>
 				<div class="mb-3">
-					<input class="form-control" type="file" name="uploadFile" multiple></input>
+					<input class="form-control" type="file" name="upload" onchange="uploadCheck(this);" multiple></input>
 				</div>
 				<div class="text-end">
 					<button class="btn btn-primary" type="button" onclick="formCheck(this.form);">저장</button>
@@ -51,18 +80,11 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="errorModalLabel">오류</h5>
+						<h5 class="modal-title" id="errorModalLabel"></h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<c:choose>
-							<c:when test="${empty errorMsg}">
-								제목은 공란이 올 수 없습니다. 반드시 제목을 입력하세요.
-							</c:when>
-							<c:otherwise>
-								${errorMsg}
-							</c:otherwise>
-						</c:choose>
+						${errorMsg}
       				</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">확인</button>
@@ -81,6 +103,11 @@
 		</script>
 	</c:if>
 	<c:url var="imageUrl" value="/upload/image" />
+	<script type="text/javascript">
+		CKEDITOR.replace("content", {
+			filebrowserUploadUrl: "${imageUrl}?type=image"
+		});
+	</script>
 	<%-- 
 	<script type="text/javascript">
 		CKEDITOR.replace("content", {

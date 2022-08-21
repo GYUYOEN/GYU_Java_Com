@@ -13,8 +13,8 @@
 <body>
 	<%@ include file="../module/navigation.jsp" %>
 	<section class="container">
-		<c:url var="empsModUrl" value="/emps/modify" />
-		<form class="large-form" action="${empsModUrl}" method="post" enctype="multipart/form-data">
+		<c:url var="empModUrl" value="/emps/modify" />
+		<form class="large-form" action="${empModUrl}" method="post" enctype="multipart/form-data">
 			<div class="img-form left">
 				<c:url var="imgUrl" value="${imagePath}" />
 				<img id="prevImage" class="img-360"
@@ -26,7 +26,7 @@
 				<div class="input-form">
 					<label class="input-label w-100">ID</label>
 					<input class="input-text w-auto" type="text" name="empId"
-						value="${data.empId}" disabled>
+						value="${data.empId}" readonly> <!-- 사용자가 작성하면 안돼지만 파라미터가 필요할 때 : readonly, disabled 는 파라미터 전달안됌 -->
 					<label class="input-label-error"></label>
 				</div>
 				<div class="input-form">

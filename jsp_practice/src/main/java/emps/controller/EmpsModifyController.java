@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,10 +16,11 @@ import emps.model.EmpDetailDTO;
 import emps.service.EmpService;
 import job.service.JobService;
 
-@WebServlet("/emps/modfiy")
+@WebServlet("/emps/modify")
+@MultipartConfig
 public class EmpsModifyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private String view = "/WEB-INF/jsp/emps/modify.jsp";
+    private String view = "/WEB-INF/jsp/emp/modify.jsp";
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
@@ -33,7 +35,7 @@ public class EmpsModifyController extends HttpServlet {
 		request.setAttribute("data", data);
 		request.setAttribute("dataDetail", dataDetail);
 		request.setAttribute("deptDatas", deptService.getAll());
-		request.setAttribute("JobDatas", jobService.getAll());
+		request.setAttribute("jobDatas", jobService.getAll());
 		
 		String imagePath = empService.getProfileImage(request, "/static/img/emp/", data);
 		request.setAttribute("imagePath", imagePath);
@@ -54,6 +56,7 @@ public class EmpsModifyController extends HttpServlet {
 		
 		EmpService empService = new EmpService();
 		
+		// EmpDTO  empData =  new EmpDTO(); -> 추가할 떼는 상관 없지만 수정할 뗴는 이렇게 쓰지말고 왠만하면 조회한 데이터에 대해 수정하는게 좋음
 		EmpDTO empData = empService.getId(empId);
 		if(empData == null) {
 			request.getSession().setAttribute("error", "해당 데이터는 존재하지 않습니다.");
@@ -67,8 +70,8 @@ public class EmpsModifyController extends HttpServlet {
 		
 		EmpDetailDTO empDetailData = empService.getDetail(empData.getEmpId());
 		if(empDetailData == null) {
-			request.getSession().setAttribute("error", "해당 데이터는 존재하지 않습니다.");
-			response.sendRedirect(request.getContextPath() + "/error");
+			request.getSession().setAttribute("error", "해당 데이터는 존재하지 않습니다."); // session에 저장 -> error 페이지에서 getAttribute로 받음
+			response.sendRedirect(request.getContextPath() + "/error"); // 에러 페이지로 이동해서 포워드 
 		}
 		empDetailData.setEmpId(empId);
 		empDetailData.setHireDate(hireDate);

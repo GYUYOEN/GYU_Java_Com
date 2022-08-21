@@ -16,19 +16,19 @@ import com.myhome.web.common.util.Paging;
 @Repository
 public class BoardDAO {
 	
-	private static final Logger logger = LoggerFactory.getLogger(BoardDAO.class);
+//	private static final Logger logger = LoggerFactory.getLogger(BoardDAO.class);
 	
 	@Autowired
 	private SqlSession session;
 	
 	public List<BoardDTO> selectAll(){
-		logger.info("selectAll()");
+//		logger.info("selectAll()");
 		List<BoardDTO> result = session.selectList("boardMapper.selectAll");
 		return result;
 	}
 	
 	public int getTotalRows() {
-		logger.info("getTotalRows()");
+//		logger.info("getTotalRows()");
 		int result = session.selectOne("boardMapper.getTotalRows");
 		return result;
 	}
@@ -36,7 +36,7 @@ public class BoardDAO {
 	// spring이 자동 dao.close()를 하는데
 	// Cursor는 반복작업이 끝날 때 까지 open인 상태를 유지해야함 -> 세션이 유지 되어야함
 	public void selectPage(Paging paging) {
-		logger.info("selectPage(paging={})", paging);
+//		logger.info("selectPage(paging={})", paging);
 		RowBounds rb = new RowBounds(paging.getOffset(), paging.getLimit());
 		Cursor<Object> cursor = session.selectCursor("boardMapper.selectPage", null, rb);
 		paging.setPageDatas(cursor.iterator());
@@ -48,7 +48,7 @@ public class BoardDAO {
 	}
 	
 	public boolean insertData(BoardDTO data) {
-		logger.info("insertData(data={})", data);
+//		logger.info("insertData(data={})", data);
 		int result = 0;
 		if(data.getId() == 0) {
 			result = session.insert("boardMapper.insertDataAutoSeq", data);			
@@ -59,19 +59,19 @@ public class BoardDAO {
 	}
 	
 	public boolean updateData(BoardDTO data) {
-		logger.info("updateData(data={})", data);
+//		logger.info("updateData(data={})", data);
 		int result = session.update("boardMapper.updateData", data);
 		return result == 1 ? true : false;
 	}
 	
 	public boolean deleteData(BoardDTO data) {
-		logger.info("deleteData(data={})", data);
+//		logger.info("deleteData(data={})", data);
 		int result = session.delete("boardMapper.deleteData", data.getId());
 		return result == 1 ? true : false;
 	}
 	
 	public boolean deleteStatisData(BoardDTO data) {
-		logger.info("deleteStatisData(data={})", data);
+//		logger.info("deleteStatisData(data={})", data);
 		int result = session.delete("boardMapper.deleteStatisData", data.getId());
 		return result >= 0 ? true : false;
 	}

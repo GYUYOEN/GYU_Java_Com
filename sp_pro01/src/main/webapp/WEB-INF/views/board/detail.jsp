@@ -34,6 +34,16 @@
 					<label id="id_like" class="text-secondary text-opacity-75">${data.like}</label>
 				</div>
 			</div>
+			<div class="row mb-3">
+				<ul class="ms-auto col-4 list-group">
+					<c:forEach items="${fileDatas}" var="file">
+						<li class="text-truncate list-group-item">
+							<c:url var="downUrl" value="${file.url}/${file.uuidName}" />
+							<a class="link-info text-decoration-none" href="${downUrl}" download="${file.fileName}">${file.fileName}</a>
+						</li>
+					</c:forEach>
+				</ul>
+			</div>
 			<div class="mb-3 text-end">
 				<c:url var="boardUrl" value="/board" />
 				<button class="btn btn-primary" type="button" onclick="location.href='${boardUrl}'">목록</button>

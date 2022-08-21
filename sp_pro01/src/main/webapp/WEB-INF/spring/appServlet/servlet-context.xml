@@ -4,10 +4,12 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
+		http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 	<!-- 
 		@Transactional을 사용하기 위해 xmlns:tx="http://www.springframework.org/schema/tx 추가
 		맨밑에 http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd 추가
@@ -60,7 +62,12 @@
 	<!-- @Transactional 어노테이션 을 찾는 역할, 이 어노테이션이 적용되어있으면 transactionManager를 적용 -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
+	<!-- 업로드 기능을 사용하기 위한 작업 -->
+	<!-- name="maxUploadSize" : 파일 사이즈 지정 -> 한번에 15M(파일당 5M x) -->
+	<!-- name="maxInMemorySize" : 업로드가 디스크에 저장 하기전(tranferTo 하기 전) 메모리 크기 지정  -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="15728640"></beans:property>
+		<beans:property name="maxInMemorySize" value="15728640"></beans:property>
 	</beans:bean>
 	
 	<interceptors>
@@ -73,4 +80,20 @@
 			<beans:bean class="com.myhome.web.interceptor.AdminInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>
+
+	<aop:aspectj-autoproxy />
+	
+	<beans:bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+	<!--<beans:property name="exceptionMappings">
+			<beans:props>
+				<beans:prop key="Exception">error/403</beans:prop>
+			</beans:props>
+		</beans:property> -->
+		<beans:property name="exceptionMappings">
+			<beans:props>
+				<beans:prop key="com.myhome.web.exception.UnauthorizedException">error/401</beans:prop>
+				<beans:prop key="com.myhome.web.exception.ForbiddenException">error/403</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
 </beans:beans>

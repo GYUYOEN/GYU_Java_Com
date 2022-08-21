@@ -15,14 +15,14 @@ import com.myhome.web.login.contorller.LoginController;
 @Repository
 public class LoginDAO{
 	
-	private static final Logger logger = LoggerFactory.getLogger(LoginDAO.class);
+//	private static final Logger logger = LoggerFactory.getLogger(LoginDAO.class);
 
 	@Autowired
 	private SqlSession session;
 	private String mapper = "loginMapper.%s";
 	
 	public EmpDTO selectEmployee(EmpDTO data) {
-		logger.info("selectEmplpyee({})", data);
+//		logger.info("selectEmplpyee({})", data);
 		
 		String mapId = String.format(mapper, "selectEmployee");
 		EmpDTO result = session.selectOne(mapId, data);
