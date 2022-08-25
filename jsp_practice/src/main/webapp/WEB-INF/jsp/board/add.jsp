@@ -5,12 +5,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="ko">
-<html>
 <head>
 	<meta charset="UTF-8">
 	<title>게시판 등록</title>
 	<link rel="stylesheet" type="text/css" href="/jpr/static/bs5/css/bootstrap.min.css">
 	<script type="text/javascript" src="/jpr/static/bs5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/jpr/static/ckeditor/ckeditor.js"></script>
 </head>
 <script type="text/javascript">
 	function formCheck(form) {
@@ -74,5 +74,10 @@
 			modal.show();
 		</script>
 	</c:if>
+	<script type="text/javascript">
+		CKEDITOR.replace("content", {
+			filebrowserUploadUrl: "/jpr/image/upload?type=image"
+		});
+	</script>
 </body>
 </html>

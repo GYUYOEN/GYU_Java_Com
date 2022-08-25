@@ -3,6 +3,21 @@
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="empBoardsMapper">
+	<resultMap type="empBoardDto" id="empBoardMap">
+		<constructor>
+			<idArg column="ID" javaType="_int" />
+		</constructor>
+		<id column="ID" property="id" />
+		<result column="TITLE" property="title" />
+		<result column="EMPID" property="empId" />
+		<result column="CREATEDATE" property="createDate" />
+		<result column="VIEW_CNT" property="viewCnt" />
+		<result column="LIKE" property="like" />
+		<association property="empObj" javaType="empDto">
+			<id column="EMPID" property="empId" />
+			<result column="EMPNAME" property="empName" />
+		</association>
+	</resultMap>	
 	<select id="getNextSeq" resultType="_int">
 		SELECT EMP_BOARDS_SEQ FROM DUAL
 	</select>
@@ -74,4 +89,32 @@
 			WHERE TITLE LIKE '%' || #{search} || '%'
 		</if>
 	</select>
+	<select id="selectPage" resultMap="empBoardMap" parameterType="String">
+		SELECT B.ID, B.TITLE
+			 , B.EMPID
+		     , E.FIRST_NAME || ' ' || E.LAST_NAME AS EMPNAME
+		     , B.CREATEDATE
+		     , B.VIEW_CNT, B."LIKE"
+		 FROM EMP_BOARDS B
+		 JOIN EMPLOYEES E
+		   ON B.EMPID = E.EMPLOYEE_ID
+		<if test="search != null">
+			WHERE TITLE LIKE '%' || #{search} || '%'
+		</if>
+		 ORDER BY ID DESC
+	</select>
+	<delete id="deleteData">
+		DELETE FROM EMP_BOARDS
+		 WHERE ID = #{id}
+	</delete>
+	<delete id="deleteStatisData">
+		DELETE FROM EMP_BOARDS_STATISTICS
+		 WHERE BID = #{id}
+	</delete>
+	<update id="updateData">
+		UPDATE EMP_BOARDS
+		   SET TITLE = #{title}
+		     , CONTENT = #{content}
+		 WHERE ID = #{id}
+	</update>
 </mapper>

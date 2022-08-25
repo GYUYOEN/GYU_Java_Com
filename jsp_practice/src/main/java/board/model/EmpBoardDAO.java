@@ -101,4 +101,19 @@ public class EmpBoardDAO {
 		Cursor<Object> cursor = session.selectCursor("empBoardsMapper.selectPage", search, rb);
 		paging.setPageDatas(cursor.iterator());
 	}
+
+	public boolean deleteStatisData(EmpBoardDTO data) {
+		int result = session.delete("empBoardsMapper.deleteStatisData",data.getId());
+		return result >= 0 ? true : false;
+	}
+
+	public boolean deleteData(EmpBoardDTO data) {
+		int result = session.delete("empBoardsMapper.deleteData", data.getId());
+		return result == 1 ? true : false;
+	}
+
+	public boolean updateData(EmpBoardDTO data) {
+		int result = session.update("empBoardsMapper.updateData", data);
+		return result == 1 ? true : false;
+	}
 }

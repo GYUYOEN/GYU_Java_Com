@@ -24,12 +24,35 @@ public class EmpBoardController extends HttpServlet {
 		String view = "/WEB-INF/jsp/board/list.jsp";
 		
 		String page = request.getParameter("page");
-		String limit = (String)session.getAttribute("pageCount");
+		String limit = null;
+		if(request.getParameter("pgc") != null) {
+			limit = request.getParameter("pgc");
+			session.setAttribute("pageCount", limit);
+		} else {
+			limit = (String)session.getAttribute("pageCount");
+			if(session.getAttribute("pageCount") == null) {
+				limit = "5";
+			}
+		}
 		
 		if(page == null) page = "1";
-		if(limit == null) limit = "5";
 		
-		Paging pageData = service.getPage(page, limit);
+		Paging pageData = null;
+		if(request.getParameter("search") == null) {
+			pageData = service.getPage(page, limit);
+		} else {
+			if(request.getParameter("search").isEmpty()) {
+				pageData = service.getPage(page, limit);
+
+			} else {
+				pageData = service.getPage(page, limit, request.getParameter("search"));
+			}
+		}
+		
+		
+		if(pageData.getPageDatas().size() <= 0) {
+			pageData = service.getPage("1", limit);
+		}
 		
 		request.setAttribute("datas", pageData);
 		RequestDispatcher rd = request.getRequestDispatcher(view);
