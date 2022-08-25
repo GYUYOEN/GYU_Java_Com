@@ -191,7 +191,7 @@
 				"host": "152.67.221.48",
 				"port": "1521",
 				"database": "XE",
-				"url": "jdbc:oracle:thin:@//152.67.221.48:1521/XE",
+				"url": "jdbc:oracle:thin:@ora01_medium?TNS_ADMIN=C:\\\\Users\\\\GUE1\\\\eclipse\\\\workforus\\\\Wallet_ORA01",
 				"home": "C:\\app\\GUE1\\product\\18.0.0\\dbhomeXE",
 				"type": "dev",
 				"provider-properties": {
@@ -205,7 +205,7 @@
 					"@dbeaver-use-meta-optimizer@": "true",
 					"@dbeaver-meta-use-alternative-table-query@": "false",
 					"oracle.meta-search-in-synonyms": "false",
-					"@dbeaver-connection-type@": "BASIC",
+					"@dbeaver-connection-type@": "CUSTOM",
 					"@dbeaver-sid-service@": "SERVICE"
 				},
 				"auth-model": "oracle_native",
@@ -218,7 +218,7 @@
 			"name": "Development",
 			"color": "255,255,255",
 			"description": "Regular development database",
-			"auto-commit": true,
+			"auto-commit": false,
 			"confirm-execute": false,
 			"confirm-data-change": false,
 			"auto-close-transactions": false
