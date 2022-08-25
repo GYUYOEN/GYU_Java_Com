@@ -8,6 +8,6 @@
 <title>인증(Unauthorized) 오류</title>
 </head>
 <body>
-	<%=exception.getMessage() %>
+
 </body>
 </html>

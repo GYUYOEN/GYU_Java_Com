@@ -14,13 +14,13 @@
 			</c:when>
 			<c:otherwise>
 				<li class="page-item disabled">
-					<a class="page-link bi bi-caret-left-fill" href="#">keyboard_arrow_left</a> <!-- disabled : 비활성화 -->
+					<a class="page-link bi bi-caret-left-fill" href="#"></a> <!-- disabled : 비활성화 -->
 				</li>
 			</c:otherwise>
 		</c:choose>
 	</li>
-	<c:forEach items="${data.getPages(data.currentPage - 2, data.currentPage + 2)}" var="item">
-		<li class="page-item ${data.currentPage == item ? ' active' : ''}">
+	<c:forEach items="${datas.getPages(datas.currentPage - 2, datas.currentPage + 2)}" var="item">
+		<li class="page-item ${datas.currentPage == item ? ' active' : ''}">
 			<a class="page-link" href="${pageUrl}?page=${item}">${item}</a>
 		</li>
 	</c:forEach>

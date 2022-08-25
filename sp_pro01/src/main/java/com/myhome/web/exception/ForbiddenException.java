@@ -4,6 +4,6 @@ public class ForbiddenException extends Exception {
 	public ForbiddenException() {}
 	
 	public ForbiddenException(String message) {
-		super(message, new Throwable());
+		super(message, null);
 	}
 }
