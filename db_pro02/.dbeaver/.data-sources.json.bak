@@ -191,7 +191,7 @@
 				"host": "152.67.221.48",
 				"port": "1521",
 				"database": "XE",
-				"url": "jdbc:oracle:thin:@ora01_medium?TNS_ADMIN=C:\\\\Users\\\\GUE1\\\\eclipse\\\\workforus\\\\Wallet_ORA01",
+				"url": "jdbc:oracle:thin:@",
 				"home": "C:\\app\\GUE1\\product\\18.0.0\\dbhomeXE",
 				"type": "dev",
 				"provider-properties": {
@@ -206,6 +206,36 @@
 					"@dbeaver-meta-use-alternative-table-query@": "false",
 					"oracle.meta-search-in-synonyms": "false",
 					"@dbeaver-connection-type@": "CUSTOM",
+					"@dbeaver-sid-service@": "SERVICE"
+				},
+				"auth-model": "oracle_native"
+			}
+		},
+		"oracle_thin-182d27f58ca-572f52c529e04fc6": {
+			"provider": "oracle",
+			"driver": "oracle_thin",
+			"name": "ORCL",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"host": "localhost",
+				"port": "1521",
+				"database": "ORCL",
+				"url": "jdbc:oracle:thin:@ora01_medium?TNS_ADMIN=C:\\\\Users\\\\GUE1\\\\eclipse\\\\workforus\\\\Wallet_ORA01",
+				"home": "C:\\app\\GUE1\\product\\18.0.0\\dbhomeXE",
+				"type": "dev",
+				"provider-properties": {
+					"@dbeaver-connection-type@": "CUSTOM",
+					"show-only-one-schema@": "false",
+					"@dbeaver-check-schema-content@": "false",
+					"@dbeaver-always-show-dba@": "false",
+					"@dbeaver-always-use-dba-views@": "false",
+					"@dbeaver-meta-use-sys-schema@": "false",
+					"@dbeaver-meta-use-simple-constraints@": "false",
+					"@dbeaver-use-rule-hint@": "false",
+					"@dbeaver-use-meta-optimizer@": "true",
+					"@dbeaver-meta-use-alternative-table-query@": "false",
+					"oracle.meta-search-in-synonyms": "false",
 					"@dbeaver-sid-service@": "SERVICE"
 				},
 				"auth-model": "oracle_native",

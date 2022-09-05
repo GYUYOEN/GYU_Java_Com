@@ -25,6 +25,7 @@
       <load-on-startup>1</load-on-startup>
     </servlet>
    
+   <!-- forceEncoding : 응답 인코딩도 가능허게 해줌 -->
     <filter>
       	<filter-name>EncodingFilter</filter-name>
      	 <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -33,7 +34,7 @@
       	  	 <param-value>UTF-8</param-value>
      	 </init-param>
 	      <init-param>
-	         <param-name>forceEncoding</param-name>
+	         <param-name>forceEncoding</param-name> 
 	         <param-value>true</param-value>
 	      </init-param>
     </filter>
