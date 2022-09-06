@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="loginMapper">
+	<resultMap type="loginDto" id="loginDtoMap">
+		<result property="empId" column="EMP_ID" />
+		<result property="empNm" column="EMP_NM" />
+		<result property="empPw" column="EMP_PW" />
+		<result property="empCheckPw" column="EMP_CHECK_PW" />
+		<result property="empEmail" column="EMP_EMAIL" />
+		<result property="empAssistEmail" column="EMP_ASSIST_EMAIL" />
+	</resultMap>
+	<update id="insertSignup" parameterType="loginDto">
+		INSERT INTO 
+			TB_EMPLOYEES_TEST(emp_id
+							, emp_nm
+							, emp_pw
+							, emp_check_pw
+							, emp_email
+							, emp_assist_email) 
+					   VALUES(#{empId}
+					        , #{empNm}
+					        , #{empPw}
+					        , #{empCheckPw}
+					        , #{empEmail}
+					        , #{empAssistEmail})
+	</update>
+	<select id="selectEmployee" parameterType="String" resultType="loginVo">
+		SELECT EMP_ID AS empId
+			 , EMP_PW AS empPw
+		  FROM TB_EMPLOYEES_TEST
+		 WHERE EMP_ID = #{empId}
+		   AND EMP_PW = #{empPw}
+	</select>
+</mapper>

@@ -261,4 +261,37 @@ CREATE TABLE UPLOADFILES (
 
 CREATE SEQUENCE UPLOADFILES_SEQ NOCACHE;
 
+CREATE TABLE tb_employees_test(
+	   emp_id VARCHAR2(30) PRIMARY KEY
+	 , emp_nm VARCHAR2(20) NOT NULL
+	 , emp_pw VARCHAR2(100) NOT NULL
+	 , emp_check_pw VARCHAR2(100) NOT NULL
+	 , emp_email VARCHAR2(100) NOT NULL
+	 , emp_assist_email VARCHAR2(100) NOT NULL
+	 , emp_hire_dt DATE DEFAULT(SYSDATE) NOT NULL
+	 , emp_tenure VARCHAR2(5) DEFAULT(1) NOT NULL CHECK(emp_tenure IN (0, 1, 2))
+	 , emp_resign_fl VARCHAR2(5) DEFAULT('N') NOT NULL CHECK(emp_resign_fl IN ('Y', 'N'))
+	 , emp_status VARCHAR2(5) DEFAULT(2) NULL CHECK(emp_status IN (0, 1, 2))
+);
 
+SELECT * FROM TB_EMPLOYEES_TEST;
+
+INSERT INTO tb_employees_test 
+(emp_id, emp_nm, emp_pw, emp_check_pw, emp_email, emp_assist_email) 
+VALUES('A2022100', '김선호', '123456789', '123456789', 'rbdus96@emp.com', 'rbdus96@naver.com');
+
+SELECT EMP_ID
+			 , EMP_PW
+		  FROM TB_EMPLOYEES_TEST
+		 WHERE EMP_ID = 'A2022100'
+		   AND EMP_PW = '123456789'
+
+UPDATE TB_EMPLOYEES_TEST
+   SET EMP_ID = 'A2022100'
+     , EMP_NM = '김선호'
+     , EMP_PW = 'sunho1988!'
+     , EMP_CHECK_PW = 'sunho1988!'
+     , EMP_EMAIL = 'sunho88@emp.site'
+     , EMP_ASSIST_EMAIL = 'sunho88@naver.com';
+
+DROP TABLE tb_employees_test;
