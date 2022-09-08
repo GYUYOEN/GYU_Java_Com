@@ -10,8 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.myhome.web.login.model.LoginDTO;
-import com.myhome.web.login.model.LoginVO;
+import com.myhome.web.login.model.EmpDTO;
 import com.myhome.web.login.service.LoginService;
 
 @Controller
@@ -26,19 +25,19 @@ public class LoginController {
 		return "login/login";
 	}
 	
-	@PostMapping(value="/login")
-	public String login(Model model, LoginVO loginVo, HttpSession session,
-			String empId, String empPw) {
-		loginVo.setEmpId(empId);
-		loginVo.setEmpPw(empPw);
-		
-		boolean result = service.login(loginVo, empId, empPw);
-		
-		if(result) {
-			return "home";
-		}
-		return "login/login";
-	}
+//	@PostMapping(value="/login")
+//	public String login(Model model, HttpSession session,
+//			String empId, String empPw) {
+////		loginVo.setEmpId(empId);
+////		loginVo.setEmpPw(empPw);
+//		
+//		boolean result = service.login(empId, empPw);
+//		
+//		if(result) {
+//			return "home";
+//		}
+//		return "login/login";
+//	}
 	
 	@GetMapping(value="/signup") 
 	public String signup(Model model) {
@@ -46,17 +45,27 @@ public class LoginController {
 	}
 	
 	@PostMapping(value="/signup")
-	public String signup(Model model, LoginDTO loginDto,
+	public String signup(Model model, EmpDTO empDto,
 			String empId, String empNm, String empPw, String empCheckPw, String empEmail, String empAssistEmail) {
-		loginDto.setEmpId(empId);
-		loginDto.setEmpNm(empNm);
-		loginDto.setEmpPw(empPw);
-		loginDto.setEmpCheckPw(empCheckPw);
-		loginDto.setEmpEmail(empEmail);
-		loginDto.setEmpAssistEmail(empAssistEmail);
+		empDto.setEmpId(empId);
+		empDto.setEmpNm(empNm);
+		empDto.setEmpPw(empPw);
+		empDto.setEmpCheckPw(empCheckPw);
+		empDto.setEmpEmail(empEmail);
+		empDto.setEmpAssistEmail(empAssistEmail);
 		
-		boolean result = service.signup(loginDto);
+		service.signup(empDto);
 		
 		return "login/signup";
+	}
+	
+	@GetMapping(value="/admin")
+	public String admin(Model model) {
+		return "admin";
+	}
+	
+	@GetMapping(value="/login/fail") 
+	public String loginFail(Model model) {
+		return "/login/login_fail";
 	}
 }

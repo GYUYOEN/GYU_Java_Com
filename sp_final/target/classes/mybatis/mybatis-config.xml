@@ -7,7 +7,6 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias type="com.myhome.web.login.model.LoginDTO" alias="loginDto" />
-		<typeAlias type="com.myhome.web.login.model.LoginVO" alias="loginVo" />
+		<typeAlias type="com.myhome.web.login.model.EmpDTO" alias="empDto" />
 	</typeAliases>
 </configuration>

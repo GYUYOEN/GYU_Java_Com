@@ -52,7 +52,7 @@
 	}
 </style>
 <body>
-    <%@ include file="./module/navigation.jsp" %>
+    <%@ include file="../module/navigation.jsp" %>
     <div id="app">
         <div id="main">
             <div class="page-heading">
@@ -119,7 +119,7 @@
             	<div class="chat-right-layout">
             	</div>
             </div>
-            <%@ include file="./module/footer.jsp" %>
+            <%@ include file="../module/footer.jsp" %>
         </div>
     </div>
     <script src="static/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
