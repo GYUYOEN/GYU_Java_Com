@@ -261,20 +261,64 @@ CREATE TABLE UPLOADFILES (
 
 CREATE SEQUENCE UPLOADFILES_SEQ NOCACHE;
 
-CREATE TABLE tb_employees_test(
-	   emp_id VARCHAR2(30) PRIMARY KEY
+CREATE TABLE tb_employees(
+	   emp_id VARCHAR2(30)
 	 , emp_nm VARCHAR2(20) NOT NULL
 	 , emp_pw VARCHAR2(100) NOT NULL
 	 , emp_check_pw VARCHAR2(100) NOT NULL
+	 , emp_gender VARCHAR2(10)
+	 , emp_phone VARCHAR2(15)
+	 , emp_tel VARCHAR2(15)
 	 , emp_email VARCHAR2(100) NOT NULL
 	 , emp_assist_email VARCHAR2(100) NOT NULL
+	 , emp_birth DATE
+	 , emp_addr VARCHAR2(200)
 	 , emp_hire_dt DATE DEFAULT(SYSDATE) NOT NULL
+	 , emp_resign_dt DATE
 	 , emp_tenure VARCHAR2(5) DEFAULT(1) NOT NULL CHECK(emp_tenure IN (0, 1, 2))
 	 , emp_resign_fl VARCHAR2(5) DEFAULT('N') NOT NULL CHECK(emp_resign_fl IN ('Y', 'N'))
+	 , emp_photo_url VARCHAR2(100)
+	 , emp_photo_nm VARCHAR2(100)
 	 , emp_status VARCHAR2(5) DEFAULT(2) NULL CHECK(emp_status IN (0, 1, 2))
+	 , emp_login_fail NUMBER
+	 , emp_login_lock VARCHAR(5)
+	 , dept_no NUMBER DEFAULT(140) NOT NULL 
+	 , job_id VARCHAR2(30) DEFAULT('W00') NOT NULL
+	 , emp_salary NUMBER
+	 , emp_stamp VARCHAR2(100)
+	 , emp_first_login VARCHAR2(5) DEFAULT('N') NOT NULL
+	 , CONSTRAINT PK_TB_EMPLOYEES_EMP_ID PRIMARY KEY(EMP_ID)
+	 , CONSTRAINT FK_TB_EMPLOYEES_DEPT_NO FOREIGN KEY(DEPT_NO) REFERENCES TB_DEPARTMENTS(DEPT_NO)
+	 , CONSTRAINT FK_TB_EMPLOYEES_JOB_ID FOREIGN KEY(JOB_ID) REFERENCES TB_JOBS(JOB_ID)
 );
 
-SELECT * FROM TB_EMPLOYEES_TEST;
+ALTER TABLE TB_EMPLOYEES MODIFY EMP_PW CHAR(60);
+ALTER TABLE TB_EMPLOYEES MODIFY EMP_CHECK_PW CHAR(60);
+
+CREATE TABLE TB_DEPARTMENTS (
+	   DEPT_NO NUMBER PRIMARY KEY
+	 , DEPT_NM VARCHAR2(50)
+	 , DEPT_MANAGER_ID VARCHAR2(30)
+);
+
+
+
+INSERT INTO TB_DEPARTMENTS(DEPT_NO, DEPT_NM) VALUES(140, '대기');
+
+DROP TABLE TB_EMPLOYEES;
+DROP TABLE TB_DEPARTMENTS;
+
+CREATE TABLE TB_JOBS(
+	   JOb_ID VARCHAR2(30) PRIMARY KEY
+	 , JOB_NM VARCHAR2(30) NOT NULL
+);
+
+SELECT * FROM TB_DEPARTMENTS;
+SELECT * FROM TB_JOBS;
+
+INSERT INTO TB_JOBS VALUES('W00', '대기');
+
+SELECT * FROM TB_EMPLOYEES;
 
 INSERT INTO tb_employees_test 
 (emp_id, emp_nm, emp_pw, emp_check_pw, emp_email, emp_assist_email) 
@@ -294,4 +338,48 @@ UPDATE TB_EMPLOYEES_TEST
      , EMP_EMAIL = 'sunho88@emp.site'
      , EMP_ASSIST_EMAIL = 'sunho88@naver.com';
 
-DROP TABLE tb_employees_test;
+SELECT * FROM TB_EMPLOYEES WHERE EMP_ID = 'sdaf';
+
+INSERT INTO TB_EMPLOYEES(emp_id
+							, emp_nm
+							, emp_pw
+							, emp_check_pw
+							, emp_email
+							, emp_assist_email) 
+					   VALUES('A2022100'
+					        , '한지민'
+					        , '123456789'
+					        , '123456789'
+					        , 'jimin90@workforus.site'
+					        , 'jimin90@naver.com');
+
+CREATE TABLE tb_chat_participants (
+	   emp_id VARCHAR2(30) CONSTRAINT NN_TB_CHAT_PARTICIPANTS_EMP_ID NOT NULL
+	 , chat_room_no NUMBER CONSTRAINT NN_TB_CHAT_PARTICIPANTS_CHAT_ROOM_NO NOT NULL
+	 , CONSTRAINT FK_TB_CHAT_PARTICIPANTS_EMP_ID FOREIGN KEY(emp_id) REFERENCES tb_employees(emp_id)
+	 , CONSTRAINT FK_TB_CHAT_PARTICIPANTS_CHAT_ROOM_NO FOREIGN KEY(chat_room_no) REFERENCES tb_chat_rooms(chat_room_no)
+);
+
+SELECT * FROM tb_chat_participants;
+
+CREATE TABLE tb_chat_rooms(
+	   chat_room_no NUMBER
+	 , emp_id VARCHAR2(30) CONSTRAINT NN_TB_CHAT_ROOMS_EMP_ID NOT NULL
+	 , chat_title VARCHAR2(200) DEFAULT('제목없음') CONSTRAINT NN_tb_chat_rooms_chat_title NOT NULL
+	 , chat_profile VARCHAR2(100)
+	 , chat_last_time DATE DEFAULT(SYSDATE) CONSTRAINT NN_tb_chat_rooms_chat_last_time NOT NULL
+	 , chat_last_cont VARCHAR2(50) DEFAULT('대화내용없음') CONSTRAINT NN_tb_chat_rooms_chat_last_cont NOT NULL
+	 , chat_room_type VARCHAR2(10) DEFAULT('개인') CONSTRAINT NN_tb_chat_rooms_chat_room_type NOT NULL
+	 , CONSTRAINT PK_TB_CHAT_ROOMS_CHAT_ROOM_NO PRIMARY KEY(chat_room_no)
+	 , CONSTRAINT FK_TB_CHAT_ROOMS_EMP_ID FOREIGN KEY(emp_id) REFERENCES TB_EMPLOYEES(emp_id)
+);
+
+DROP TABLE tb_chat_rooms;
+DROP TABLE tb_chat_participants;
+
+CREATE SEQUENCE chat_room_seq NOCACHE;
+
+INSERT INTO tb_chat_rooms(chat_room_no, emp_id) VALUES (chat_room_seq.NEXTVAL, 'A2022100');
+INSERT INTO tb_chat_rooms(chat_room_no, emp_id) VALUES (chat_room_seq.NEXTVAL, 'A2022100');
+
+SELECT * FROM tb_chat_rooms;

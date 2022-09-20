@@ -8,5 +8,6 @@
 	
 	<typeAliases>
 		<typeAlias type="com.myhome.web.login.model.EmpDTO" alias="empDto" />
+		<typeAlias type="com.myhome.web.chat.model.ChatRoomDTO" alias="chatRoomDto" />
 	</typeAliases>
 </configuration>

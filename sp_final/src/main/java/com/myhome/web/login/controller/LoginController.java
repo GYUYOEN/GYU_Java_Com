@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.myhome.web.login.model.EmpDTO;
+import com.myhome.web.login.model.LoginVO;
 import com.myhome.web.login.service.LoginService;
 
 @Controller
 public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-
+	
 	@Autowired
 	private LoginService service;
 	
@@ -25,19 +26,19 @@ public class LoginController {
 		return "login/login";
 	}
 	
-//	@PostMapping(value="/login")
-//	public String login(Model model, HttpSession session,
-//			String empId, String empPw) {
-////		loginVo.setEmpId(empId);
-////		loginVo.setEmpPw(empPw);
-//		
-//		boolean result = service.login(empId, empPw);
-//		
-//		if(result) {
+	@PostMapping(value="/login")
+	public String login(Model model, HttpSession session, LoginVO loginVo,
+			String empId, String empPw) {
+		
+		
+//		loginVo = service.loadUserByUsername(empId);
+//		System.out.println(loginVo.getUsername());
+//		System.out.println(loginVo.getPassword());
+//		if(loginVo.getUsername().equals(empId) && loginVo.getPassword().matches(empPw)) {
 //			return "home";
 //		}
-//		return "login/login";
-//	}
+		return "login/login";
+	}
 	
 	@GetMapping(value="/signup") 
 	public String signup(Model model) {
@@ -47,6 +48,14 @@ public class LoginController {
 	@PostMapping(value="/signup")
 	public String signup(Model model, EmpDTO empDto,
 			String empId, String empNm, String empPw, String empCheckPw, String empEmail, String empAssistEmail) {
+		
+		System.out.println(empId);
+		System.out.println(empNm);
+		System.out.println(empPw);
+		System.out.println(empCheckPw);
+		System.out.println(empEmail);
+		System.out.println(empAssistEmail);
+		
 		empDto.setEmpId(empId);
 		empDto.setEmpNm(empNm);
 		empDto.setEmpPw(empPw);
@@ -54,8 +63,11 @@ public class LoginController {
 		empDto.setEmpEmail(empEmail);
 		empDto.setEmpAssistEmail(empAssistEmail);
 		
-		service.signup(empDto);
+		boolean result = service.signup(empDto);
 		
+		if(result) {
+			return "redirect:/login";
+		}
 		return "login/signup";
 	}
 	
@@ -66,6 +78,6 @@ public class LoginController {
 	
 	@GetMapping(value="/login/fail") 
 	public String loginFail(Model model) {
-		return "/login/login_fail";
+		return "login/login_fail";
 	}
 }

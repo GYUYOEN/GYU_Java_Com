@@ -2,49 +2,63 @@ package com.myhome.web.login.service;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.myhome.web.EmpMapper;
 import com.myhome.web.login.model.EmpDTO;
+import com.myhome.web.login.model.LoginVO;
+import com.myhome.web.mapper.EmpMapper;
 
 @Service("loginService")
 @EnableAspectJAutoProxy(proxyTargetClass=true)
 public class LoginService implements UserDetailsService{
 
-	private final EmpMapper empMapper = null;
-
-	@Transactional
-	public void signup(EmpDTO empDto) {
-		System.out.println(empDto);
-		empMapper.saveUser(empDto);
+	@Autowired
+	private SqlSession session;
+	
+	@Autowired
+	private BCryptPasswordEncoder pwEncoder;
+	
+	public boolean signup(EmpDTO empDto) {
+		EmpMapper mapper = session.getMapper(EmpMapper.class);
+		
+		empDto.setEmpPw(pwEncoder.encode(empDto.getEmpPw()));
+		empDto.setEmpCheckPw(pwEncoder.encode(empDto.getEmpCheckPw()));
+		int result = mapper.insertEmployee(empDto);
+		
+		return result == 1 ? true : false;
 	}
 
-//	public boolean login(LoginVO loginVo, String empId, String empPw) {		
-//		
-//		loginVo = dao.selectEmployee(loginVo);
-//		
-//		if(loginVo == null) {
-//			return false;			
-//		} else {
-//			return true;
-//		}
-//	}
-
 	@Override
-	public EmpDTO loadUserByUsername(String empId) throws UsernameNotFoundException {
+	public LoginVO loadUserByUsername(String empId) throws UsernameNotFoundException {	
+		// user로 시작하면 사용자 권한을 부여
+		// admin 으로 시작하면 관리자 권한을 부여
+//		String sampleRole= "";
+//		if(empId.startsWith("user")) {
+//			sampleRole = "ROLE_USER";
+//		} else if(empId.startsWith("admin")) {
+//			sampleRole = "ROLE_USER";
+//		}
+		LoginVO loginVo = new LoginVO();
 		
-		EmpDTO empDto = empMapper.getUserAccount(empId);
+		EmpMapper mapper = session.getMapper(EmpMapper.class);
+		
+		EmpDTO empDto = new EmpDTO();
+		empDto.setEmpId(empId);
+		
+		empDto = mapper.selectEmployee(empDto);
 		
 		if(empDto == null) {
-			throw new UsernameNotFoundException("User not authorized");		
+			return null;
 		}
-		return empDto;
+		loginVo.setUsername(empDto.getEmpId());
+		loginVo.setPassword(empDto.getEmpPw());
+		return new LoginVO(empDto);
 	}
 	
 }
