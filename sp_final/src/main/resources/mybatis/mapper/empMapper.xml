@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myhome.web.mapper.EmpMapper">
+	<resultMap type="empDto" id="empDtoMap">
+		<result property="empId" column="emp_id" />
+		<result property="empNm" column="emp_nm"/>
+		<result property="empPw" column="emp_pw"/>
+		<result property="empCheckPw" column="emp_check_pw"/>
+		<result property="empEmail" column="emp_email"/>
+		<result property="empAssistEmail" column="emp_assist_email"/>
+		<result property="empGender" column="emp_gender"/>
+		<result property="empPhone" column="emp_phone"/>
+		<result property="empTel" column="emp_tel"/>
+		<result property="empBirth" column="emp_birth"/>
+		<result property="empAddr" column="emp_addr"/>
+		<result property="empHireDt" column="emp_hire_dt"/>
+		<result property="empResignDt" column="emp_resign_dt"/>
+		<result property="empTenure" column="emp_tenure"/>
+		<result property="empResignFl" column="emp_resign_fl"/>
+		<result property="empPhotoUrl" column="emp_photo_url"/>
+		<result property="empPhotoNm" column="emp_photo_nm"/>
+		<result property="empStatus" column="emp_status"/>
+		<result property="empLoginFail" column="emp_login_fail"/>
+		<result property="empLoginLock" column="emp_lgoin_lock"/>
+		<result property="empFirstLogin" column="emp_first_login"/>
+		<result property="deptNo" column="dept_no"/>
+		<result property="jobId" column="job_id"/>
+		<result property="empSalary" column="emp_salary"/>
+		<result property="empStamp" column="emp_stamp"/>
+	</resultMap>
+	<insert id="insertEmployee" parameterType="empDto">
+		INSERT INTO 
+			TB_EMPLOYEES(emp_id
+					   , emp_nm
+					   , emp_pw
+					   , emp_check_pw
+					   , emp_email
+					   , emp_assist_email) 
+				  VALUES(#{empId}
+				       , #{empNm}
+				       , #{empPw}
+				       , #{empCheckPw}
+				       , #{empEmail}
+				       , #{empAssistEmail})
+	</insert>
+
+	<select id="selectEmployee" parameterType="empDto" resultMap="empDtoMap">
+		SELECT emp_id
+			 , emp_nm
+			 , emp_pw
+			 , emp_check_pw
+			 , emp_email
+			 , emp_assist_email
+		  FROM TB_EMPLOYEES
+		 WHERE emp_id = #{empId}
+	</select>
+	
+	<select id="selectEmployeeAll" resultMap="empDtoMap">
+		SELECT * FROM TB_EMPLOYEES
+	</select>
+	
+</mapper>

@@ -214,14 +214,14 @@
 		"oracle_thin-182d27f58ca-572f52c529e04fc6": {
 			"provider": "oracle",
 			"driver": "oracle_thin",
-			"name": "ORCL",
+			"name": "ORA01",
 			"save-password": true,
-			"read-only": false,
+			"read-only": true,
 			"configuration": {
 				"host": "localhost",
 				"port": "1521",
-				"database": "ORCL",
-				"url": "jdbc:oracle:thin:@ora01_medium?TNS_ADMIN=C:\\\\Users\\\\GUE1\\\\eclipse\\\\workforus\\\\Wallet_ORA01",
+				"database": "ora01",
+				"url": "jdbc:oracle:thin:@ora01_medium?TNS_ADMIN=C:/Users/GUE1/eclipse/workforus/Wallet_ORA01",
 				"home": "C:\\app\\GUE1\\product\\18.0.0\\dbhomeXE",
 				"type": "dev",
 				"provider-properties": {

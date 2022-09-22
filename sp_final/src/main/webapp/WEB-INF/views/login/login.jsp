@@ -46,6 +46,7 @@
                     </label>
                 </div>
                 <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Log in</button>
+                ${requestScope.loginFailMsg}
             </form>
         </div>
     </div>
